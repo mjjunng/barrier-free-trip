@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">fronend</string>
+    <string name="kakao_app_key">{NATIVE_APP_KEY}</string>
 </resources>
