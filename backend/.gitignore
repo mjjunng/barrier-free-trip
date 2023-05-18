@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ## properties
-application.properties
+application-oauth.properties
