@@ -1,8 +1,16 @@
 import {StyleSheet} from 'react-native';
-import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import KakaoLogin from '../../public/KakaoLogin.png';
 import NaverLogin from '../../public/NaverLogin.png';
+import React from 'react';
+import {
+  login,
+  logout,
+  getProfile as getKakaoProfile,
+  unlink,
+} from '@react-native-seoul/kakao-login';
+import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {tokenAtom} from '../../store/user';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,11 +37,18 @@ const styles = StyleSheet.create({
 });
 
 const OAuthLogin = () => {
+  const setToken = useSetRecoilState(tokenAtom);
+  const tokenTemp = useRecoilValue(tokenAtom);
+
   return (
     <View style={styles.container}>
       <Text style={styles.sns}>SNS 계정으로 로그인</Text>
-
-      <TouchableOpacity>
+      <Text>{JSON.stringify(tokenTemp)}</Text>
+      <TouchableOpacity
+        onPress={async () => {
+          const token = await login();
+          setToken(token);
+        }}>
         <Image source={KakaoLogin} />
       </TouchableOpacity>
 
