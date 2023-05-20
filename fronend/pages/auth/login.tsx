@@ -10,7 +10,7 @@ import {
   unlink,
 } from '@react-native-seoul/kakao-login';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
-import {tokenAtom} from '../../store/user';
+import {isLoggedIn, tokenAtom} from '../../store/user';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,29 +36,42 @@ const styles = StyleSheet.create({
   },
 });
 
-const OAuthLogin = () => {
+export const OAuthLogin = () => {
+  const setIsLoggedIn = useSetRecoilState(isLoggedIn);
   const setToken = useSetRecoilState(tokenAtom);
   const tokenTemp = useRecoilValue(tokenAtom);
+  console.log('🚀 ~ file: index.tsx:42 ~ OAuthLogin ~ tokenTemp:', tokenTemp);
 
   return (
     <View style={styles.container}>
       <Text style={styles.sns}>SNS 계정으로 로그인</Text>
-      <Text>{JSON.stringify(tokenTemp)}</Text>
       <TouchableOpacity
         onPress={async () => {
           const token = await login();
           setToken(token);
+          if (token.accessToken !== null) {
+            setIsLoggedIn(true);
+          }
         }}>
         <Image source={KakaoLogin} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={{marginTop: 16}}>
+      <TouchableOpacity disabled style={{marginTop: 16}}>
         <Image source={NaverLogin} />
       </TouchableOpacity>
 
+      <TouchableOpacity
+        style={{marginTop: 16}}
+        onPress={async () => {
+          const logoutResult = await logout();
+          console.log(
+            '🚀 ~ file: index.tsx:64 ~ onPress={ ~ logoutResult:',
+            logoutResult,
+          );
+        }}>
+        <Image source={KakaoLogin} />
+      </TouchableOpacity>
       {/* Rest of the code */}
     </View>
   );
 };
-
-export default OAuthLogin;

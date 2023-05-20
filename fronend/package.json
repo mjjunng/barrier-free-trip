@@ -17,6 +17,7 @@
     "@react-navigation/native-stack": "^6.9.12",
     "expo": "^48.0.0",
     "react": "18.2.0",
+    "react-devtools": "^4.27.8",
     "react-native": "0.71.8",
     "react-native-config": "^1.5.1",
     "react-native-paper": "^5.7.2",
