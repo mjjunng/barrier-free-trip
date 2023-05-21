@@ -2,10 +2,10 @@ import React from 'react';
 import {logout} from '@react-native-seoul/kakao-login';
 import {Text, TouchableOpacity} from 'react-native';
 import {useSetRecoilState} from 'recoil';
-import {isLoggedIn} from '../../store/user';
+import {isLoggedInAtom} from '../../store/user';
 
 export const OAuthLogout = () => {
-  const setIsLoggedIn = useSetRecoilState(isLoggedIn);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
 
   return (
     <TouchableOpacity

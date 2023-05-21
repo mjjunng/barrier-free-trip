@@ -1,24 +1,23 @@
 import React from 'react';
 import {useRecoilValue} from 'recoil';
 import {OAuthLogin} from './auth';
-import BottomTabs from './BottomTabs';
-import isLoggedIn from '../store/user';
 import {NavigationContainer} from '@react-navigation/native';
-import {View} from 'react-native';
+import {isLoggedInAtom} from '../store/user';
+import BottomTabs from './BottomTabs';
 
 export const FirstPageController = () => {
-  const isLoggedInRecoil = useRecoilValue(isLoggedIn);
-  console.log('isLoggedIn', isLoggedIn);
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  console.log(isLoggedIn);
 
   return (
-    <View>
-      {isLoggedInRecoil ? (
-        <OAuthLogin />
-      ) : (
+    <>
+      {isLoggedIn ? (
         <NavigationContainer>
           <BottomTabs />
         </NavigationContainer>
+      ) : (
+        <OAuthLogin />
       )}
-    </View>
+    </>
   );
 };

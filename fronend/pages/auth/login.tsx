@@ -10,7 +10,7 @@ import {
   unlink,
 } from '@react-native-seoul/kakao-login';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
-import {isLoggedIn, tokenAtom} from '../../store/user';
+import {isLoggedInAtom, tokenAtom} from '../../store/user';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 });
 
 export const OAuthLogin = () => {
-  const setIsLoggedIn = useSetRecoilState(isLoggedIn);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
   const setToken = useSetRecoilState(tokenAtom);
   const tokenTemp = useRecoilValue(tokenAtom);
   console.log('🚀 ~ file: index.tsx:42 ~ OAuthLogin ~ tokenTemp:', tokenTemp);

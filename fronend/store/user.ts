@@ -19,7 +19,7 @@ export const tokenAtom = atom<KakaoOAuthToken>({
   },
 });
 
-export const isLoggedIn = atom<Boolean>({
+export const isLoggedInAtom = atom<Boolean>({
   key: 'isLoggedIn',
   default: false,
 });
