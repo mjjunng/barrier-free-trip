@@ -1,6 +1,7 @@
 package com.example.barrierfreetrip.touristfacility.repository;
 
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityResponseDto;
+import com.example.barrierfreetrip.touristfacility.dto.BarrierFreeFacility;
+import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -13,14 +14,30 @@ public class TouristFacilityRepositoryImpl implements TouristFacilityRepository 
     private final EntityManager em;
 
     @Override
-    public List<TouristFacilityResponseDto> findByCode(String contentTypeId, String areaCode, String siginguCode) {
-        return em.createQuery("select tf.contentId, tf.contentTypeId, tf.title, " +
-                "tf.addr1, tf.rating from TouristFacility tf " +
+    public List<TouristFacility> findByCode(String contentTypeId, String areaCode, String siginguCode) {
+        return em.createQuery("select tf from TouristFacility tf " +
                 "where tf.contentTypeId=:contentTypeIds and tf.areaCode=:areaCodes " +
-                        "and tf.sigunguCode=:siginguCodes", TouristFacilityResponseDto.class)
+                        "and tf.sigunguCode=:siginguCodes")
                 .setParameter("contentTypeIds", contentTypeId)
                 .setParameter("areaCodes", areaCode)
                 .setParameter("siginguCodes", siginguCode)
                 .getResultList();
     }
+
+    @Override
+    public List<String> findImgByContentId(String contentId) {
+        return em.createQuery("select originImgurl from TouristFacilityImg tfi "
+        + "where tfi.contentId=:contentIds")
+                .setParameter("contentIds", contentId).getResultList();
+    }
+
+    @Override
+    public TouristFacility findByContentId(String contentId) {
+        return em.createQuery("select tf from TouristFacility tf " +
+                "where tf.contentId=:contentIds", TouristFacility.class)
+                .setParameter("contentIds", contentId)
+                .getSingleResult();
+    }
+
+
 }

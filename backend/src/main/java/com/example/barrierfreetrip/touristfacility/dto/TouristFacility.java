@@ -1,9 +1,12 @@
 package com.example.barrierfreetrip.touristfacility.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "tourist_facility")
+@Data
 public class TouristFacility {
 
     @Id
@@ -24,4 +27,9 @@ public class TouristFacility {
 	private String mapx;
 	private String mapy;
 
+	private String firstimage;
+
+	@OneToOne
+	@JoinColumn(name = "contentId")
+	private BarrierFreeFacility barrierFreeFacility;
 }
