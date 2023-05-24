@@ -28,7 +28,6 @@ public class MemberController {
     @GetMapping("/oauth/kakao")
     public ResponseEntity kakaoLoin(@RequestParam("code") String code)
                                         throws JsonProcessingException {
-        System.out.println("kakao: " + code);
         MemberResponseDto memberResponseDto = oauthMemberService.oauthLogin(code, "kakao");
         return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }
@@ -36,7 +35,6 @@ public class MemberController {
     @GetMapping("/oauth/naver")
     public ResponseEntity naverLoin(@RequestParam("code") String code)
             throws JsonProcessingException {
-        System.out.println("naver: " + code);
         MemberResponseDto memberResponseDto = oauthMemberService.oauthLogin(code, "naver");
         return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }

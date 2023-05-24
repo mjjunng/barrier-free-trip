@@ -162,6 +162,8 @@ public class OauthMemberServiceImpl implements OauthMemberService {
             nickname = jsonNode.get("response").get("nickname").asText();
         }
 
+
+
         return new SocialMemberDto(email, nickname);
     }
 
