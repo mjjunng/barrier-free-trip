@@ -18,6 +18,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class OauthMemberServiceImpl implements OauthMemberService {
@@ -178,5 +180,10 @@ public class OauthMemberServiceImpl implements OauthMemberService {
         }
 
         return member;
+    }
+
+    @Override
+    public Optional<Member> findById(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 }

@@ -6,6 +6,7 @@ import com.example.barrierfreetrip.member.dto.SocialMemberDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 public interface OauthMemberService {
     public MemberResponseDto oauthLogin(String code, String type) throws JsonProcessingException;
@@ -13,4 +14,5 @@ public interface OauthMemberService {
     public SocialMemberDto getOauthMemberInfo(String accessToken) throws JsonProcessingException;
     public Member registerOauthMemberIfNeed(SocialMemberDto kakaoMemberDto);
 
+    Optional<Member> findById(Long memberId);
 }
