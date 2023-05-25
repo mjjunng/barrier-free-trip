@@ -3,7 +3,7 @@ import {useRecoilValue} from 'recoil';
 import {OAuthLogin} from './auth';
 import {NavigationContainer} from '@react-navigation/native';
 import {isLoggedInAtom} from '../store/user';
-import BottomTabs from './BottomTabs';
+import BottomTabs from './bottomTabs';
 
 export const FirstPageController = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
