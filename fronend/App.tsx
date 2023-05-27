@@ -3,6 +3,8 @@ import {useColorScheme, StatusBar} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {RecoilRoot} from 'recoil';
 import {FirstPageController} from './pages/firstPageController';
+import {PaperProvider} from 'react-native-paper';
+import {theme} from './pages/style/global';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -11,13 +13,15 @@ function App() {
   };
 
   return (
-    <RecoilRoot>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <FirstPageController />
-    </RecoilRoot>
+    <PaperProvider theme={theme}>
+      <RecoilRoot>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <FirstPageController />
+      </RecoilRoot>
+    </PaperProvider>
   );
 }
 
