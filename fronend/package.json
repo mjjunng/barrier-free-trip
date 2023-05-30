@@ -16,6 +16,7 @@
     "@react-navigation/material-bottom-tabs": "^6.2.15",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@react-navigation/stack": "^6.3.16",
     "expo": "^48.0.0",
     "react": "18.2.0",
     "react-devtools": "^4.27.8",
@@ -27,7 +28,8 @@
     "react-native-select-contact": "^1.6.3",
     "react-native-svg": "^13.9.0",
     "react-native-vector-icons": "^9.2.0",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "react-native-gesture-handler": "~2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

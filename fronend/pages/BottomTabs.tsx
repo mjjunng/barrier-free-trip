@@ -14,7 +14,7 @@ import {
   Smaile,
   SmaileOutline,
 } from './icons/bottomTabNavigatorIcons';
-import {Home as HomePage} from './home';
+import {HomePage} from './home';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,7 +29,6 @@ const CustomTabNavigator = () => (
     screenOptions={({route}) => ({
       tabBarIcon: ({focused, color}) => {
         var iconSource;
-        console.log(route.name);
         if (route.name === '홈') {
           iconSource = focused ? Home : HomeOutline;
         } else if (route.name === '검색') {
