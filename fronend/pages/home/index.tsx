@@ -4,22 +4,67 @@ import {CareCard} from '../components/careCard';
 import {
   Button,
   FlatList,
+  Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {
+  Handshake,
+  Heart,
+  Lightning,
+  Restaurant,
+  Stay,
+  Tourlist,
+} from '../icons/homaPageStackNavigatorIcons';
 
 const Home = ({navigation}: any) => {
   return (
-    <View>
+    <ScrollView contentContainerStyle={homeStyles.stayCardContainer}>
+      <View style={homeStyles.iconsContainer}>
+        <TouchableOpacity
+          style={homeStyles.icons}
+          onPress={() => navigation.navigate('Stay')}>
+          <Image source={Stay} />
+          <Text style={homeStyles.iconLabel}>숙박</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={homeStyles.icons}
+          onPress={() => navigation.navigate('Tourlist')}>
+          <Image source={Tourlist} />
+          <Text style={homeStyles.iconLabel}>관광지</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={homeStyles.icons}
+          onPress={() => navigation.navigate('Restaurant')}>
+          <Image source={Restaurant} />
+          <Text style={homeStyles.iconLabel}>음식점</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={homeStyles.icons}
+          onPress={() => navigation.navigate('Heart')}>
+          <Image source={Heart} />
+          <Text style={homeStyles.iconLabel}>돌봄여행</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={homeStyles.icons}
+          onPress={() => navigation.navigate('Lightning')}>
+          <Image source={Lightning} />
+          <Text style={homeStyles.iconLabel}>충전기</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={homeStyles.icons}
+          onPress={() => navigation.navigate('Handshake')}>
+          <Image source={Handshake} />
+          <Text style={homeStyles.iconLabel}>렌탈</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
-        contentContainerStyle={{
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+        contentContainerStyle={homeStyles.stayCardContainer}
         data={DATA}
         scrollEnabled={false}
         renderItem={({item}) => (
@@ -35,9 +80,59 @@ const Home = ({navigation}: any) => {
         numColumns={2}
         keyExtractor={(item, index) => index.toString()}
       />
-    </View>
+    </ScrollView>
   );
 };
+const Stack = createStackNavigator();
+
+export const HomeNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Lodgment" component={Home} />
+      <Stack.Screen name="Tourist" component={Home} />
+      <Stack.Screen name="Restaurant" component={Home} />
+      <Stack.Screen name="Care" component={Home} />
+      <Stack.Screen name="Charger" component={Home} />
+      <Stack.Screen name="Rental" component={Home} />
+    </Stack.Navigator>
+  );
+};
+
+const homeStyles = StyleSheet.create({
+  stayCardContainer: {
+    // width: 325,
+    // height: 454,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconLabel: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  iconsContainer: {
+    width: 250,
+    height: 136,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // position: 'relative',
+    // display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  icons: {
+    // padding: 100,
+    marginTop: 10,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    height: 70,
+    width: 70,
+    alignItems: 'center',
+  },
+});
+
 const DATA = [
   {
     imgSrc: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
@@ -72,31 +167,3 @@ const DATA = [
     location: '서울역 도보 7분',
   },
 ];
-
-const Stack = createStackNavigator();
-
-export const HomePage = () => {
-  return (
-    <>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Profile" component={Home} />
-        <Stack.Screen name="Settings" component={Home} />
-      </Stack.Navigator>
-    </>
-  );
-};
-
-const homeStyles = StyleSheet.create({
-  stayCardContainer: {
-    width: 325,
-    height: 454,
-  },
-  iconsContainer: {
-    width: 250,
-    height: 136,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    alignContent: 'center',
-  },
-});
