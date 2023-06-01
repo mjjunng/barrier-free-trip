@@ -46,9 +46,10 @@ public class TouristFacilityController {
 
     }
 
-    @GetMapping("/tourist-facility-info/{contentId}")
-    public ResponseEntity returnTouristInfo(@PathVariable("contentId") String contentId) {
-        TouristFacilityInfoResponseDto result = touristFacilityService.returnInfoDto(contentId);
+    @GetMapping("/tourist-facility-info/{memberId}/{contentId}")
+    public ResponseEntity returnTouristInfo(@PathVariable("memberId") Long memberId,
+                                            @PathVariable("contentId") String contentId) {
+        TouristFacilityInfoResponseDto result = touristFacilityService.returnInfoDto(memberId, contentId);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

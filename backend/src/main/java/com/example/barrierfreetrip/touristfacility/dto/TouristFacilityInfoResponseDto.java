@@ -57,4 +57,6 @@ public class TouristFacilityInfoResponseDto {
 	private String ticketoffice;
 	private String promotion;
 
+	private int like;
+
 }

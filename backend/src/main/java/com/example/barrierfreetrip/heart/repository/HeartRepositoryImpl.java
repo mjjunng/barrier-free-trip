@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -36,5 +38,16 @@ public class HeartRepositoryImpl implements HeartRepository{
                 .executeUpdate();
         em.clear();
         return cnt;
+    }
+
+    @Override
+    public Optional<Heart> findByIdsIfLikes(Member member, TouristFacility facility) {
+        List<Heart> hearts = em.createQuery("select h from Heart h where h.member=:members and h.touristFacility=:facilities"
+                        , Heart.class)
+                .setParameter("members", member)
+                .setParameter("facilities", facility)
+                .getResultList();
+
+        return hearts.stream().findAny();
     }
 }
