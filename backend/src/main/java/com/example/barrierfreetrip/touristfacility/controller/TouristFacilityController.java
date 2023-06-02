@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TouristFacilityController {
     private final TouristFacilityService touristFacilityService;
-    private String serviceKey = "x80%2Fkb1fC2Bm2WJYIVN%2BvX%2Blx2CQEs5rB6fQyz6jRL359DglzzDBeKCjZ2jkyvjaVpinPrXRgDOpRCbVIf1k6A%3D%3D";
 
     /**
      * 관광 시설 리스트 리턴 api

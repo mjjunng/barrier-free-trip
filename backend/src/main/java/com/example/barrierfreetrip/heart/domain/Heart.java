@@ -22,7 +22,7 @@ public class Heart {
     @JoinColumn(name = "memberId")
     private Member member;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "contentId")
     private TouristFacility touristFacility;
 
