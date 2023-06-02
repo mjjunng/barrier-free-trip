@@ -1,11 +1,15 @@
 package com.example.barrierfreetrip.caretrip.domain;
 
 import com.example.barrierfreetrip.member.domain.Member;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "care_trip_heart")
+@Data
+@NoArgsConstructor
 public class CareTripHeart {
     @Id
     @GeneratedValue
@@ -19,4 +23,8 @@ public class CareTripHeart {
     @JoinColumn(name = "careTripId")
     private CareTrip careTrip;
 
+    public CareTripHeart(Member member, CareTrip careTrip) {
+        this.member = member;
+        this.careTrip = careTrip;
+    }
 }

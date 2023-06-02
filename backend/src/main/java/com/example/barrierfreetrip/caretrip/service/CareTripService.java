@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CareTripService {
     public List<CareTripListResponseDto> returnListDto(Long memberId);
+    public void likes(Long memberId, Long contentId, int likes);
 }

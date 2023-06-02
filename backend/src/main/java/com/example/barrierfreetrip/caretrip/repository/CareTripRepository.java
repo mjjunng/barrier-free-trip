@@ -13,4 +13,6 @@ import java.util.Optional;
 public interface CareTripRepository {
     public List<CareTrip> findAll();
     Optional<CareTripHeart> findByIdsIfLikes(Member member, CareTrip careTrip);
+
+    public Optional<CareTrip> findById(Long id);
 }
