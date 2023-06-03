@@ -15,6 +15,7 @@ import {
   SmaileOutline,
 } from './icons/bottomTabNavigatorIcons';
 import {HomeNavigator} from './home';
+import {GoogleMap} from './map';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -58,7 +59,7 @@ const CustomTabNavigator = () => (
       }
     }>
     <Tab.Screen name="홈" component={HomeNavigator} />
-    <Tab.Screen name="검색" component={Temp} />
+    <Tab.Screen name="검색" component={GoogleMap} />
     <Tab.Screen name="지도" component={Temp} />
     <Tab.Screen name="찜" component={Temp} />
     <Tab.Screen name="마이" component={Temp} />
