@@ -3,7 +3,11 @@ import {useRecoilValue} from 'recoil';
 import {OAuthLogin} from './auth';
 import {NavigationContainer} from '@react-navigation/native';
 import {isLoggedInAtom} from '../store/user';
-import BottomTabs from './BottomTabs';
+import BottomTabs from './bottomTabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import Temp from './Temp';
+
+const Stack = createStackNavigator();
 
 export const FirstPageController = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -12,9 +16,9 @@ export const FirstPageController = () => {
   return (
     <>
       {isLoggedIn ? (
-        <NavigationContainer>
+        <>
           <BottomTabs />
-        </NavigationContainer>
+        </>
       ) : (
         <OAuthLogin />
       )}
