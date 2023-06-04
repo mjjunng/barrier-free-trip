@@ -42,5 +42,16 @@ public class CareTripHeartRepositoryImpl implements CareTripHeartRepository{
         return careTripHearts.stream().findAny();
     }
 
+    @Override
+    public Optional<CareTripHeart> findByIdsIfLikes(Member member, CareTrip careTrip) {
+        List <CareTripHeart> careTripHearts = em.createQuery("select cth from CareTripHeart cth " +
+                        "where cth.member=:members and cth.careTrip=:careTrips")
+                .setParameter("members", member)
+                .setParameter("careTrips", careTrip)
+                .getResultList();
+
+        return careTripHearts.stream().findAny();
+    }
+
 
 }

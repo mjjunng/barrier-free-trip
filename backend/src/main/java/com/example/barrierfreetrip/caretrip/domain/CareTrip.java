@@ -21,6 +21,4 @@ public class CareTrip {
     private String sigungu;
     private String addr;
 
-    @OneToOne()
-    private Heart heart;
 }

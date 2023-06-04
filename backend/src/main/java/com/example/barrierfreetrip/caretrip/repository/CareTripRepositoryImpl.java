@@ -22,17 +22,6 @@ public class CareTripRepositoryImpl implements CareTripRepository{
     }
 
     @Override
-    public Optional<CareTripHeart> findByIdsIfLikes(Member member, CareTrip careTrip) {
-        List <CareTripHeart> careTripHearts = em.createQuery("select cth from CareTripHeart cth " +
-                        "where cth.member=:members and cth.careTrip=:careTrips")
-                .setParameter("members", member)
-                .setParameter("careTrips", careTrip)
-                .getResultList();
-
-        return careTripHearts.stream().findAny();
-    }
-
-    @Override
     public Optional<CareTrip> findById(Long id) {
         List <CareTrip> careTrips = em.createQuery("select ct from CareTrip ct where ct.id=:ids")
                 .setParameter("ids", id)
@@ -40,4 +29,11 @@ public class CareTripRepositoryImpl implements CareTripRepository{
 
         return careTrips.stream().findAny();
     }
+
+//    @Override
+//    public List<CareTrip> findByArea(String sido, String sigungu) {
+//        return em.createQuery("select ct from CareTrip ct where ct.sido=:sidos")
+//                .setParameter("ids", id)
+//                .getResultList();
+//    }
 }

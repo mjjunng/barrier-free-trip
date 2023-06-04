@@ -10,4 +10,6 @@ public interface CareTripHeartRepository {
     public void save(CareTripHeart careTripHeart);
     public int delete(Long heartId);
     public Optional<CareTripHeart> findByIds(Member member, CareTrip careTrip);
+
+    Optional<CareTripHeart> findByIdsIfLikes(Member member, CareTrip careTrip);
 }

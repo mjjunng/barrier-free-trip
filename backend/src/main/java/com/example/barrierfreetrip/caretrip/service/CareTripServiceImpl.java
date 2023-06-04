@@ -36,7 +36,7 @@ public class CareTripServiceImpl implements CareTripService{
         if (member.isPresent()) {
             for (CareTrip c: careTrips) {
                 CareTripListResponseDto dto = modelMapper.map(c, CareTripListResponseDto.class);
-                Optional<CareTripHeart> likes = careTripRepository.findByIdsIfLikes(member.get(), c);
+                Optional<CareTripHeart> likes = careTripHeartRepository.findByIdsIfLikes(member.get(), c);
                 if (likes.isPresent()) {
                     dto.setLike(1);
                 } else {
