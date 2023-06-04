@@ -5,6 +5,7 @@ import com.example.barrierfreetrip.caretrip.domain.CareTripHeart;
 import com.example.barrierfreetrip.caretrip.dto.CareTripListResponseDto;
 import com.example.barrierfreetrip.charger.domain.Charger;
 import com.example.barrierfreetrip.charger.domain.ChargerHeart;
+import com.example.barrierfreetrip.charger.dto.ChargerInfoDto;
 import com.example.barrierfreetrip.charger.dto.ChargerListDto;
 import com.example.barrierfreetrip.charger.repository.ChargerHeartRepository;
 import com.example.barrierfreetrip.charger.repository.ChargerRepository;
@@ -32,9 +33,6 @@ public class ChargerServiceImpl implements ChargerService{
         List<Charger> chargers = chargerRepository.findByAreaCode(areaCode);
         Optional<Member> member = memberService.findById(memberId);
         List<ChargerListDto> result = new ArrayList<>();
-
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         if (member.isPresent()) {
             for (Charger c: chargers) {
@@ -71,6 +69,30 @@ public class ChargerServiceImpl implements ChargerService{
             }
 
         }
+    }
+
+    @Override
+    public ChargerInfoDto returnChargerInfo(Long memberId, Long contentId) {
+        Optional<Charger> charger = chargerRepository.findById(contentId);
+        Optional<Member> member = memberService.findById(memberId);
+        ChargerInfoDto result = new ChargerInfoDto();
+
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        if ((member.isPresent()) && (charger.isPresent())) {
+            result = modelMapper.map(charger.get(), ChargerInfoDto.class);
+            Optional<ChargerHeart> likes = chargerHeartRepository.findByIdsIfLikes(member.get(), charger.get());
+
+            if (likes.isPresent()) {
+                result.setLike(1);
+            } else {
+                result.setLike(0);
+            }
+
+        }
+
+        return result;
     }
 
 }

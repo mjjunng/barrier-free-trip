@@ -1,11 +1,13 @@
 package com.example.barrierfreetrip.charger.controller;
 
 
+import com.example.barrierfreetrip.charger.dto.ChargerInfoDto;
 import com.example.barrierfreetrip.charger.dto.ChargerListDto;
 import com.example.barrierfreetrip.charger.service.ChargerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,5 +28,13 @@ public class ChargerController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
 
+    }
+
+    @GetMapping("/chargers/info/{memberId}/{contentId}")
+    public ResponseEntity returnCharferInfo(@PathVariable("memberId") Long memberId,
+                                            @PathVariable("contentId") Long contentId) {
+        ChargerInfoDto result = chargerService.returnChargerInfo(memberId, contentId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
