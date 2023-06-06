@@ -25,8 +25,8 @@ public class CareTripServiceImpl implements CareTripService{
     private final OauthMemberService memberService;
     private final CareTripHeartRepository careTripHeartRepository;
 
-    public List<CareTripListResponseDto> returnListDto(Long memberId) {
-        List<CareTrip> careTrips = careTripRepository.findAll();
+    public List<CareTripListResponseDto> returnListDto(Long memberId, String sido, String sigungu) {
+        List<CareTrip> careTrips = careTripRepository.findByAreaName(sido, sigungu);
         List<CareTripListResponseDto> result = new ArrayList<>();
         Optional<Member> member = memberService.findById(memberId);
 

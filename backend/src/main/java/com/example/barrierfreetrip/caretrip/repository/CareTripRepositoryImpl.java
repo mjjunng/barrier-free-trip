@@ -30,10 +30,11 @@ public class CareTripRepositoryImpl implements CareTripRepository{
         return careTrips.stream().findAny();
     }
 
-//    @Override
-//    public List<CareTrip> findByArea(String sido, String sigungu) {
-//        return em.createQuery("select ct from CareTrip ct where ct.sido=:sidos")
-//                .setParameter("ids", id)
-//                .getResultList();
-//    }
+    @Override
+    public List<CareTrip> findByAreaName(String sido, String sigungu) {
+        return em.createQuery("select ct from CareTrip ct where ct.sido=:sidos and ct.sigungu=:sigungus")
+                .setParameter("sidos", sido)
+                .setParameter("sigungus", sigungu)
+                .getResultList();
+    }
 }
