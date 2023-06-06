@@ -11,6 +11,7 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const {width} = Dimensions.get('window');
 import SelectDropdown from 'react-native-select-dropdown';
+import {getSidoCode} from '../api/religionSelection';
 
 interface Country {
   title: string;
@@ -26,6 +27,18 @@ const ReligionSelects: React.FC = () => {
   const [cities, setCities] = useState<City[]>([]);
 
   const citiesDropdownRef = useRef<SelectDropdown>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const sido = await getSidoCode().then(
+        res => res.response.result.featureCollection.features,
+      );
+      const ctp_kor_nm_list = sido.map(item => item.properties.ctp_kor_nm);
+      console.log(ctp_kor_nm_list);
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setCountries([
@@ -46,7 +59,7 @@ const ReligionSelects: React.FC = () => {
             <SelectDropdown
               data={countries.map(country => country.title)}
               onSelect={(selectedItem: string, index: number) => {
-                const selectedCountry = countries[index]; // Get the selected country object
+                const selectedCountry = countries[index];
                 console.log(selectedCountry, index);
                 citiesDropdownRef.current?.reset();
                 setCities([]);
