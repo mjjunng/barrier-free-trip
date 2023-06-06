@@ -1,11 +1,13 @@
 import axios from 'axios';
-import {VWORLD_KEY} from 'react-native-dotenv';
+// import {VWORLD_KEY} from 'react-native-dotenv';
+import dotenv from 'dotenv';
 
 export async function getSidoCode(): Promise<any> {
   return await axios
     .get('https://api.vworld.kr/req/data', {
       params: {
-        key: VWORLD_KEY,
+        // key: '40F5AD59-571A-3D84-B5A6-562C8453F64F',
+        key: process.env.VWORLD_KEY,
         service: 'data',
         version: '2.0',
         request: 'getfeature',
