@@ -7,6 +7,7 @@ import com.example.barrierfreetrip.member.repository.MemberRepository;
 import com.example.barrierfreetrip.touristfacility.dto.BarrierFreeFacility;
 import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
 import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityInfoResponseDto;
+import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
 import com.example.barrierfreetrip.touristfacility.repository.TouristFacilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,8 +40,16 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
         return touristFacilityRepository.findByContentId(contentId);
 
     }
+    @Override
+    public List<TouristFacilityListResponseDto> returnListDto(String contentTypeId, String areaCode, String sigunguCode) {
+        List<TouristFacility> touristFacilities = findByCode(contentTypeId, areaCode, sigunguCode);
 
-
+        return touristFacilities.stream()
+                .map(tf -> new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentId(),
+                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage()))
+                .collect(Collectors.toList());
+    }
+    @Override
     public TouristFacilityInfoResponseDto returnInfoDto(Long memberId, String contentId) {
         List<String> imgs = findImgByContentId(contentId);
         TouristFacility facility = findByContentId(contentId);

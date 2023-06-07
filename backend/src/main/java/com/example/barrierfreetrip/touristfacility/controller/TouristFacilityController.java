@@ -32,14 +32,8 @@ public class TouristFacilityController {
                                             @PathVariable("sigunguCode") String sigunguCode
                                             ) {
 
-        List<TouristFacility> touristFacilities = touristFacilityService.
-                findByCode(contentTypeId, areaCode, sigunguCode);
-
-        List<TouristFacilityListResponseDto> result = touristFacilities.stream()
-                .map(tf -> new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentId(),
-                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage()))
-                .collect(Collectors.toList());
-
+        List<TouristFacilityListResponseDto> result =
+                touristFacilityService.returnListDto(contentTypeId, areaCode, sigunguCode);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
 
