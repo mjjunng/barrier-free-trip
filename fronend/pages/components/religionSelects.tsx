@@ -8,16 +8,16 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const {width} = Dimensions.get('window');
 import SelectDropdown from 'react-native-select-dropdown';
 import {getSidoCode, getSigoonguCode} from '../api/religionSelection';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faChevronDown, faChevronUp} from '@fortawesome/free-solid-svg-icons';
 
 interface Sido {
   title: string;
   code: string;
 }
-
 interface Sigoongu {
   title: string;
   code: string;
@@ -76,9 +76,9 @@ const ReligionSelects: React.FC = () => {
               buttonTextStyle={styles.dropdown1BtnTxtStyle}
               renderDropdownIcon={(isOpened: boolean) => {
                 return (
-                  <FontAwesome
-                    name={isOpened ? 'chevron-up' : 'chevron-down'}
-                    color={'#444'}
+                  <FontAwesomeIcon
+                    icon={isOpened ? faChevronUp : faChevronDown}
+                    color="#444"
                     size={18}
                   />
                 );
@@ -96,19 +96,13 @@ const ReligionSelects: React.FC = () => {
                 console.log(selectedItem, index);
               }}
               defaultButtonText={'Select city'}
-              buttonTextAfterSelection={(
-                selectedItem: Sigoongu,
-                index: number,
-              ) => {
-                return selectedItem.title;
-              }}
               buttonStyle={styles.dropdown2BtnStyle}
               buttonTextStyle={styles.dropdown2BtnTxtStyle}
               renderDropdownIcon={(isOpened: boolean) => {
                 return (
-                  <FontAwesome
-                    name={isOpened ? 'chevron-up' : 'chevron-down'}
-                    color={'#444'}
+                  <FontAwesomeIcon
+                    icon={isOpened ? faChevronUp : faChevronDown}
+                    color="#444"
                     size={18}
                   />
                 );
