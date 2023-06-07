@@ -11,20 +11,21 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const {width} = Dimensions.get('window');
 import SelectDropdown from 'react-native-select-dropdown';
-import {getSidoCode} from '../api/religionSelection';
+import {getSidoCode, getSigoonguCode} from '../api/religionSelection';
 
-interface Country {
+interface Sido {
   title: string;
-  cities: City[];
+  code: string;
 }
 
-interface City {
+interface Sigoongu {
   title: string;
+  code: string;
 }
 
 const ReligionSelects: React.FC = () => {
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [cities, setCities] = useState<City[]>([]);
+  const [sidos, setSidos] = useState<Sido[]>([]);
+  const [sigoongus, setSigoongus] = useState<Sigoongu[]>([]);
 
   const citiesDropdownRef = useRef<SelectDropdown>(null);
 
@@ -33,18 +34,16 @@ const ReligionSelects: React.FC = () => {
       const sido = await getSidoCode().then(
         res => res.response.result.featureCollection.features,
       );
-      const ctp_kor_nm_list = sido.map(item => item.properties.ctp_kor_nm);
-      console.log(ctp_kor_nm_list);
+
+      const ctp_kor_nm_list = sido.map((item: any) => ({
+        title: item.properties.ctp_kor_nm,
+        code: item.properties.ctprvn_cd,
+      }));
+
+      setSidos(ctp_kor_nm_list);
     };
 
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    setCountries([
-      {title: 'Egypt', cities: [{title: 'Cairo'}, {title: 'Alex'}]},
-      {title: 'Canada', cities: [{title: 'Toronto'}, {title: 'Quebec City'}]},
-    ]);
   }, []);
 
   return (
@@ -57,13 +56,20 @@ const ReligionSelects: React.FC = () => {
           contentContainerStyle={styles.scrollViewContainer}>
           <View style={styles.dropdownsRow}>
             <SelectDropdown
-              data={countries.map(country => country.title)}
-              onSelect={(selectedItem: string, index: number) => {
-                const selectedCountry = countries[index];
-                console.log(selectedCountry, index);
+              data={sidos.map(sido => sido.title)}
+              onSelect={async (selectedItem: string, index: number) => {
+                const selectedSido = sidos[index];
                 citiesDropdownRef.current?.reset();
-                setCities([]);
-                setCities(selectedCountry.cities);
+                const sigoongu = await getSigoonguCode(selectedSido.code).then(
+                  res => res.response.result.featureCollection.features,
+                );
+                const sig_kor_nm = sigoongu.map((item: any) => ({
+                  title: item.properties.sig_kor_nm,
+                  code: item.properties.sig_cd,
+                }));
+
+                setSigoongus([]);
+                setSigoongus(sig_kor_nm);
               }}
               defaultButtonText={'Select country'}
               buttonStyle={styles.dropdown1BtnStyle}
@@ -85,16 +91,16 @@ const ReligionSelects: React.FC = () => {
             <View style={styles.divider} />
             <SelectDropdown
               ref={citiesDropdownRef}
-              data={cities}
-              onSelect={(selectedItem: City, index: number) => {
+              data={sigoongus.map(sigoongu => sigoongu.title)}
+              onSelect={(selectedItem: Sido, index: number) => {
                 console.log(selectedItem, index);
               }}
               defaultButtonText={'Select city'}
-              buttonTextAfterSelection={(selectedItem: City, index: number) => {
+              buttonTextAfterSelection={(
+                selectedItem: Sigoongu,
+                index: number,
+              ) => {
                 return selectedItem.title;
-              }}
-              rowTextForSelection={(item: City, index: number) => {
-                return item.title;
               }}
               buttonStyle={styles.dropdown2BtnStyle}
               buttonTextStyle={styles.dropdown2BtnTxtStyle}
