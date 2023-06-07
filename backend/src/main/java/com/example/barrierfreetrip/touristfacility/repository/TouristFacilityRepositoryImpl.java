@@ -1,5 +1,6 @@
 package com.example.barrierfreetrip.touristfacility.repository;
 
+import com.example.barrierfreetrip.caretrip.domain.CareTrip;
 import com.example.barrierfreetrip.touristfacility.dto.BarrierFreeFacility;
 import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -37,6 +39,16 @@ public class TouristFacilityRepositoryImpl implements TouristFacilityRepository 
                 "where tf.contentId=:contentIds", TouristFacility.class)
                 .setParameter("contentIds", contentId)
                 .getSingleResult();
+    }
+
+    @Override
+    public Optional<TouristFacility> findByTitle(String keyword) {
+        List<TouristFacility> touristFacilities = em.createQuery("select tf from TouristFacility tf " +
+                        "where tf.title like concat('%',:keywords,'%') ")
+                .setParameter("keywords", keyword)
+                .getResultList();
+
+        return touristFacilities.stream().findAny();
     }
 
 

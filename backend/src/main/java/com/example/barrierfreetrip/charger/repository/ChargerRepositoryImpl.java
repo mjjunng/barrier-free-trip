@@ -1,6 +1,7 @@
 package com.example.barrierfreetrip.charger.repository;
 
 import com.example.barrierfreetrip.charger.domain.Charger;
+import com.example.barrierfreetrip.rental.domain.Rental;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +27,15 @@ public class ChargerRepositoryImpl implements ChargerRepository{
                 .getResultList();
 
         return charger.stream().findAny();
+    }
+
+    @Override
+    public Optional<Charger> findByTitle(String keyword) {
+        List<Charger> chargers = em.createQuery("select c from Charger c " +
+                        "where c.title like concat('%',:keywords,'%') ")
+                .setParameter("keywords", keyword)
+                .getResultList();
+
+        return chargers.stream().findAny();
     }
 }

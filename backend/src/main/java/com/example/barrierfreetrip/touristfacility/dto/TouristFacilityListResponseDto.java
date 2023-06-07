@@ -11,7 +11,7 @@ public class TouristFacilityListResponseDto {
     private String contentId;
     private String contentTypeId;
     private String title;
-    private String address;
+    private String addr;
     private Long rating;
     private String firstimg;
 }

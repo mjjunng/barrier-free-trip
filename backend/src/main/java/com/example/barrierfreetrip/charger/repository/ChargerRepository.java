@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface ChargerRepository {
     public List<Charger> findByAreaCode(String areaCode);
     public Optional<Charger> findById(Long id);
+    public Optional<Charger> findByTitle(String keyword);
 }

@@ -29,4 +29,14 @@ public class RentalRepositoryImpl implements RentalRepository{
 
         return rentals.stream().findAny();
     }
+
+    @Override
+    public Optional<Rental> findByTitle(String keyword) {
+        List<Rental> rentals = em.createQuery("select r from Rental r " +
+                        "where r.title like concat('%',:keywords,'%') ")
+                .setParameter("keywords", keyword)
+                .getResultList();
+
+        return rentals.stream().findAny();
+    }
 }

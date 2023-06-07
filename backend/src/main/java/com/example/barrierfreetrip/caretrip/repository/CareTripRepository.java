@@ -16,5 +16,6 @@ public interface CareTripRepository {
     public Optional<CareTrip> findById(Long id);
 
     public List<CareTrip> findByAreaName(String sido, String sigungu);
+    public Optional<CareTrip> findByTitle(String keyword);
 
 }

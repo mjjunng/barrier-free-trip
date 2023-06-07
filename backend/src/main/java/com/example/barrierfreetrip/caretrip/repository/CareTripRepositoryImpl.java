@@ -2,6 +2,7 @@ package com.example.barrierfreetrip.caretrip.repository;
 
 import com.example.barrierfreetrip.caretrip.domain.CareTrip;
 import com.example.barrierfreetrip.caretrip.domain.CareTripHeart;
+import com.example.barrierfreetrip.charger.domain.Charger;
 import com.example.barrierfreetrip.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -36,5 +37,15 @@ public class CareTripRepositoryImpl implements CareTripRepository{
                 .setParameter("sidos", sido)
                 .setParameter("sigungus", sigungu)
                 .getResultList();
+    }
+
+    @Override
+    public Optional<CareTrip> findByTitle(String keyword) {
+        List<CareTrip> careTrips = em.createQuery("select ct from CareTrip ct " +
+                        "where ct.title like concat('%',:keywords,'%') ")
+                .setParameter("keywords", keyword)
+                .getResultList();
+
+        return careTrips.stream().findAny();
     }
 }
