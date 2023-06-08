@@ -47,9 +47,11 @@ const ReligionSelects: React.FC = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.saveAreaViewContainer}>
+    // <SafeAreaView style={styles.saveAreaViewContainer}>
+    <SafeAreaView>
       <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-      <View style={styles.viewContainer}>
+      {/* <View style={styles.viewContainer}> */}
+      <View>
         <ScrollView
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical={false}
@@ -71,7 +73,7 @@ const ReligionSelects: React.FC = () => {
                 setSigoongus([]);
                 setSigoongus(sig_kor_nm);
               }}
-              defaultButtonText={'Select country'}
+              defaultButtonText={'시도 선택'}
               buttonStyle={styles.dropdown1BtnStyle}
               buttonTextStyle={styles.dropdown1BtnTxtStyle}
               renderDropdownIcon={(isOpened: boolean) => {
@@ -95,7 +97,7 @@ const ReligionSelects: React.FC = () => {
               onSelect={(selectedItem: Sido, index: number) => {
                 console.log(selectedItem, index);
               }}
-              defaultButtonText={'Select city'}
+              defaultButtonText={'시군구 선택'}
               buttonStyle={styles.dropdown2BtnStyle}
               buttonTextStyle={styles.dropdown2BtnTxtStyle}
               renderDropdownIcon={(isOpened: boolean) => {
@@ -141,9 +143,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: '10%',
+    // paddingVertical: '10%',
   },
-  dropdownsRow: {flexDirection: 'row', width: '100%', paddingHorizontal: '5%'},
+  dropdownsRow: {flexDirection: 'row', width: '100%'},
 
   dropdown1BtnStyle: {
     flex: 1,

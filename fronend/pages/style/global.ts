@@ -6,7 +6,7 @@ export const globalStyles = StyleSheet.create({
     padding: 0,
   },
   container: {
-    // padding: 24,
+    margin: 24,
     flex: 1,
   },
   titleText: {
@@ -17,6 +17,15 @@ export const globalStyles = StyleSheet.create({
   paragraph: {
     marginVerical: 8,
     lineHeight: 20,
+  },
+  subTitleText: {
+    width: 63,
+    height: 23,
+    fontFamily: 'Noto Sans KR',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: 16,
+    color: '#000000',
   },
 });
 
