@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
-
+// Care, Stay, tourism
 const cardStyles = StyleSheet.create({
   card: {
     width: 150,
@@ -71,7 +71,7 @@ const cardStyles = StyleSheet.create({
   },
 });
 
-interface StayCardProps {
+interface GridCardProps {
   imgSrc: string;
   title: string;
   description: string;
@@ -80,14 +80,14 @@ interface StayCardProps {
   location: string;
 }
 
-export const StayCard = ({
+export const GridCard = ({
   imgSrc,
   title,
   description,
   grade,
   gradeCount,
   location,
-}: StayCardProps) => {
+}: GridCardProps) => {
   return (
     <TouchableOpacity style={cardStyles.card}>
       <Image source={{uri: imgSrc}} style={cardStyles.image} />
@@ -108,4 +108,4 @@ export const StayCard = ({
   );
 };
 
-StayCard.title = 'Card';
+GridCard.title = 'Card';

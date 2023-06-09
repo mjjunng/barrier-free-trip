@@ -1,11 +1,10 @@
 import React from 'react';
-import {StayCard} from '../components/stayCard';
+import {GridCard} from '../components/gridCard';
 import {CareCard} from '../components/careCard';
+import {useTheme} from 'react-native-paper';
 import {
-  Button,
   FlatList,
   Image,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -23,10 +22,18 @@ import {
 } from '../icons/homaPageStackNavigatorIcons';
 import {StayPage} from './stay';
 import Temp from '../Temp';
+import FacilityLayout from '../layout/facilityLayout';
 
 const Home = ({navigation}: any) => {
+  const theme = useTheme();
+
   return (
-    <ScrollView contentContainerStyle={homeStyles.stayCardContainer}>
+    <ScrollView
+      contentContainerStyle={[
+        homeStyles.stayCardContainer,
+        {backgroundColor: theme.colors.secondary},
+      ]}>
+      <View style={homeStyles.logoSection} />
       <View style={homeStyles.iconsContainer}>
         <TouchableOpacity
           style={homeStyles.icons}
@@ -65,23 +72,7 @@ const Home = ({navigation}: any) => {
           <Text style={homeStyles.iconLabel}>렌탈</Text>
         </TouchableOpacity>
       </View>
-      <FlatList
-        contentContainerStyle={homeStyles.stayCardContainer}
-        data={DATA}
-        scrollEnabled={false}
-        renderItem={({item}) => (
-          <StayCard
-            imgSrc={item.imgSrc}
-            title={item.title}
-            description={item.description}
-            grade={item.grade}
-            gradeCount={item.gradeCount}
-            location={item.location}
-          />
-        )}
-        numColumns={2}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      <FacilityLayout data={DATA} title={'숙박 시설'} />
     </ScrollView>
   );
 };
@@ -106,19 +97,24 @@ export const HomeNavigator = () => {
 };
 
 const homeStyles = StyleSheet.create({
+  logoSection: {
+    width: 360,
+    height: 52,
+  },
   stayCardContainer: {
-    // width: 325,
     // height: 454,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
   },
   iconLabel: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   iconsContainer: {
-    width: 250,
+    // width: '100%',
     height: 136,
     // justifyContent: 'center',
     alignItems: 'center',
@@ -127,12 +123,18 @@ const homeStyles = StyleSheet.create({
     // display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    backgroundColor: '#FFFFFF',
+    marginBottom: 12,
   },
   icons: {
-    // padding: 100,
+    // paddingLeft: 30,
+    // paddingRight: 30,
     marginTop: 10,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    // marginLeft: 'auto',
+    marginLeft: 23,
+    marginRight: 23,
+    // marginLeft: 'auto',
+    // marginRight: 'auto',
     height: 70,
     width: 70,
     alignItems: 'center',
