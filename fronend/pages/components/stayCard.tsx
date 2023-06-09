@@ -10,7 +10,6 @@ const cardStyles = StyleSheet.create({
   },
   image: {
     overflow: 'hidden',
-    radius: 8,
     height: 100,
     width: 150,
     borderRadius: 8,

@@ -21,6 +21,8 @@ import {
   Stay,
   Tourlist,
 } from '../icons/homaPageStackNavigatorIcons';
+import {StayPage} from './stay';
+import Temp from '../Temp';
 
 const Home = ({navigation}: any) => {
   return (
@@ -28,37 +30,37 @@ const Home = ({navigation}: any) => {
       <View style={homeStyles.iconsContainer}>
         <TouchableOpacity
           style={homeStyles.icons}
-          onPress={() => navigation.navigate('Stay')}>
+          onPress={() => navigation.navigate('숙박')}>
           <Image source={Stay} />
           <Text style={homeStyles.iconLabel}>숙박</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={homeStyles.icons}
-          onPress={() => navigation.navigate('Tourlist')}>
+          onPress={() => navigation.navigate('관광지')}>
           <Image source={Tourlist} />
           <Text style={homeStyles.iconLabel}>관광지</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={homeStyles.icons}
-          onPress={() => navigation.navigate('Restaurant')}>
+          onPress={() => navigation.navigate('음식점')}>
           <Image source={Restaurant} />
           <Text style={homeStyles.iconLabel}>음식점</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={homeStyles.icons}
-          onPress={() => navigation.navigate('Heart')}>
+          onPress={() => navigation.navigate('돌봄여행')}>
           <Image source={Heart} />
           <Text style={homeStyles.iconLabel}>돌봄여행</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={homeStyles.icons}
-          onPress={() => navigation.navigate('Lightning')}>
+          onPress={() => navigation.navigate('충전기')}>
           <Image source={Lightning} />
           <Text style={homeStyles.iconLabel}>충전기</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={homeStyles.icons}
-          onPress={() => navigation.navigate('Handshake')}>
+          onPress={() => navigation.navigate('렌탈')}>
           <Image source={Handshake} />
           <Text style={homeStyles.iconLabel}>렌탈</Text>
         </TouchableOpacity>
@@ -88,13 +90,17 @@ const Stack = createStackNavigator();
 export const HomeNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Lodgment" component={Home} />
-      <Stack.Screen name="Tourist" component={Home} />
-      <Stack.Screen name="Restaurant" component={Home} />
-      <Stack.Screen name="Care" component={Home} />
-      <Stack.Screen name="Charger" component={Home} />
-      <Stack.Screen name="Rental" component={Home} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen name="숙박" component={StayPage} />
+      <Stack.Screen name="관광지" component={Home} />
+      <Stack.Screen name="음식점" component={Temp} />
+      <Stack.Screen name="돌봄여행" component={Home} />
+      <Stack.Screen name="충전기" component={Home} />
+      <Stack.Screen name="렌탈" component={Home} />
     </Stack.Navigator>
   );
 };
