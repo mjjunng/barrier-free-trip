@@ -5,4 +5,5 @@
     <string name="client_id">@string/NAVER_CLIENT_ID</string>
     <string name="client_secret">@string/NAVER_CLIENT_SECRET</string>
     <string name="client_name">barrier-free-trip</string>
+    <string name="google_map_key">@string/GOOGLE_MAP_API_KEY</string>
 </resources>
