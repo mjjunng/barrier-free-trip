@@ -24,6 +24,7 @@ import {StayPage} from './stay';
 import Temp from '../Temp';
 import FacilityLayout from '../layout/facilityLayout';
 import ImageSlider from '../layout/thickListLayout';
+import {ListCard} from '../components/listCard';
 
 const Home = ({navigation}: any) => {
   const theme = useTheme();
@@ -75,6 +76,7 @@ const Home = ({navigation}: any) => {
         </TouchableOpacity>
       </View>
       <FacilityLayout data={DATA} title={'내 주변 숙박시설'} />
+      <ListCard data={DataForList} title={'내 주변 관광지'} />
     </ScrollView>
   );
 };
@@ -178,5 +180,60 @@ const DATA = [
     grade: '4.3',
     gradeCount: 423,
     location: '서울역 도보 7분',
+  },
+];
+
+const DataForList = [
+  {
+    contentId: '126486',
+    contentTypeId: '126486',
+    title: '도산공원',
+    address: '서울특별시 강남구 도산대로45길 20',
+    rating: 4,
+    firstimg:
+      'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
+  },
+  {
+    contentId: '126504',
+    contentTypeId: '126504',
+    title: '봉은사(서울)',
+    address: '서울특별시 강남구 봉은사로 531',
+    rating: 3,
+    firstimg:
+      'http://tong.visitkorea.or.kr/cms/resource/37/2652137_image2_1.jpg',
+  },
+  {
+    contentId: '126525',
+    contentTypeId: '126525',
+    title: '서울 선릉(성종과 정현왕후)과 정릉(중종) [유네스코 세계문화유산]',
+    address: '서울특별시 강남구 선릉로100길 1',
+    rating: 2,
+    firstimg: '',
+  },
+  {
+    contentId: '1602451',
+    contentTypeId: '1602451',
+    title: '대모산공원',
+    address: '서울특별시 강남구 광평로10길 30-71',
+    rating: 1,
+    firstimg:
+      'http://tong.visitkorea.or.kr/cms/resource/51/1567751_image2_1.jpg',
+  },
+  {
+    contentId: '2456536',
+    contentTypeId: '2456536',
+    title: '강남 마이스 관광특구',
+    address: '서울특별시 강남구 영동대로 513',
+    rating: 5,
+    firstimg: '',
+  },
+  {
+    contentId: '2614315',
+    contentTypeId: '2614315',
+    title: 'AHC스파',
+    address: '서울특별시 강남구 도산대로 237',
+    rating: 6,
+    firstimg:
+      'http://tong.visitkorea.or.kr/cms/resource/05/2614305_image2_1.bmp',
   },
 ];
