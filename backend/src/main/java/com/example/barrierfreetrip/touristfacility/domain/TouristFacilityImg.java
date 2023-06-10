@@ -1,4 +1,4 @@
-package com.example.barrierfreetrip.touristfacility.dto;
+package com.example.barrierfreetrip.touristfacility.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

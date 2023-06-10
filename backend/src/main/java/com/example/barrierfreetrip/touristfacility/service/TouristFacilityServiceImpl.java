@@ -4,8 +4,8 @@ import com.example.barrierfreetrip.heart.domain.Heart;
 import com.example.barrierfreetrip.heart.repository.HeartRepository;
 import com.example.barrierfreetrip.member.domain.Member;
 import com.example.barrierfreetrip.member.repository.MemberRepository;
-import com.example.barrierfreetrip.touristfacility.dto.BarrierFreeFacility;
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
+import com.example.barrierfreetrip.touristfacility.domain.BarrierFreeFacility;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityInfoResponseDto;
 import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
 import com.example.barrierfreetrip.touristfacility.repository.TouristFacilityRepository;
@@ -45,7 +45,7 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
         List<TouristFacility> touristFacilities = findByCode(contentTypeId, areaCode, sigunguCode);
 
         return touristFacilities.stream()
-                .map(tf -> new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentId(),
+                .map(tf -> new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentTypeId(),
                         tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage()))
                 .collect(Collectors.toList());
     }
@@ -98,6 +98,27 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
 
         return dto;
     }
+
+    @Override
+    public List<TouristFacilityListResponseDto> returnNearHotelDto(Double userX, Double userY, int dis) {
+        List<TouristFacility> nearHotels = touristFacilityRepository.findNearHotelsByPos(userX, userY, dis);
+        return nearHotels.stream()
+                .map(tf -> new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentId(),
+                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage()))
+                .collect(Collectors.toList());
+
+    }
+
+//    private double getDistance(double lat1, double lon1, double lat2, double lon2) {
+//        int EARTH_RADIUS = 1;
+//        double dLat = Math.toRadians(lat2 - lat1);
+//        double dLon = Math.toRadians(lon2 - lon1);
+//
+//        double a = Math.sin(dLat/2)* Math.sin(dLat/2)+ Math.cos(Math.toRadians(lat1))* Math.cos(Math.toRadians(lat2))* Math.sin(dLon/2)* Math.sin(dLon/2);
+//        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+//        double distance = EARTH_RADIUS* c * 1000;    // Distance in m
+//        return distance;
+//    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.barrierfreetrip.touristfacility.dto;
+package com.example.barrierfreetrip.touristfacility.domain;
 
 import lombok.Data;
 
@@ -24,8 +24,8 @@ public class TouristFacility {
 	private Long rating;
 	private String areaCode;
 	private String sigunguCode;
-	private String mapx;
-	private String mapy;
+	private double mapx;
+	private double mapy;
 
 	private String firstimage;
 

@@ -7,14 +7,13 @@ import com.example.barrierfreetrip.charger.repository.ChargerRepository;
 import com.example.barrierfreetrip.rental.domain.Rental;
 import com.example.barrierfreetrip.rental.repository.RentalRepository;
 import com.example.barrierfreetrip.search.SearchDto;
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 import com.example.barrierfreetrip.touristfacility.repository.TouristFacilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

@@ -1,6 +1,5 @@
 package com.example.barrierfreetrip.touristfacility.controller;
 
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
 import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityInfoResponseDto;
 import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
 import com.example.barrierfreetrip.touristfacility.service.TouristFacilityService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,6 +44,16 @@ public class TouristFacilityController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @GetMapping("/hotels/{userX}/{userY}")
+    public ResponseEntity returnNearHotels(@PathVariable("userX") Double userX,
+                                           @PathVariable("userY") Double userY) {
+        List<TouristFacilityListResponseDto> result = touristFacilityService.returnNearHotelDto(userX, userY, 3);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+
 
 
 }

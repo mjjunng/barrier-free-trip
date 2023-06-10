@@ -2,7 +2,7 @@ package com.example.barrierfreetrip.heart.repository;
 
 import com.example.barrierfreetrip.heart.domain.Heart;
 import com.example.barrierfreetrip.member.domain.Member;
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

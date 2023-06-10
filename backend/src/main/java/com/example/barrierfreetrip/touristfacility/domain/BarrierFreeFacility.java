@@ -1,4 +1,4 @@
-package com.example.barrierfreetrip.touristfacility.dto;
+package com.example.barrierfreetrip.touristfacility.domain;
 
 import lombok.Data;
 

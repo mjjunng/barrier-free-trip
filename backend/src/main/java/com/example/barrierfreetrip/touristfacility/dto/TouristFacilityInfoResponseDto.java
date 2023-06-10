@@ -25,8 +25,8 @@ public class TouristFacilityInfoResponseDto {
     private Long rating;
     private String areaCode;
     private String sigunguCode;
-    private String mapx;
-    private String mapy;
+    private Double mapx;
+    private Double mapy;
     private List<String> imgs;
     private String wheelchair;
 	private String _exit;

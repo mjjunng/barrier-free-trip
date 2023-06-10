@@ -36,7 +36,7 @@ public class ChargerServiceImpl implements ChargerService{
 
         if (member.isPresent()) {
             for (Charger c: chargers) {
-                ChargerListDto dto = new ChargerListDto(c.getTitle(), c.getAddr(), c.getTel());
+                ChargerListDto dto = new ChargerListDto(c.getId(), c.getTitle(), c.getAddr(), c.getTel());
                 Optional<ChargerHeart> likes = chargerHeartRepository.findByIdsIfLikes(member.get(), c);
                 if (likes.isPresent()) {
                     dto.setLike(1);

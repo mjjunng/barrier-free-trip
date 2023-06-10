@@ -1,7 +1,6 @@
 package com.example.barrierfreetrip.touristfacility.repository;
 
-import com.example.barrierfreetrip.touristfacility.dto.BarrierFreeFacility;
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +13,7 @@ public interface TouristFacilityRepository {
 
     public TouristFacility findByContentId(String contentId);
     public Optional<TouristFacility> findByTitle(String keyword);
+
+    public List<TouristFacility> findNearHotelsByPos(Double userX, Double userY, double dis);
 
 }

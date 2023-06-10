@@ -4,7 +4,7 @@ import com.example.barrierfreetrip.heart.domain.Heart;
 import com.example.barrierfreetrip.heart.repository.HeartRepository;
 import com.example.barrierfreetrip.member.domain.Member;
 import com.example.barrierfreetrip.member.service.OauthMemberService;
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 import com.example.barrierfreetrip.touristfacility.service.TouristFacilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

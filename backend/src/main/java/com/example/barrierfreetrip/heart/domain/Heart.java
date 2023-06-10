@@ -1,7 +1,7 @@
 package com.example.barrierfreetrip.heart.domain;
 
 import com.example.barrierfreetrip.member.domain.Member;
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

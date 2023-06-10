@@ -1,8 +1,6 @@
 package com.example.barrierfreetrip.touristfacility.repository;
 
-import com.example.barrierfreetrip.caretrip.domain.CareTrip;
-import com.example.barrierfreetrip.touristfacility.dto.BarrierFreeFacility;
-import com.example.barrierfreetrip.touristfacility.dto.TouristFacility;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -49,6 +47,20 @@ public class TouristFacilityRepositoryImpl implements TouristFacilityRepository 
                 .getResultList();
 
         return touristFacilities.stream().findAny();
+    }
+
+    @Override
+    public List<TouristFacility> findNearHotelsByPos(Double userX, Double userY, double dis) {
+        return em.createQuery("select tf from TouristFacility tf " +
+                "where tf.contentTypeId='32' and 6371 * acos( cos( radians( :userYs ) ) * cos( radians( tf.mapy ) ) " +
+                "* cos( radians( tf.mapx ) - radians(:userXs) ) " +
+                "+ sin( radians(:userYs) ) * sin( radians(tf.mapy) ) ) < :diss")
+                .setParameter("userYs", userY)
+                .setParameter("userXs", userX)
+                .setParameter("diss", dis)
+                .getResultList();
+
+
     }
 
 
