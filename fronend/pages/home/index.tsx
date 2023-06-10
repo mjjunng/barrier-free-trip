@@ -23,6 +23,7 @@ import {
 import {StayPage} from './stay';
 import Temp from '../Temp';
 import FacilityLayout from '../layout/facilityLayout';
+import ImageSlider from '../layout/thickListLayout';
 
 const Home = ({navigation}: any) => {
   const theme = useTheme();
@@ -33,6 +34,7 @@ const Home = ({navigation}: any) => {
         homeStyles.stayCardContainer,
         {backgroundColor: theme.colors.secondary},
       ]}>
+      {/* <ImageSlider /> */}
       <View style={homeStyles.logoSection} />
       <View style={homeStyles.iconsContainer}>
         <TouchableOpacity
@@ -72,7 +74,7 @@ const Home = ({navigation}: any) => {
           <Text style={homeStyles.iconLabel}>렌탈</Text>
         </TouchableOpacity>
       </View>
-      <FacilityLayout data={DATA} title={'숙박 시설'} />
+      <FacilityLayout data={DATA} title={'내 주변 숙박시설'} />
     </ScrollView>
   );
 };
@@ -115,7 +117,8 @@ const homeStyles = StyleSheet.create({
   },
   iconsContainer: {
     // width: '100%',
-    height: 136,
+
+    height: 180,
     // justifyContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -124,9 +127,11 @@ const homeStyles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     backgroundColor: '#FFFFFF',
+    padding: 20,
     marginBottom: 12,
   },
   icons: {
+    // top: '50%',
     // paddingLeft: 30,
     // paddingRight: 30,
     marginTop: 10,

@@ -23,28 +23,44 @@ const renderCardItem = (item: GridCardProps) => {
   );
 };
 
+const styles = StyleSheet.create({
+  Text: {
+    width: '100%',
+    height: 28,
+    fontFamily: 'Noto Sans KR',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 28,
+    letterSpacing: -0.4,
+    color: '#000000',
+    marginLeft: 33,
+    marginTop: 10,
+  },
+  GridCardContainer: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+  },
+  FlatListContainer: {
+    alignItems: 'center',
+  },
+});
+
 const FacilityLayout = ({data, title}: any) => {
   return (
     <View style={styles.GridCardContainer}>
-      <Text>{title}</Text>
-      <FlatList
-        data={data}
-        scrollEnabled={false}
-        renderItem={({item}) => renderCardItem(item)}
-        numColumns={2}
-        keyExtractor={(item, index) => item + index.toString()}
-      />
+      <Text style={styles.Text}>{title}</Text>
+      <View style={styles.FlatListContainer}>
+        <FlatList
+          data={data}
+          scrollEnabled={false}
+          renderItem={({item}) => renderCardItem(item)}
+          numColumns={2}
+          keyExtractor={(item, index) => item + index.toString()}
+        />
+      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  GridCardContainer: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-  },
-});
 
 export default FacilityLayout;
