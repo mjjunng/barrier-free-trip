@@ -25,6 +25,7 @@ import Temp from '../Temp';
 import FacilityLayout from '../layout/facilityLayout';
 import ImageSlider from '../layout/thickListLayout';
 import {ListCard} from '../components/listCard';
+import { DetailPage } from '../components/detailPage';
 
 const Home = ({navigation}: any) => {
   const theme = useTheme();
@@ -96,6 +97,7 @@ export const HomeNavigator = () => {
       <Stack.Screen name="돌봄여행" component={Home} />
       <Stack.Screen name="충전기" component={Home} />
       <Stack.Screen name="렌탈" component={Home} />
+      <Stack.Screen name="DetailNavigator" component={DetailPage} />
     </Stack.Navigator>
   );
 };
@@ -148,36 +150,47 @@ const homeStyles = StyleSheet.create({
   },
 });
 
+// contentId: string;
+// firstimg: string;
+// title: string;
+// address: string;
+// rating: string;
+// gradeCount: number;
+// location: string;
 const DATA = [
   {
-    imgSrc: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
+    contentId: '126486',
+    firstimg: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
     title: '신라호텔',
-    description: 'Lorem ipsum dolor sit amet',
-    grade: '4.3',
+    address: 'Lorem ipsum dolor sit amet',
+    rating: '4.3',
     gradeCount: 423,
     location: '서울역 도보 7분',
   },
   {
-    imgSrc: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
+    contentId: '126486',
+    firstimg: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
     title: '신라호텔',
-    description: 'Lorem ipsum dolor sit amet',
-    grade: '4.3',
+    address: 'Lorem ipsum dolor sit amet',
+    rating: '4.3',
     gradeCount: 423,
     location: '서울역 도보 7분',
   },
   {
-    imgSrc: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
+    contentId: '126486',
+    firstimg: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
     title: '신라호텔',
-    description: 'Lorem ipsum dolor sit amet',
-    grade: '4.3',
+    address: 'Lorem ipsum dolor sit amet',
+    rating: '4.3',
     gradeCount: 423,
     location: '서울역 도보 7분',
   },
   {
-    imgSrc: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
+    contentId: '126486',
+    firstimg: 'http://tong.visitkorea.or.kr/cms/resource/60/2678560_image2_1.jpg',
     title: '신라호텔',
-    description: 'Lorem ipsum dolor sit amet',
-    grade: '4.3',
+    address: 'Lorem ipsum dolor sit amet',
+    rating: '4.3',
     gradeCount: 423,
     location: '서울역 도보 7분',
   },
