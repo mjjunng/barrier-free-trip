@@ -45,7 +45,7 @@ public class TouristFacilityController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/hotels/{userX}/{userY}")
+    @GetMapping("/near-hotels/{userX}/{userY}")
     public ResponseEntity returnNearHotels(@PathVariable("userX") Double userX,
                                            @PathVariable("userY") Double userY) {
         List<TouristFacilityListResponseDto> result = touristFacilityService.returnNearHotelDto(userX, userY, 3);

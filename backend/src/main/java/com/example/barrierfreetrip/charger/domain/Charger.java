@@ -29,4 +29,7 @@ public class Charger {
     private String phoneCharge;
     private String tel;
 
+    private double mapx;
+    private double mapy;
+
 }
