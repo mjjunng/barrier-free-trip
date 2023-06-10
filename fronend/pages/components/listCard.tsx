@@ -29,6 +29,7 @@ export const ListCard = ({data, title}: ListCardProps) => {
       <List.Section>
         {data.map((value, index) => (
           <List.Item
+            key={index}
             style={styles.listItem}
             left={() => (
               <View style={styles.imgCover}>
@@ -116,7 +117,6 @@ const styles = StyleSheet.create({
     letterSpacing: -0.165,
     color: '#828F9C',
     flex: 0,
-    order: 0,
     flexGrow: 0,
   },
 });

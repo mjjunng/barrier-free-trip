@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 
 export const FirstPageController = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   return (
     <>
