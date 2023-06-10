@@ -24,7 +24,7 @@ const renderCardItem = (item: GridCardProps) => {
 };
 
 const styles = StyleSheet.create({
-  Text: {
+  text: {
     width: '100%',
     height: 28,
     fontFamily: 'Noto Sans KR',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 const FacilityLayout = ({data, title}: any) => {
   return (
     <View style={styles.GridCardContainer}>
-      <Text style={styles.Text}>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
       <View style={styles.FlatListContainer}>
         <FlatList
           data={data}
