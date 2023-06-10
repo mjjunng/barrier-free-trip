@@ -2,10 +2,11 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {GridCard} from '../components/gridCard';
 import React from 'react';
 interface GridCardProps {
-  imgSrc: string;
+  contentId: string;
+  firstimg: string;
   title: string;
-  description: string;
-  grade: string;
+  address: string;
+  rating: string;
   gradeCount: number;
   location: string;
 }
@@ -13,10 +14,11 @@ interface GridCardProps {
 const renderCardItem = (item: GridCardProps) => {
   return (
     <GridCard
-      imgSrc={item.imgSrc}
+      contentId={item.contentId}
+      firstimg={item.firstimg}
       title={item.title}
-      description={item.description}
-      grade={item.grade}
+      address={item.address}
+      rating={item.rating}
       gradeCount={item.gradeCount}
       location={item.location}
     />

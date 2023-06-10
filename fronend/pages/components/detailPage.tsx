@@ -1,9 +1,88 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
+import Swiper from 'react-native-swiper';
 
-export const DetailPage = () => {
-  return <Text>DetailPage</Text>;
+interface DetailPageProps{
+  datas: DetailData;
+  titile: string;
+}
+interface DetailData{
+   contentId: string;
+  contentTypeId: string;
+  title: string;
+  addr1: string;
+  addr2: string;
+  overview: string;
+  homepage: string;
+  tel: string;
+  checkInTime: string;
+  checkOutTime: string;
+  parking: string;
+  rating: number | null;
+  areaCode: string;
+  sigunguCode: string | null;
+  mapx: string;
+  mapy: string;
+  imgs: string[];
+  wheelchair: string | null;
+  _exit: string | null;
+  elevator: string | null;
+  restroom: string | null;
+  guidesystem: string | null;
+  blindhandicapetc: string | null;
+  signguide: string;
+  videoguide: string | null;
+  hearingroom: string | null;
+  hearinghandicapetc: string | null;
+  stroller: string | null;
+  lactationroom: string | null;
+  babysparechair: string | null;
+  infantsfamilyetc: string | null;
+  auditorium: string | null;
+  room: string | null;
+  handicapetc: string | null;
+  braileblock: string | null;
+  helpdog: string | null;
+  guidehuman: string | null;
+  audioguide: string | null;
+  bigprint: string | null;
+  brailepromotion: string | null;
+  freeParking: string | null;
+  route: string | null;
+  publictransport: string | null;
+  ticketoffice: string | null;
+  promotion: string | null;
+  like: number;
+}
+
+const styles = StyleSheet.create({
+  container:{
+
+  },
+  img:{
+    borderRadius: 10,
+    width: 344,
+    height: 300,
+  }
+})
+
+export const DetailPage = ({datas, title}: DetailPageProps) => {
+  datas = tempData; // 임시
+  const images = datas.imgs;
+  
+
+  return (
+    <View style={styles.container}>
+    <Swiper >
+      {images.map((image, index) => (
+        <View key={index}>
+          <Image source={{ uri: image }} style={styles.img} />
+        </View>
+      ))}
+    </Swiper>
+    </View>
+  );
 };
 
 const tempData = {
