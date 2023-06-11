@@ -1,10 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import Swiper from 'react-native-swiper';
-
+import LocationIcon from '../../public/detailPage/location.svg'
+import HeartIcon from '../../public/detailPage/heart.svg'
 interface DetailPageProps{
-  datas: DetailData;
+  data: DetailData;
   titile: string;
 }
 interface DetailData{
@@ -57,34 +58,141 @@ interface DetailData{
 }
 
 const styles = StyleSheet.create({
-  container:{
-
-  },
-  img:{
-    borderRadius: 10,
-    width: 344,
+  container: {
     height: 300,
+    width: Dimensions.get('window').width,
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: 370,
+    height: 300,
+    borderRadius: 10,
+  },
+  swiperActiveDot: {
+  backgroundColor: '#FAF9F9',
+  width: 12,
+  height: 12,
+  borderRadius: 30,
+  marginHorizontal: 4,
+  },
+  heart: {
+    position: 'absolute',
+    width: 52,
+    height: 52,
+    left: 276,
+    top: 261,
+  },
+  infoOutline: {
+    width: 360,
+    height: 507,
+    backgroundColor: '#FFF5F5',
+    marginTop: 300,
   }
-})
+});
 
-export const DetailPage = ({datas, title}: DetailPageProps) => {
-  datas = tempData; // 임시
-  const images = datas.imgs;
-  
+export const DetailPage = ({ data, title }: DetailPageProps) => {
+  data = tempData; // 임시
+  const images = data.imgs;
 
   return (
     <View style={styles.container}>
-    <Swiper >
-      {images.map((image, index) => (
-        <View key={index}>
-          <Image source={{ uri: image }} style={styles.img} />
+      <View>
+        <Swiper
+        activeDotStyle={styles.swiperActiveDot}>
+        {images.map((image, index) => (
+            <View key={index} style={styles.slide}>
+              <Image source={{ uri: image }} style={styles.image} resizeMode="cover" />
+            </View>
+          ))}
+        </Swiper>
+        <View style={styles.heart} >
+            <HeartIcon/>
         </View>
-      ))}
-    </Swiper>
+      </View>
+
+      <View style={styles.infoOutline}>
+      </View>
+        
     </View>
   );
 };
 
+export default DetailPage;
+
+// export const DetailPage = ({ data, title }: DetailPageProps) => {
+//   data = tempData; // 임시
+//   const images = data.imgs;
+
+//   console.log('Detail Data: ', data.imgs);
+
+//   return (
+//     <View style={styles.container}>
+//       <Swiper
+//         style={styles.swiper}
+//         containerStyle={styles.swiperContainer}
+//         // dotStyle={styles.swiperDot}
+//         // activeDotStyle={styles.swiperActiveDot}
+//         width={344}
+//         height={300}
+//       >
+//         {images.map((image, index) => (
+//           <View key={index} style={styles.slide}>
+//             <Image source={{ uri: image }} style={styles.img} resizeMode="cover" />
+//           </View>
+//         ))}
+//       </Swiper>
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     marginLeft: 12,
+//     marginRight: 12,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   swiper: {
+//     width: '100%',
+//     height: '100%',
+//     // width: '100%',
+//     // height: '100%',
+//     // borderRadius: 10,
+//   },
+//   swiperContainer: {
+//     // height: 300,
+//     borderRadius: 10,
+//   },
+//   swiperDot: {
+//     backgroundColor: '#C4C4C4',
+//     width: 8,
+//     height: 8,
+//     borderRadius: 4,
+//     marginHorizontal: 4,
+//   },
+//   swiperActiveDot: {
+//     backgroundColor: '#FF6B6B',
+//     width: 16,
+//     height: 8,
+//     borderRadius: 4,
+//     marginHorizontal: 4,
+//   },
+//   slide: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   img: {
+    
+//     resizeMode: 'cover',
+//     borderRadius: 10,
+//   },
+// });
 const tempData = {
   contentId: '250279',
   contentTypeId: '12',
