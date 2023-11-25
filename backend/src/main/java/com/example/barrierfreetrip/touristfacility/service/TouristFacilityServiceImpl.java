@@ -46,7 +46,7 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
 
         return touristFacilities.stream()
                 .map(tf -> new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentTypeId(),
-                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage()))
+                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage(), tf.getTel()))
                 .collect(Collectors.toList());
     }
     @Override
@@ -104,7 +104,7 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
         List<TouristFacility> nearHotels = touristFacilityRepository.findNearHotelsByPos(userX, userY, dis);
         return nearHotels.stream()
                 .map(tf -> new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentId(),
-                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage()))
+                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage(), tf.getTel()))
                 .collect(Collectors.toList());
 
     }

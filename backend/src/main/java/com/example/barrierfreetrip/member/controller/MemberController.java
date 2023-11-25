@@ -1,10 +1,14 @@
 package com.example.barrierfreetrip.member.controller;
 
+import com.example.barrierfreetrip.member.domain.Member;
+import com.example.barrierfreetrip.member.domain.Token;
 import com.example.barrierfreetrip.member.dto.MemberResponseDto;
 import com.example.barrierfreetrip.member.service.OauthMemberService;
+import com.example.barrierfreetrip.member.service.TokenService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class MemberController {
     private final OauthMemberService oauthMemberService;
+    private final TokenService tokenService;
 
     @GetMapping("/welcome")
     public String healthCheck() {
@@ -28,15 +33,32 @@ public class MemberController {
     @GetMapping("/oauth/kakao")
     public ResponseEntity kakaoLoin(@RequestParam("code") String code)
                                         throws JsonProcessingException {
-        MemberResponseDto memberResponseDto = oauthMemberService.oauthLogin(code, "kakao");
-        return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
+        Member member = oauthMemberService.oauthLogin(code, "kakao");
+        // generate jwt
+        Token token = tokenService.generateToken(member.getEmail(), member.getRoles());
+
+        // set header with jwt
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + token);
+
+        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname());
+        log.info("token: " , token.getAccessToken());
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberResponseDto);
     }
 
     @GetMapping("/oauth/naver")
     public ResponseEntity naverLoin(@RequestParam("code") String code)
             throws JsonProcessingException {
-        MemberResponseDto memberResponseDto = oauthMemberService.oauthLogin(code, "naver");
-        return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
+        Member member = oauthMemberService.oauthLogin(code, "naver");
+        // generate jwt
+        Token token = tokenService.generateToken(member.getEmail(), member.getRoles());
+
+        // set header with jwt
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + token);
+
+        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname());
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberResponseDto);
     }
 
 }
