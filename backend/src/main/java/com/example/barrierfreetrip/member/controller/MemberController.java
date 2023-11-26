@@ -42,7 +42,6 @@ public class MemberController {
         headers.add("Authorization", "Bearer " + token);
 
         MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname());
-        log.info("token: " , token.getAccessToken());
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberResponseDto);
     }
 
