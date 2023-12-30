@@ -1,5 +1,6 @@
 package com.example.barrierfreetrip.member.dto;
 
+import com.example.barrierfreetrip.member.domain.Token;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,4 +9,6 @@ import lombok.Getter;
 public class MemberResponseDto {
     private String email;
     private String nickname;
+    private String accessToken;
+    private String refreshToken;
 }

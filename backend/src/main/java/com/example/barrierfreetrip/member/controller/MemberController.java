@@ -37,12 +37,9 @@ public class MemberController {
         // generate jwt
         Token token = tokenService.generateToken(member.getEmail(), member.getRoles());
 
-        // set header with jwt
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + token);
-
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname());
-        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberResponseDto);
+        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname(),
+                                                                    token.getAccessToken(), token.getRefreshToken());
+        return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }
 
     @GetMapping("/oauth/naver")
@@ -52,12 +49,9 @@ public class MemberController {
         // generate jwt
         Token token = tokenService.generateToken(member.getEmail(), member.getRoles());
 
-        // set header with jwt
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + token);
-
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname());
-        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(memberResponseDto);
+        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname(),
+                                                                    token.getAccessToken(), token.getRefreshToken());
+        return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }
 
 }
