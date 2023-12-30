@@ -1,6 +1,6 @@
 package com.example.barrierfreetrip.heart.service;
 
-import com.example.barrierfreetrip.heart.domain.Heart;
+import com.example.barrierfreetrip.heart.domain.TouristHeart;
 import com.example.barrierfreetrip.heart.repository.HeartRepository;
 import com.example.barrierfreetrip.member.domain.Member;
 import com.example.barrierfreetrip.member.service.OauthMemberService;
@@ -26,13 +26,13 @@ public class HeartServiceImpl implements HeartService{
 
         if (likes == 1) {  // 찜 추가
             if (member.isPresent()) {
-                Heart heart = new Heart(member.get(), facility);
-                heartRepository.save(heart);
+                TouristHeart touristHeart = new TouristHeart(member.get(), facility);
+                heartRepository.save(touristHeart);
             }
 
         } else {    // 찜 해제
             if (member.isPresent()) {
-                Heart prev = heartRepository.findByIds(member.get(), facility);
+                TouristHeart prev = heartRepository.findByIds(member.get(), facility);
                 heartRepository.delete(prev.getId());
             }
 

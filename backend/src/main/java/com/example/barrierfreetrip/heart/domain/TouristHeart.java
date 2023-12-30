@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Heart {
+public class TouristHeart {
 
     @Id
     @GeneratedValue
@@ -26,7 +26,7 @@ public class Heart {
     @JoinColumn(name = "contentId")
     private TouristFacility touristFacility;
 
-    public Heart (Member member, TouristFacility touristFacility) {
+    public TouristHeart(Member member, TouristFacility touristFacility) {
         this.member = member;
         this.touristFacility = touristFacility;
     }

@@ -1,6 +1,6 @@
 package com.example.barrierfreetrip.touristfacility.service;
 
-import com.example.barrierfreetrip.heart.domain.Heart;
+import com.example.barrierfreetrip.heart.domain.TouristHeart;
 import com.example.barrierfreetrip.heart.repository.HeartRepository;
 import com.example.barrierfreetrip.member.domain.Member;
 import com.example.barrierfreetrip.member.repository.MemberRepository;
@@ -86,7 +86,7 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
 
 
         if (member.isPresent()) {
-            Optional<Heart> heart = heartRepository.findByIdsIfLikes(member.get(), facility);
+            Optional<TouristHeart> heart = heartRepository.findByIdsIfLikes(member.get(), facility);
 
             if (heart.isPresent()) {
                 dto.setLike(1);

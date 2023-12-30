@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "charger_heart")
+@Table(name = "chargerHeart")
 @Data
 @NoArgsConstructor
 public class ChargerHeart {

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "barrier_free_facility")
+@Table(name = "barrierFreeFacility")
 public class BarrierFreeFacility {
     @Id
     private String contentId;

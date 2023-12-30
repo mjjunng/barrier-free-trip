@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "tourist_facility_img")
+@Table(name = "touristFacilityImg")
 public class TouristFacilityImg {
     @Id
     private String serialnum;
