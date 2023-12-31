@@ -200,4 +200,9 @@ public class OauthMemberServiceImpl implements OauthMemberService, UserDetailsSe
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
     }
+
+    @Override
+    public Optional<Member> findByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
 }

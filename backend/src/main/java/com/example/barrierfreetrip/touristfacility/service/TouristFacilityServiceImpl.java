@@ -50,7 +50,7 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
                 .collect(Collectors.toList());
     }
     @Override
-    public TouristFacilityInfoResponseDto returnInfoDto(Long memberId, String contentId) {
+    public TouristFacilityInfoResponseDto returnInfoDto(Member member, String contentId) {
         List<String> imgs = findImgByContentId(contentId);
         TouristFacility facility = findByContentId(contentId);
         BarrierFreeFacility barrierFreeFacility = facility.getBarrierFreeFacility();
@@ -63,8 +63,6 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
              dto = modelMapper.map(barrierFreeFacility,
                     TouristFacilityInfoResponseDto.class);
         }
-
-        Optional<Member> member = memberRepository.findById(memberId);
 
         dto.setImgs(imgs);
         dto.setContentId(facility.getContentId());
@@ -84,18 +82,13 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
         dto.setMapx(facility.getMapx());
         dto.setMapy(facility.getMapy());
 
+        Optional<TouristHeart> heart = heartRepository.findByIdsIfLikes(member, facility);
 
-        if (member.isPresent()) {
-            Optional<TouristHeart> heart = heartRepository.findByIdsIfLikes(member.get(), facility);
-
-            if (heart.isPresent()) {
-                dto.setLike(1);
-            } else {
-                dto.setLike(0);
-            }
+        if (heart.isPresent()) {
+            dto.setLike(1);
+        } else {
+            dto.setLike(0);
         }
-
-
         return dto;
     }
 
