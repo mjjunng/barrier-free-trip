@@ -23,26 +23,24 @@ public class CareTripServiceImpl implements CareTripService{
     private final OauthMemberService memberService;
     private final CareTripHeartRepository careTripHeartRepository;
 
-    public List<CareTripListResponseDto> returnListDto(Long memberId, String sido, String sigungu) {
+    public List<CareTripListResponseDto> returnListDto(Member member, String sido, String sigungu) {
         List<CareTrip> careTrips = careTripRepository.findByAreaName(sido, sigungu);
         List<CareTripListResponseDto> result = new ArrayList<>();
-        Optional<Member> member = memberService.findById(memberId);
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        if (member.isPresent()) {
-            for (CareTrip c: careTrips) {
-                CareTripListResponseDto dto = modelMapper.map(c, CareTripListResponseDto.class);
-                Optional<CareTripHeart> likes = careTripHeartRepository.findByIdsIfLikes(member.get(), c);
-                if (likes.isPresent()) {
-                    dto.setLike(1);
-                } else {
-                    dto.setLike(0);
-                }
-                result.add(dto);
+        for (CareTrip c: careTrips) {
+            CareTripListResponseDto dto = modelMapper.map(c, CareTripListResponseDto.class);
+            Optional<CareTripHeart> likes = careTripHeartRepository.findByIdsIfLikes(member, c);
+            if (likes.isPresent()) {
+                dto.setLike(1);
+            } else {
+                dto.setLike(0);
             }
+            result.add(dto);
         }
+
         return result;
 
     }

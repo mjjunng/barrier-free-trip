@@ -30,7 +30,7 @@ public class TouristFacilityController {
      * @param sigunguCode
      * @return
      */
-    @GetMapping("/tourist-facility-list/{contentTypeId}/{areaCode}/{sigunguCode}")
+    @GetMapping("/tourist-facilities/{contentTypeId}/{areaCode}/{sigunguCode}")
     public ResponseEntity returnTouristList(@PathVariable("contentTypeId") String contentTypeId,
                                             @PathVariable("areaCode") String areaCode,
                                             @PathVariable("sigunguCode") String sigunguCode
@@ -42,7 +42,7 @@ public class TouristFacilityController {
 
     }
 
-    @GetMapping("/tourist-facility-info/{contentId}")
+    @GetMapping("/tourist-facilities/{contentId}")
     public ResponseEntity returnTouristInfo(@PathVariable("contentId") String contentId) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<Member> member = memberService.findByEmail(email);

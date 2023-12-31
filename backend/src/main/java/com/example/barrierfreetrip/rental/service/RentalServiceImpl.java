@@ -26,25 +26,22 @@ public class RentalServiceImpl implements RentalService{
     private final RentalHeartRepository rentalHeartRepository;
 
     @Override
-    public List<RentalListDto> returnRentalServiceList(Long memberId, String sido, String sigungu) {
+    public List<RentalListDto> returnRentalServiceList(Member member, String sido, String sigungu) {
         List<Rental> rentals = rentalRepository.findByAreaName(sido, sigungu);
-        Optional<Member> member = memberService.findById(memberId);
         List<RentalListDto> result = new ArrayList<>();
 
-        if (member.isPresent()) {
-            for (Rental r: rentals) {
-                RentalListDto dto = new RentalListDto(r.getTitle(), r.getAddr(), r.getTel());
-                Optional<RentalHeart> likes = rentalHeartRepository.findByIdsIfLikes(member.get(), r);
-                if (likes.isPresent()) {
-                    dto.setLike(1);
-                } else {
-                    dto.setLike(0);
-                }
-                result.add(dto);
+        for (Rental r: rentals) {
+            RentalListDto dto = new RentalListDto(r.getTitle(), r.getAddr(), r.getTel());
+            Optional<RentalHeart> likes = rentalHeartRepository.findByIdsIfLikes(member, r);
+            if (likes.isPresent()) {
+                dto.setLike(1);
+            } else {
+                dto.setLike(0);
             }
+            result.add(dto);
         }
-        return result;
 
+        return result;
 
     }
 
