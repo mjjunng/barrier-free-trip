@@ -48,19 +48,18 @@ public class ChargerServiceImpl implements ChargerService{
         return result;
     }
 
-    public void likes(Long memberId, Long contentId, int likes) {
-        Optional<Member> member = memberService.findById(memberId);
+    public void likes(Member member, Long contentId, int likes) {
         Optional<Charger> charger = chargerRepository.findById(contentId);
 
         if (likes == 1) {  // 찜 추가
-            if ((member.isPresent()) && (charger.isPresent())) {
-                ChargerHeart chargerHeart = new ChargerHeart(member.get(), charger.get());
+            if (charger.isPresent()) {
+                ChargerHeart chargerHeart = new ChargerHeart(member, charger.get());
                 chargerHeartRepository.save(chargerHeart);
             }
 
         } else {    // 찜 해제
-            if ((member.isPresent()) && (charger.isPresent())) {
-                Optional<ChargerHeart> chargerHeart = chargerHeartRepository.findByIds(member.get(), charger.get());
+            if (charger.isPresent()) {
+                Optional<ChargerHeart> chargerHeart = chargerHeartRepository.findByIds(member, charger.get());
                 if (chargerHeart.isPresent()) {
                     int cnt = chargerHeartRepository.delete(chargerHeart.get().getId());
                 }

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RentalService {
     public List<RentalListDto> returnRentalServiceList(Member member, String sido, String sigungu);
-    public void likes(Long memberId, Long contentId, int likes);
+    public void likes(Member member, Long contentId, int likes);
 }

@@ -45,19 +45,18 @@ public class CareTripServiceImpl implements CareTripService{
 
     }
 
-    public void likes(Long memberId, Long contentId, int likes) {
-        Optional<Member> member = memberService.findById(memberId);
+    public void likes(Member member, Long contentId, int likes) {
         Optional<CareTrip> careTrip = careTripRepository.findById(contentId);
 
         if (likes == 1) {  // 찜 추가
-            if ((member.isPresent()) && (careTrip.isPresent())) {
-                CareTripHeart careTripHeart = new CareTripHeart(member.get(), careTrip.get());
+            if (careTrip.isPresent()) {
+                CareTripHeart careTripHeart = new CareTripHeart(member, careTrip.get());
                 careTripHeartRepository.save(careTripHeart);
             }
 
         } else {    // 찜 해제
-            if ((member.isPresent()) && (careTrip.isPresent())) {
-                Optional<CareTripHeart> careTripHeart = careTripHeartRepository.findByIds(member.get(), careTrip.get());
+            if (careTrip.isPresent()) {
+                Optional<CareTripHeart> careTripHeart = careTripHeartRepository.findByIds(member, careTrip.get());
                 if (careTripHeart.isPresent()) {
                     int cnt = careTripHeartRepository.delete(careTripHeart.get().getId());
                 }

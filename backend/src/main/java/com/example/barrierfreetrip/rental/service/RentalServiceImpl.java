@@ -45,19 +45,18 @@ public class RentalServiceImpl implements RentalService{
 
     }
 
-    public void likes(Long memberId, Long contentId, int likes) {
-        Optional<Member> member = memberService.findById(memberId);
+    public void likes(Member member, Long contentId, int likes) {
         Optional<Rental> rental = rentalRepository.findById(contentId);
 
         if (likes == 1) {  // 찜 추가
-            if ((member.isPresent()) && (rental.isPresent())) {
-                RentalHeart rentalHeart = new RentalHeart(member.get(), rental.get());
+            if (rental.isPresent()) {
+                RentalHeart rentalHeart = new RentalHeart(member, rental.get());
                 rentalHeartRepository.save(rentalHeart);
             }
 
         } else {    // 찜 해제
-            if ((member.isPresent()) && (rental.isPresent())) {
-                Optional<RentalHeart> rentalHeart = rentalHeartRepository.findByIds(member.get(), rental.get());
+            if (rental.isPresent()) {
+                Optional<RentalHeart> rentalHeart = rentalHeartRepository.findByIds(member, rental.get());
                 if (rentalHeart.isPresent()) {
                     int cnt = rentalHeartRepository.delete(rentalHeart.get().getId());
                 }
