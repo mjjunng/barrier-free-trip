@@ -5,39 +5,54 @@ import com.example.barrierfreetrip.charger.domain.Charger;
 import com.example.barrierfreetrip.charger.dto.ChargerInfoDto;
 import com.example.barrierfreetrip.charger.dto.ChargerListDto;
 import com.example.barrierfreetrip.charger.service.ChargerService;
+import com.example.barrierfreetrip.member.domain.Member;
+import com.example.barrierfreetrip.member.service.OauthMemberService;
 import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class ChargerController {
     private final ChargerService chargerService;
+    private final OauthMemberService memberService;
 
-    @GetMapping("/chargers/{memberId}/{areaCode}")
-    public ResponseEntity returnChargerList(@PathVariable("memberId") Long memberId,
-                                            @PathVariable("areaCode") String areaCode) {
+    @GetMapping("/chargers/{areaCode}")
+    public ResponseEntity returnChargerList(@PathVariable("areaCode") String areaCode) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<Member> member = memberService.findByEmail(email);
+        List<ChargerListDto> result = new ArrayList<>();
 
-        List<ChargerListDto> result = chargerService.returnListDto(memberId, areaCode);
+        if (member.isPresent()) {
+            result = chargerService.returnListDto(member.get(), areaCode);
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
 
     }
 
-    @GetMapping("/chargers/info/{memberId}/{contentId}")
-    public ResponseEntity returnChargerInfo(@PathVariable("memberId") Long memberId,
-                                            @PathVariable("contentId") Long contentId) {
-        ChargerInfoDto result = chargerService.returnChargerInfo(memberId, contentId);
+    @GetMapping("/chargers/info/{contentId}")
+    public ResponseEntity returnChargerInfo(@PathVariable("contentId") Long contentId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<Member> member = memberService.findByEmail(email);
+        ChargerInfoDto result = new ChargerInfoDto();
+
+        if (member.isPresent()) {
+            result = chargerService.returnChargerInfo(member.get(), contentId);
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

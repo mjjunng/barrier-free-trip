@@ -30,22 +30,19 @@ public class ChargerServiceImpl implements ChargerService{
     private final ChargerHeartRepository chargerHeartRepository;
 
 
-    public List<ChargerListDto> returnListDto(Long memberId, String areaCode) {
+    public List<ChargerListDto> returnListDto(Member member, String areaCode) {
         List<Charger> chargers = chargerRepository.findByAreaCode(areaCode);
-        Optional<Member> member = memberService.findById(memberId);
         List<ChargerListDto> result = new ArrayList<>();
 
-        if (member.isPresent()) {
-            for (Charger c: chargers) {
-                ChargerListDto dto = new ChargerListDto(c.getId(), c.getTitle(), c.getAddr(), c.getTel());
-                Optional<ChargerHeart> likes = chargerHeartRepository.findByIdsIfLikes(member.get(), c);
-                if (likes.isPresent()) {
-                    dto.setLike(1);
-                } else {
-                    dto.setLike(0);
-                }
-                result.add(dto);
+        for (Charger c: chargers) {
+            ChargerListDto dto = new ChargerListDto(c.getId(), c.getTitle(), c.getAddr(), c.getTel());
+            Optional<ChargerHeart> likes = chargerHeartRepository.findByIdsIfLikes(member, c);
+            if (likes.isPresent()) {
+                dto.setLike(1);
+            } else {
+                dto.setLike(0);
             }
+            result.add(dto);
         }
 
         return result;
@@ -73,17 +70,16 @@ public class ChargerServiceImpl implements ChargerService{
     }
 
     @Override
-    public ChargerInfoDto returnChargerInfo(Long memberId, Long contentId) {
+    public ChargerInfoDto returnChargerInfo(Member member, Long contentId) {
         Optional<Charger> charger = chargerRepository.findById(contentId);
-        Optional<Member> member = memberService.findById(memberId);
         ChargerInfoDto result = new ChargerInfoDto();
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        if ((member.isPresent()) && (charger.isPresent())) {
+        if (charger.isPresent()) {
             result = modelMapper.map(charger.get(), ChargerInfoDto.class);
-            Optional<ChargerHeart> likes = chargerHeartRepository.findByIdsIfLikes(member.get(), charger.get());
+            Optional<ChargerHeart> likes = chargerHeartRepository.findByIdsIfLikes(member, charger.get());
 
             if (likes.isPresent()) {
                 result.setLike(1);
