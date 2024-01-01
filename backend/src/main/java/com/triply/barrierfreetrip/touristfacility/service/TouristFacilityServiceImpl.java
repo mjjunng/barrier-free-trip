@@ -1,7 +1,7 @@
 package com.triply.barrierfreetrip.touristfacility.service;
 
-import com.triply.barrierfreetrip.heart.domain.TouristHeart;
-import com.triply.barrierfreetrip.heart.repository.HeartRepository;
+import com.triply.barrierfreetrip.touristfacility.domain.TouristFacilityHeart;
+import com.triply.barrierfreetrip.touristfacility.repository.TouristFacilityHeartRepository;
 import com.triply.barrierfreetrip.member.domain.Member;
 import com.triply.barrierfreetrip.member.repository.MemberRepository;
 import com.triply.barrierfreetrip.touristfacility.domain.BarrierFreeFacility;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TouristFacilityServiceImpl implements TouristFacilityService {
     private final TouristFacilityRepository touristFacilityRepository;
-    private final HeartRepository heartRepository;
+    private final TouristFacilityHeartRepository touristFacilityHeartRepository;
     private final MemberRepository memberRepository;
 
     @Override
@@ -82,7 +82,7 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
         dto.setMapx(facility.getMapx());
         dto.setMapy(facility.getMapy());
 
-        Optional<TouristHeart> heart = heartRepository.findByIdsIfLikes(member, facility);
+        Optional<TouristFacilityHeart> heart = touristFacilityHeartRepository.findByIdsIfLikes(member, facility);
 
         if (heart.isPresent()) {
             dto.setLike(1);

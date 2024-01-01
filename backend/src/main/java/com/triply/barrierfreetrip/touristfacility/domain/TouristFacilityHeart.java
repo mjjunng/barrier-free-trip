@@ -1,4 +1,4 @@
-package com.triply.barrierfreetrip.heart.domain;
+package com.triply.barrierfreetrip.touristfacility.domain;
 
 import com.triply.barrierfreetrip.member.domain.Member;
 import com.triply.barrierfreetrip.touristfacility.domain.TouristFacility;
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TouristHeart {
+public class TouristFacilityHeart {
 
     @Id
     @GeneratedValue
@@ -26,7 +26,7 @@ public class TouristHeart {
     @JoinColumn(name = "contentId")
     private TouristFacility touristFacility;
 
-    public TouristHeart(Member member, TouristFacility touristFacility) {
+    public TouristFacilityHeart(Member member, TouristFacility touristFacility) {
         this.member = member;
         this.touristFacility = touristFacility;
     }

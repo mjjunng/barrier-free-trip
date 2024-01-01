@@ -2,7 +2,7 @@ package com.triply.barrierfreetrip.heart.controller;
 
 import com.triply.barrierfreetrip.caretrip.service.CareTripService;
 import com.triply.barrierfreetrip.charger.service.ChargerService;
-import com.triply.barrierfreetrip.heart.service.HeartService;
+import com.triply.barrierfreetrip.touristfacility.service.TouristFacilityHeartService;
 import com.triply.barrierfreetrip.member.domain.Member;
 import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import com.triply.barrierfreetrip.rental.service.RentalService;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class HeartController {
 
-    private final HeartService heartService;
+    private final TouristFacilityHeartService touristFacilityHeartService;
     private final CareTripService careTripService;
     private final ChargerService chargerService;
     private final RentalService rentalService;
@@ -34,7 +34,7 @@ public class HeartController {
 
         if (member.isPresent()) {
             if (type == 0) {    // 관광 시설
-                heartService.likes(member.get(), contentId, likes);
+                touristFacilityHeartService.likes(member.get(), contentId, likes);
             } else if (type == 1) {     // 충전기
                 chargerService.likes(member.get(), Long.parseLong(contentId), likes);
 
