@@ -11,6 +11,7 @@ import com.example.barrierfreetrip.charger.repository.ChargerHeartRepository;
 import com.example.barrierfreetrip.charger.repository.ChargerRepository;
 import com.example.barrierfreetrip.member.domain.Member;
 import com.example.barrierfreetrip.member.service.OauthMemberService;
+import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -93,6 +94,14 @@ public class ChargerServiceImpl implements ChargerService{
         }
 
         return result;
+    }
+
+    @Override
+    public List<ChargerListDto> returnNearChargerDto(Double userX, Double userY, int dis) {
+        List<Charger> nearChargers = chargerRepository.findNearChargersByPos(userX, userY, dis);
+        return nearChargers.stream()
+                .map(c -> new ChargerListDto(c.getId(), c.getTitle(), c.getAddr(), c.getTel()))
+                .collect(Collectors.toList());
     }
 
 }

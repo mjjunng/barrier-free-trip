@@ -2,6 +2,7 @@ package com.example.barrierfreetrip.charger.repository;
 
 import com.example.barrierfreetrip.charger.domain.Charger;
 import com.example.barrierfreetrip.rental.domain.Rental;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +38,19 @@ public class ChargerRepositoryImpl implements ChargerRepository{
                 .getResultList();
 
         return chargers.stream().findAny();
+    }
+
+    @Override
+    public List<Charger> findNearChargersByPos(Double userX, Double userY, double dis) {
+        return em.createQuery("select c from Charger c " +
+                        "where 6371 * acos( cos( radians( :userYs ) ) * cos( radians( c.mapy ) ) " +
+                        "* cos( radians( c.mapx ) - radians(:userXs) ) " +
+                        "+ sin( radians(:userYs) ) * sin( radians(c.mapy) ) ) < :diss")
+                .setParameter("userYs", userY)
+                .setParameter("userXs", userX)
+                .setParameter("diss", dis)
+                .getResultList();
+
+
     }
 }

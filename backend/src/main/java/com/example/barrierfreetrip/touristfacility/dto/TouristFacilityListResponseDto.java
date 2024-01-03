@@ -14,4 +14,5 @@ public class TouristFacilityListResponseDto {
     private String addr;
     private Long rating;
     private String firstimg;
+    private String tel;
 }

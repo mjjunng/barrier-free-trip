@@ -13,16 +13,20 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class OauthMemberServiceImpl implements OauthMemberService {
+public class OauthMemberServiceImpl implements OauthMemberService, UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
@@ -49,7 +53,7 @@ public class OauthMemberServiceImpl implements OauthMemberService {
 
 
     @Override
-    public MemberResponseDto oauthLogin(String code, String type) throws JsonProcessingException {
+    public Member oauthLogin(String code, String type) throws JsonProcessingException {
         TYPE = type;
 
         if (TYPE.equals("kakao")) {
@@ -63,14 +67,13 @@ public class OauthMemberServiceImpl implements OauthMemberService {
         // 1. request access token from access code
         String accessToken = getAccessToken(code);
 
-        // 2. call kakao/naver api from acctess token -> get member info
+        // 2. call kakao/naver api from access token -> get member info
         SocialMemberDto oauthMemberInfo = getOauthMemberInfo(accessToken);
 
         // 3. register to kakao/naver id
-        Member oauthMember = registerOauthMemberIfNeed(oauthMemberInfo);
-        MemberResponseDto memberResponseDto = new MemberResponseDto(oauthMember.getId(), oauthMember.getNickname());
+        Member member = registerOauthMemberIfNeed(oauthMemberInfo);
 
-        return memberResponseDto;
+        return member;
 
     }
 
@@ -173,19 +176,28 @@ public class OauthMemberServiceImpl implements OauthMemberService {
         String email = memberDto.getEmail();
         String nickname = memberDto.getNickname();
 
-        Member member = memberRepository.findByEmail(email);
+        Optional<Member> member = memberRepository.findByEmail(email);
 
-        if (member == null) {
+        if (member.isEmpty()) {
             // register
-            member = new Member(email, nickname);
-            memberRepository.save(member);
+            Member newMember = new Member(email, nickname, Collections.singletonList("ROLE_USER"));
+            memberRepository.save(newMember);
+            return newMember;
+
         }
 
-        return member;
+        return member.get();
     }
 
     @Override
     public Optional<Member> findById(Long memberId) {
         return memberRepository.findById(memberId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return memberRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+
     }
 }

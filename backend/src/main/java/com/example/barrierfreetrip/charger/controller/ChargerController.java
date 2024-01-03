@@ -1,9 +1,12 @@
 package com.example.barrierfreetrip.charger.controller;
 
 
+import com.example.barrierfreetrip.charger.domain.Charger;
 import com.example.barrierfreetrip.charger.dto.ChargerInfoDto;
 import com.example.barrierfreetrip.charger.dto.ChargerListDto;
 import com.example.barrierfreetrip.charger.service.ChargerService;
+import com.example.barrierfreetrip.touristfacility.domain.TouristFacility;
+import com.example.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,9 +35,17 @@ public class ChargerController {
     }
 
     @GetMapping("/chargers/info/{memberId}/{contentId}")
-    public ResponseEntity returnCharferInfo(@PathVariable("memberId") Long memberId,
+    public ResponseEntity returnChargerInfo(@PathVariable("memberId") Long memberId,
                                             @PathVariable("contentId") Long contentId) {
         ChargerInfoDto result = chargerService.returnChargerInfo(memberId, contentId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/near-chargers/{userX}/{userY}")
+    public ResponseEntity returnNearChargers(@PathVariable("userX") double userX,
+                                             @PathVariable("userY") double userY) {
+        List<ChargerListDto> result = chargerService.returnNearChargerDto(userX, userY, 3);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
