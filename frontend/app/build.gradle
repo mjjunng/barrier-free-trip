@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.tripy.barrierfreetrip'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.tripy.barrierfreetrip"
-        minSdk 24
-        targetSdk 33
+        minSdk 26
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -53,4 +53,7 @@ dependencies {
     // Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }
