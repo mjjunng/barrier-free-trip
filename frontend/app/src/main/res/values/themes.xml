@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BarrierFreeTrip" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.BarrierFreeTrip" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonStyle</item>
+        <item name="android:checkboxStyle">@style/CheckboxStyle</item>
     </style>
 
     <style name="Theme.BarrierFreeTrip" parent="Base.Theme.BarrierFreeTrip" />
+    
+    <!-- Custom font 적용 -->
+    
+
 </resources>
