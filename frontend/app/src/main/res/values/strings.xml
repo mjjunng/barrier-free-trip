@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">BarrierFreeTrip</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- strings for all -->
+    <string name="all_stay">숙박</string>
+    <string name="all_caretrip">돌봄여행</string>
+    <string name="all_stay_nearby">내 주변 숙박시설</string>
+    <string name="all_charge_nearby">내 주변 전동휠체어 충전기</string>
+    <string name="all_more_info">더보기</string>
+
+    <string name="all_temp_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="all_temp_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="all_temp_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderitin voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
+    <!-- strings for homeFragment -->
+    <string name="home_destination">관광지</string>
+    <string name="home_restaurant">음식점</string>
+    <string name="home_charge">충전기</string>
+    <string name="home_rental">렌탈</string>
+
+    <!-- strings for staylist -->
+    <string name="staylist_area_choose">지역 선택</string>
+    <string name="staylist_choose_big">시도 선택</string>
+    <string name="staylist_choose_small">시구군 선택</string>
+    <string name="staylist_stay">숙박시설</string>
+
+    <!-- strings for bottom navigation -->
+    <string name="btn_nav_home">홈</string>
+    <string name="btn_nav_search">검색</string>
+    <string name="btn_nav_map">지도</string>
+    <string name="btn_nav_wishlist">찜</string>
+    <string name="btn_nav_mypage">마이</string>
+
+    <!-- strings for stayinfo -->
+    <string name="stayinfo_enter">입실시간 | </string>
+    <string name="stayinfo_leave">퇴실시간 | </string>
+
+    <!-- <string name=""></string> -->
+</resources>
