@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,13 +24,8 @@ public class ChargerController {
 
     @GetMapping("/chargers/{areaCode}")
     public ResponseEntity returnChargerList(@PathVariable("areaCode") String areaCode) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Member> member = memberService.findByEmail(email);
-        List<ChargerListDto> result = new ArrayList<>();
-
-        if (member.isPresent()) {
-            result = chargerService.returnListDto(member.get(), areaCode);
-        }
+        Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<ChargerListDto> result = chargerService.returnListDto(member, areaCode);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
 
@@ -40,13 +33,8 @@ public class ChargerController {
 
     @GetMapping("/chargers/info/{contentId}")
     public ResponseEntity returnChargerInfo(@PathVariable("contentId") Long contentId) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Member> member = memberService.findByEmail(email);
-        ChargerInfoDto result = new ChargerInfoDto();
-
-        if (member.isPresent()) {
-            result = chargerService.returnChargerInfo(member.get(), contentId);
-        }
+        Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ChargerInfoDto result = chargerService.returnChargerInfo(member, contentId);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

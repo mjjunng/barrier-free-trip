@@ -1,5 +1,6 @@
 package com.triply.barrierfreetrip;
 
+import com.triply.barrierfreetrip.member.domain.Member;
 import com.triply.barrierfreetrip.member.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

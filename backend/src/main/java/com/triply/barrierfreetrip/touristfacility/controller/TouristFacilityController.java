@@ -1,7 +1,6 @@
 package com.triply.barrierfreetrip.touristfacility.controller;
 
 import com.triply.barrierfreetrip.member.domain.Member;
-import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import com.triply.barrierfreetrip.touristfacility.dto.TouristFacilityInfoResponseDto;
 import com.triply.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
 import com.triply.barrierfreetrip.touristfacility.service.TouristFacilityService;
@@ -14,13 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 public class TouristFacilityController {
     private final TouristFacilityService touristFacilityService;
-    private final OauthMemberService memberService;
 
     /**
      * 관광 시설 리스트 리턴 api
@@ -43,13 +40,8 @@ public class TouristFacilityController {
 
     @GetMapping("/tourist-facilities/{contentId}")
     public ResponseEntity returnTouristInfo(@PathVariable("contentId") String contentId) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Member> member = memberService.findByEmail(email);
-        TouristFacilityInfoResponseDto result = new TouristFacilityInfoResponseDto();
-
-        if (member.isPresent()) {
-            result = touristFacilityService.returnInfoDto(member.get(), contentId);
-        }
+        Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        TouristFacilityInfoResponseDto result = touristFacilityService.returnInfoDto(member, contentId);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
