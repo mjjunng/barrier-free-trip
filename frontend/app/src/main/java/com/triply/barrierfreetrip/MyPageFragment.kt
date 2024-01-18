@@ -1,4 +1,4 @@
-package com.tripy.barrierfreetrip
+package com.triply.barrierfreetrip
 
 import androidx.fragment.app.Fragment
 

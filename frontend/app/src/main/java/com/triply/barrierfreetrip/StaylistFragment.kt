@@ -1,11 +1,11 @@
-package com.tripy.barrierfreetrip
+package com.triply.barrierfreetrip
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tripy.barrierfreetrip.databinding.FragmentStaylistBinding
-import com.tripy.barrierfreetrip.feature.BaseFragment
+import com.triply.barrierfreetrip.databinding.FragmentStaylistBinding
+import com.triply.barrierfreetrip.feature.BaseFragment
 
 class StaylistFragment : BaseFragment<FragmentStaylistBinding>(
     R.layout.fragment_staylist

@@ -1,4 +1,4 @@
-package com.tripy.barrierfreetrip
+package com.triply.barrierfreetrip
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.tripy.barrierfreetrip", appContext.packageName)
+        assertEquals("com.triply.barrierfreetrip", appContext.packageName)
     }
 }

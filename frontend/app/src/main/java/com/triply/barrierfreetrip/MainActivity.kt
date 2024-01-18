@@ -1,12 +1,11 @@
-package com.tripy.barrierfreetrip
+package com.triply.barrierfreetrip
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.tripy.barrierfreetrip.databinding.ActivityMainBinding
+import com.triply.barrierfreetrip.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
