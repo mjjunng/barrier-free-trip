@@ -1,7 +1,11 @@
 package com.triply.barrierfreetrip.member.service;
 
+import com.triply.barrierfreetrip.member.domain.RefreshToken;
 import com.triply.barrierfreetrip.member.domain.Token;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,11 +31,11 @@ public class TokenService {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public Token generateToken(String uid, List<String> roles) {
+    public Token generateToken(String email, List<String> roles) {
         long accessTokenPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
         long refreshPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
 
-        Claims claims = Jwts.claims().setSubject(uid);
+        Claims claims = Jwts.claims().setSubject(email);
         claims.put("roles", roles);
 
         Date now = new Date();
@@ -50,7 +54,7 @@ public class TokenService {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
 
-        return Token.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+        return Token.builder().accessToken(accessToken).refreshToken(refreshToken).keyEmail(email).build();
     }
 
     public boolean verifyToken(String token) {
@@ -89,5 +93,44 @@ public class TokenService {
         } else {
             return null;
         }
+    }
+
+    // verify refreshtoken
+    public String verifyRefreshToken(RefreshToken refreshTokenObj) {
+        // extract refresh token from refresh object
+        String refreshToken = refreshTokenObj.getRefreshToken();
+
+        try {
+            Jws<Claims> claims = Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(refreshToken);
+            // recreate access token
+            if (!claims.getBody().getExpiration().before(new Date())) {
+                return recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("roles"));
+            }
+
+        } catch (Exception e) {
+            // if expired refresh token, need to login
+            //System.out.println(e.getMessage());
+            return null;
+        }
+        return null;
+    }
+
+    public String recreationAccessToken(String email, Object roles) {
+        long accessTokenPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
+        Claims claims = Jwts.claims().setSubject(email);
+        claims.put("roles", roles);
+
+        Date now = new Date();
+
+        String accessToken = Jwts.builder()
+                .setClaims(claims)  // save info
+                .setIssuedAt(now)   // token generated time info
+                .setExpiration(new Date(now.getTime() + accessTokenPeriod)) // set expire time
+                .signWith(SignatureAlgorithm.HS256, secretKey)  // using encryption algorithm and set secret value
+                .compact();
+
+        return accessToken;
     }
 }

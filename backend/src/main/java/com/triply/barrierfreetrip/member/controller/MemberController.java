@@ -4,6 +4,7 @@ import com.triply.barrierfreetrip.member.domain.Member;
 import com.triply.barrierfreetrip.member.domain.Token;
 import com.triply.barrierfreetrip.member.dto.MemberResponseDto;
 import com.triply.barrierfreetrip.member.service.OauthMemberService;
+import com.triply.barrierfreetrip.member.service.RefreshTokenService;
 import com.triply.barrierfreetrip.member.service.TokenService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final OauthMemberService oauthMemberService;
     private final TokenService tokenService;
+    private final RefreshTokenService refreshTokenService;
 
     @GetMapping("/welcome")
     public String healthCheck() {
@@ -34,6 +36,8 @@ public class MemberController {
         // generate jwt
         Token token = tokenService.generateToken(member.getEmail(), member.getRoles());
 
+        // save refresh token
+        refreshTokenService.saveRefreshToken(token);
         MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname(),
                                                                     token.getAccessToken(), token.getRefreshToken());
         return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
