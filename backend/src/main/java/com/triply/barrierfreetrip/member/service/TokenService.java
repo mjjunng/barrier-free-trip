@@ -94,43 +94,4 @@ public class TokenService {
             return null;
         }
     }
-
-    // verify refreshtoken
-    public String verifyRefreshToken(RefreshToken refreshTokenObj) {
-        // extract refresh token from refresh object
-        String refreshToken = refreshTokenObj.getRefreshToken();
-
-        try {
-            Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(refreshToken);
-            // recreate access token
-            if (!claims.getBody().getExpiration().before(new Date())) {
-                return recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("roles"));
-            }
-
-        } catch (Exception e) {
-            // if expired refresh token, need to login
-            //System.out.println(e.getMessage());
-            return null;
-        }
-        return null;
-    }
-
-    public String recreationAccessToken(String email, Object roles) {
-        long accessTokenPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
-        Claims claims = Jwts.claims().setSubject(email);
-        claims.put("roles", roles);
-
-        Date now = new Date();
-
-        String accessToken = Jwts.builder()
-                .setClaims(claims)  // save info
-                .setIssuedAt(now)   // token generated time info
-                .setExpiration(new Date(now.getTime() + accessTokenPeriod)) // set expire time
-                .signWith(SignatureAlgorithm.HS256, secretKey)  // using encryption algorithm and set secret value
-                .compact();
-
-        return accessToken;
-    }
 }

@@ -15,23 +15,28 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class RefreshController {
+public class RefreshTokenController {
     private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/refresh")
     public ResponseEntity verifyRefreshToken(@RequestBody HashMap<String, String> bodyJson) {
-        Map<String, String> map = refreshTokenService.verifyRefreshToken(bodyJson.get("refreshToken"));
+        String newAccessToken = refreshTokenService.verifyRefreshToken(bodyJson.get("refreshToken"));
+        Map<String, String> map = new HashMap<>();
 
-        // if expired refreshtoken
-        if(map.get("status").equals("402")){
-            log.info("RefreshController - Refresh Token이 만료.");
+        // if uneffective refreshtoken
+        if(newAccessToken == null) {
+            map.put("errortype", "Forbidden");
+            map.put("status", "402");
+            map.put("message", "Refresh 토큰이 유효하지 않습니다. 로그인이 필요합니다.");
+
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
-            //return new ResponseEntity<RefreshApiResponseMessage>(refreshApiResponseMessage, HttpStatus.UNAUTHORIZED);
         }
 
         // if effective refreshtoken
-        log.info("RefreshController - Refresh Token이 유효.");
+        map.put("status", "200");
+        map.put("message", "Refresh 토큰을 통한 Access Token 생성이 완료되었습니다.");
+        map.put("accessToken", newAccessToken);
+
         return ResponseEntity.status(HttpStatus.OK).body(map);
-        //return new ResponseEntity<RefreshApiResponseMessage>(refreshApiResponseMessage, HttpStatus.OK);
     }
 }

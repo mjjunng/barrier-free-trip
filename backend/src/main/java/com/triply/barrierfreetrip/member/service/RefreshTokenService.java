@@ -3,17 +3,20 @@ package com.triply.barrierfreetrip.member.service;
 import com.triply.barrierfreetrip.member.domain.RefreshToken;
 import com.triply.barrierfreetrip.member.domain.Token;
 import com.triply.barrierfreetrip.member.repository.RefreshTokenRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RefreshTokenService {
-    private final TokenService tokenService;
+    private String secretKey = "testSecretKey202301125testSecretKey202301125testSecretKey202301125";
     private final RefreshTokenRepository refreshTokenRepository;
 
     public void saveRefreshToken(Token token) {
@@ -31,43 +34,48 @@ public class RefreshTokenService {
         refreshTokenRepository.save(refreshToken);
     }
 
-    public Map<String, String> verifyRefreshToken(String refreshToken) {
+    public String verifyRefreshToken(String refreshToken) {
         if (getRefreshToken(refreshToken).isPresent()) {
-            RefreshToken refreshToken1 = getRefreshToken(refreshToken).get();
-            String newAccessToken = tokenService.verifyRefreshToken(refreshToken1);
+            String savedRefreshToken = getRefreshToken(refreshToken).get().getRefreshToken();
 
-            return createRefreshJson(newAccessToken);
+            try {
+                Jws<Claims> claims = Jwts.parser()
+                        .setSigningKey(secretKey)
+                        .parseClaimsJws(savedRefreshToken);
+
+                // recreate access token
+                if (!claims.getBody().getExpiration().before(new Date())) {
+                    return recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("roles"));
+                }
+
+            } catch (Exception e) {
+                // if expired refresh token, need to login -> 예외 처리 필요!
+                //System.out.println(e.getMessage());
+                return null;
+            }
         }
-
-        Map<String, String> map = new HashMap<>();
-
-        map.put("errortype", "Forbidden");
-        map.put("status", "402");
-        map.put("message", "저장된 Refresh 토큰이 없습니다.");
-
-        return map;
+        // 저장된 refresh token이 없는 경우 -> 예외 처리 필요!
+        return null;
     }
 
     public Optional<RefreshToken> getRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken);
     }
 
-    public Map<String, String> createRefreshJson(String newAccessToken) {
-        Map<String, String> map = new HashMap<>();
+    public String recreationAccessToken(String email, Object roles) {
+        long accessTokenPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
+        Claims claims = Jwts.claims().setSubject(email);
+        claims.put("roles", roles);
 
-        if (newAccessToken == null) {
-            map.put("errortype", "Forbidden");
-            map.put("status", "402");
-            map.put("message", "Refresh 토큰이 만료되었습니다. 로그인이 필요합니다.");
+        Date now = new Date();
 
-            return map;
-        }
+        String accessToken = Jwts.builder()
+                .setClaims(claims)  // save info
+                .setIssuedAt(now)   // token generated time info
+                .setExpiration(new Date(now.getTime() + accessTokenPeriod)) // set expire time
+                .signWith(SignatureAlgorithm.HS256, secretKey)  // using encryption algorithm and set secret value
+                .compact();
 
-        map.put("status", "200");
-        map.put("message", "Refresh 토큰을 통한 Access Token 생성이 완료되었습니다.");
-        map.put("accessToken", newAccessToken);
-
-        return map;
+        return accessToken;
     }
-
 }
