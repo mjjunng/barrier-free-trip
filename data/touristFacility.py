@@ -68,6 +68,7 @@ def saveTouristFacility(host, user, password, db, charset):
 
                 try:
                     res = requests.get(url1, verify=False).text
+
                     data = json.loads(res)
                     resultCode = data["response"]["header"]["resultCode"]
                     res_cnt1 = int(data["response"]["body"]["totalCount"])
@@ -136,7 +137,9 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&serviceKey=' + serviceKey
 
                             # print("url3: ", url3)
+
                             res = requests.get(url3, verify=False).text
+
                             try:
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
@@ -159,6 +162,7 @@ def saveTouristFacility(host, user, password, db, charset):
                                 saveMysqlTourist(tuple([contentId, contentTypeId, title, addr1, addr2, overview,
                                                       homepage, tel, checkInTime, checkOutTime, parking, areaCode,
                                                       sigunguCode, mapx, mapy, firstimage]), cursor, conn)
+
                                 touristFacilityCnt += 1
 
                             except Exception as e:
@@ -173,6 +177,7 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&serviceKey=' + serviceKey
 
                             res = requests.get(url4, verify=False).text
+                            
                             try:
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
@@ -234,6 +239,7 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&serviceKey=' + serviceKey
                             try:
                                 res = requests.get(url5, verify=False).text
+
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
                                 cnt = int(data["response"]["body"]["totalCount"])
@@ -250,6 +256,7 @@ def saveTouristFacility(host, user, password, db, charset):
 
                                         saveMysqlTouristImg(tuple([contentId, originImgurl, cpyrhtDivCd, serialnum]),
                                                             cursor, conn)
+
                                         touristFacilityImgCnt += 1
 
                             except Exception as e:
@@ -259,6 +266,7 @@ def saveTouristFacility(host, user, password, db, charset):
                 except Exception as e:
                     print("error: ", e)
                     print("url1: ", url1)
+                    
                 sleep(1000)
 
     conn.close()
@@ -268,6 +276,3 @@ def saveTouristFacility(host, user, password, db, charset):
     print("touristFacility: {}".format(touristFacilityCnt))
     print("barrierFreeFacility: {}".format(barrierFreeFacilityCnt))
     print("touristFacilityImg: {}".format(touristFacilityImgCnt))
-
-
-

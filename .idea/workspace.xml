@@ -5,9 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7f1eecc-fd08-46a5-ac00-dec4cd564c67" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/dto/TouristFacilityListResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/dto/TouristFacilityListResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/service/TouristFacilityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/service/TouristFacilityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/androidTest/java/com/tripy/barrierfreetrip/ExampleInstrumentedTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/androidTest/java/com/triply/barrierfreetrip/ExampleInstrumentedTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/HomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/MapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/MapFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/MyPageFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/MyPageFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/SearchFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/SearchFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/StayInfoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/StayInfoFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/StaylistFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/StaylistFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/WishlistFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/WishlistFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/java/com/tripy/barrierfreetrip/feature/BaseFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/java/com/triply/barrierfreetrip/feature/BaseFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/res/layout/fragment_stay_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/res/layout/fragment_stay_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/test/java/com/tripy/barrierfreetrip/ExampleUnitTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/test/java/com/triply/barrierfreetrip/ExampleUnitTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +56,10 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/work/spring/barrier-free-trip/backend",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "D:/Studies/Github/barrier-free-trip/frontend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
