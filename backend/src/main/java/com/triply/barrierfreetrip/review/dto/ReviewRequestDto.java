@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReviewRequestDto {
-    private double rating;
+    private long rating;
     private String content;
 }

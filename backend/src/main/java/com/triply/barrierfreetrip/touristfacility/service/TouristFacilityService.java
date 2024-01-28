@@ -16,7 +16,7 @@ public interface TouristFacilityService {
 
     public TouristFacility findByContentId(String contentId);
 
-    List<TouristFacilityListResponseDto> returnListDto(String contentTypeId, String areaCode, String sigunguCode);
+    List<TouristFacilityListResponseDto> returnListDto(Member member, String contentTypeId, String areaCode, String sigunguCode);
     public TouristFacilityInfoResponseDto returnInfoDto(Member member, String contentId);
 
     public List<TouristFacilityListResponseDto> returnNearHotelDto(Double userX, Double userY, int dis);

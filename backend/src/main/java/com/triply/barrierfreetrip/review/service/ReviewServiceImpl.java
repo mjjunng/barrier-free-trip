@@ -18,7 +18,7 @@ public class ReviewServiceImpl implements ReviewService{
     private final ReviewRepository reviewRepository;
     @Override
     public void createReview(Member member, TouristFacility facility,
-                             double rating, String content) {
+                             long rating, String content) {
         Review review = new Review(member, facility, rating, content);
         reviewRepository.save(review);
     }

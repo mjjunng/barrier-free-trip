@@ -1,7 +1,6 @@
 package com.triply.barrierfreetrip.rental.service;
 
 import com.triply.barrierfreetrip.member.domain.Member;
-import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import com.triply.barrierfreetrip.rental.domain.Rental;
 import com.triply.barrierfreetrip.rental.domain.RentalHeart;
 import com.triply.barrierfreetrip.rental.dto.RentalListDto;
@@ -18,7 +17,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RentalServiceImpl implements RentalService{
     private final RentalRepository rentalRepository;
-    private final OauthMemberService memberService;
     private final RentalHeartRepository rentalHeartRepository;
 
     @Override

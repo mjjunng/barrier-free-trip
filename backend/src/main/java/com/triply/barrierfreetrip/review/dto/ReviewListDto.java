@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ReviewListDto {
     private String nickname;
-    private double rating;
+    private long rating;
     private String content;
 }
