@@ -1,20 +1,25 @@
-import createTable
+import initTable
 import touristFacility
 import rental
 import careTrip
 import wheelchairCharger
+import os
 
 # 0. setting
-host = 'localhost'
-user = 'root'
-password = '0422'
+host = os.environ['host']
+user = os.environ['user']
+password = os.environ['password']
 db = 'barrier_free_trip'
 charset = 'utf8'
 
-# 1. 테이블이 있는 지 확인한 후, 테이블이 없으면 테이블 create
-exits = createTable.checkExits(host, user, password, db, charset, 'touristFacility')
-if exits == 0:
-    createTable.createTables(host, user, password, db, charset)
+tables = ['touristFacility', 'barrierFreeFacility', 'touristFacilityImg',
+          'careTripService', 'rental', 'wheelchairCharger']
+
+# 1. 테이블이 있으면 drop 후 create
+for table in tables:
+    initTable.dropTables(host, user, password, db, charset, table)
+
+initTable.createTables(host, user, password, db, charset)
 
 # 2. 관광시설 데이터 저장
 touristFacility.saveTouristFacility(host, user, password, db, charset)
