@@ -23,7 +23,7 @@ public class TouristFacilityHeart {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "contentId")
+    @JoinColumn(name = "touristFacilityContentId")
     private TouristFacility touristFacility;
 
     public TouristFacilityHeart(Member member, TouristFacility touristFacility) {

@@ -1,8 +1,10 @@
 package com.triply.barrierfreetrip.touristfacility.domain;
 
+import com.triply.barrierfreetrip.review.domain.Review;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "touristFacility")
@@ -29,7 +31,10 @@ public class TouristFacility {
 
 	private String firstimage;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "contentId")
 	private BarrierFreeFacility barrierFreeFacility;
+
+	@OneToMany(mappedBy = "facility")
+	private List<Review> reviews;
 }

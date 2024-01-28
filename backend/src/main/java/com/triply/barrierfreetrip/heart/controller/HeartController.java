@@ -3,7 +3,6 @@ package com.triply.barrierfreetrip.heart.controller;
 import com.triply.barrierfreetrip.caretrip.service.CareTripService;
 import com.triply.barrierfreetrip.charger.service.ChargerService;
 import com.triply.barrierfreetrip.member.domain.Member;
-import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import com.triply.barrierfreetrip.rental.service.RentalService;
 import com.triply.barrierfreetrip.touristfacility.service.TouristFacilityHeartService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,6 @@ public class HeartController {
     private final CareTripService careTripService;
     private final ChargerService chargerService;
     private final RentalService rentalService;
-    private final OauthMemberService memberService;
 
     @GetMapping("/heart/{type}/{contentId}/{likes}")
     public void heart(@PathVariable("type") int type,

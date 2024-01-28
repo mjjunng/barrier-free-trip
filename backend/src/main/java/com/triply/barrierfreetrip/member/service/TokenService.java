@@ -1,6 +1,5 @@
 package com.triply.barrierfreetrip.member.service;
 
-import com.triply.barrierfreetrip.member.domain.RefreshToken;
 import com.triply.barrierfreetrip.member.domain.Token;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

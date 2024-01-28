@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class TouristFacilityServiceImpl implements TouristFacilityService {
     private final TouristFacilityRepository touristFacilityRepository;
     private final TouristFacilityHeartRepository touristFacilityHeartRepository;
-    private final MemberRepository memberRepository;
 
     @Override
     public List<TouristFacility> findByCode(String contentTypeId, String areaCode, String sigunguCode) {
