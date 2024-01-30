@@ -1,5 +1,12 @@
 package com.triply.barrierfreetrip.data
 
+data class LoginDto(
+    val accessToken: String,
+    val email: String,
+    val nickname: String,
+    val refreshToken: String
+)
+
 data class TourFacility(
     val addr: String,
     val contentId: String,

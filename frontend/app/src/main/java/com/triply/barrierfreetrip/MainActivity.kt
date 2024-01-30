@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.triply.barrierfreetrip.databinding.ActivityMainBinding
 
+// Main Activity로서의 기능 + 로그인 기능을 수행합니다.
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {

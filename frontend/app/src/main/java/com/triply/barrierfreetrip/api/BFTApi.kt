@@ -4,6 +4,7 @@ import com.triply.barrierfreetrip.data.CareTour
 import com.triply.barrierfreetrip.data.Charger
 import com.triply.barrierfreetrip.data.ChargerDetail
 import com.triply.barrierfreetrip.data.RentalServicePlace
+import com.triply.barrierfreetrip.data.SearchRsltItem
 import com.triply.barrierfreetrip.data.TourFacility
 import com.triply.barrierfreetrip.data.TourFacilityDetail
 import retrofit2.Call
@@ -12,6 +13,8 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface BFTApi {
+
+
     // API for Review
 
     // API for tourist facilities
@@ -51,4 +54,14 @@ interface BFTApi {
         @Path(value = "sigungu") smallPlaceCode : String
     ) : Call<List<RentalServicePlace>>
 
+    @GET("/search/{keyword}")
+    suspend fun getSearchResult(
+        @Path(value = "keyword") keyword : String
+    ) : Call<SearchRsltItem>
+
+    @GET("/near-hotels/{userX}/{userY}")
+    suspend fun getStayList(
+        @Path(value = "userX") userX : Double,
+        @Path(value = "userY") userY : Double
+    )
 }
