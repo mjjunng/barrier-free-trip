@@ -31,8 +31,9 @@ public class TouristFacilityController {
                                             @PathVariable("areaCode") String areaCode,
                                             @PathVariable("sigunguCode") String sigunguCode
                                             ) {
+        Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<TouristFacilityListResponseDto> result =
-                touristFacilityService.returnListDto(contentTypeId, areaCode, sigunguCode);
+                touristFacilityService.returnListDto(member, contentTypeId, areaCode, sigunguCode);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
 
