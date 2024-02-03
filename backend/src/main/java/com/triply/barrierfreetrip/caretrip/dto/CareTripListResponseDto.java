@@ -7,5 +7,5 @@ public class CareTripListResponseDto {
     private String title;
     private String addr;
     private String tel;
-    int like;
+    private boolean like;
 }

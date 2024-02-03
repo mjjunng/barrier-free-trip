@@ -31,11 +31,7 @@ public class ChargerServiceImpl implements ChargerService{
         for (Charger c: chargers) {
             ChargerListDto dto = new ChargerListDto(c.getId(), c.getTitle(), c.getAddr(), c.getTel());
             Optional<ChargerHeart> likes = chargerHeartRepository.findByIdsIfLikes(member, c);
-            if (likes.isPresent()) {
-                dto.setLike(1);
-            } else {
-                dto.setLike(0);
-            }
+            dto.setLike(likes.isPresent());
             result.add(dto);
         }
 

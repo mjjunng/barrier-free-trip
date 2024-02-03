@@ -12,7 +12,7 @@ public class ChargerListDto {
     private String title;
     private String addr;
     private String tel;
-    private int like;
+    private boolean like;
 
     public ChargerListDto(Long contentId, String title, String addr, String tel) {
         this.contentId = contentId;

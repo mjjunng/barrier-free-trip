@@ -27,11 +27,7 @@ public class RentalServiceImpl implements RentalService{
         for (Rental r: rentals) {
             RentalListDto dto = new RentalListDto(r.getTitle(), r.getAddr(), r.getTel());
             Optional<RentalHeart> likes = rentalHeartRepository.findByIdsIfLikes(member, r);
-            if (likes.isPresent()) {
-                dto.setLike(1);
-            } else {
-                dto.setLike(0);
-            }
+            dto.setLike(likes.isPresent());
             result.add(dto);
         }
 

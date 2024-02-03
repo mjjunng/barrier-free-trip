@@ -31,10 +31,6 @@ public class TouristFacility {
 
 	private String firstimage;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "contentId")
-	private BarrierFreeFacility barrierFreeFacility;
-
 	@OneToMany(mappedBy = "facility")
 	private List<Review> reviews;
 }
