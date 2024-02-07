@@ -1,12 +1,14 @@
 package com.triply.barrierfreetrip.touristfacility.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TouristFacilityListResponseDto {
     private String contentId;
     private String contentTypeId;

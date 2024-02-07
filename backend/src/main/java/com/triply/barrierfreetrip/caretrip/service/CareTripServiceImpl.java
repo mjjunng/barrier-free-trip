@@ -39,13 +39,14 @@ public class CareTripServiceImpl implements CareTripService{
 
     }
 
-    public void likes(Member member, Long contentId, int likes) {
+    public CareTripHeart likes(Member member, Long contentId, int likes) {
         Optional<CareTrip> careTrip = careTripRepository.findById(contentId);
 
         if (likes == 1) {  // 찜 추가
             if (careTrip.isPresent()) {
                 CareTripHeart careTripHeart = new CareTripHeart(member, careTrip.get());
                 careTripHeartRepository.save(careTripHeart);
+                return careTripHeart;
             }
 
         } else {    // 찜 해제
@@ -55,7 +56,7 @@ public class CareTripServiceImpl implements CareTripService{
                     int cnt = careTripHeartRepository.delete(careTripHeart.get().getId());
                 }
             }
-
         }
+        return null;
     }
 }

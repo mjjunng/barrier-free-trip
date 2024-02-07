@@ -1,5 +1,9 @@
 package com.triply.barrierfreetrip.member.domain;
 
+import com.triply.barrierfreetrip.caretrip.domain.CareTripHeart;
+import com.triply.barrierfreetrip.charger.domain.ChargerHeart;
+import com.triply.barrierfreetrip.rental.domain.RentalHeart;
+import com.triply.barrierfreetrip.touristfacility.domain.TouristFacilityHeart;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,6 +31,18 @@ public class Member implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<TouristFacilityHeart> touristFacilityHearts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<CareTripHeart> careTripHearts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<ChargerHeart> chargerHearts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<RentalHeart> rentalHearts = new ArrayList<>();
 
     public Member(String email, String nickname, List<String> roles) {
         this.email = email;

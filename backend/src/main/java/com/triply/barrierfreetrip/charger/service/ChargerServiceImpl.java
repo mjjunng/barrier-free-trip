@@ -38,13 +38,14 @@ public class ChargerServiceImpl implements ChargerService{
         return result;
     }
 
-    public void likes(Member member, Long contentId, int likes) {
+    public ChargerHeart likes(Member member, Long contentId, int likes) {
         Optional<Charger> charger = chargerRepository.findById(contentId);
 
         if (likes == 1) {  // 찜 추가
             if (charger.isPresent()) {
                 ChargerHeart chargerHeart = new ChargerHeart(member, charger.get());
                 chargerHeartRepository.save(chargerHeart);
+                return chargerHeart;
             }
 
         } else {    // 찜 해제
@@ -54,8 +55,8 @@ public class ChargerServiceImpl implements ChargerService{
                     int cnt = chargerHeartRepository.delete(chargerHeart.get().getId());
                 }
             }
-
         }
+        return null;
     }
 
     @Override
