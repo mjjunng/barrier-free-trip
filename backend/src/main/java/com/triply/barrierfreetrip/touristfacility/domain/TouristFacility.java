@@ -4,6 +4,7 @@ import com.triply.barrierfreetrip.review.domain.Review;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class TouristFacility {
 	private String checkInTime;
 	private String checkOutTime;
 	private String parking;
-	private Long rating;
+	private double rating;
 	private String areaCode;
 	private String sigunguCode;
 	private double mapx;

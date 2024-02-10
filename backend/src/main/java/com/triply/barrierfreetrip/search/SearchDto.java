@@ -10,5 +10,5 @@ public class SearchDto {
     private String addr;
     private String tel;
     private String firstImage;
-    private Long rating;
+    private double rating;
 }

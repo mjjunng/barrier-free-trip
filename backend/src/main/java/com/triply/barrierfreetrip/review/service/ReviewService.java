@@ -7,7 +7,7 @@ import com.triply.barrierfreetrip.touristfacility.domain.TouristFacility;
 import java.util.List;
 
 public interface ReviewService {
-    public void createReview(Member member, TouristFacility facility,
-                             long rating, String content);
+    public Review createReview(Member member, TouristFacility facility,
+                             double rating, String content);
     public List<Review> findByContentId(TouristFacility facility);
 }

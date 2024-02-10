@@ -14,12 +14,12 @@ public class TouristFacilityListResponseDto {
     private String contentTypeId;
     private String title;
     private String addr;
-    private Long rating;
+    private double rating;
     private String firstimg;
     private String tel;
     private boolean like;
 
-    public TouristFacilityListResponseDto(String contentId, String contentTypeId, String title, String addr, Long rating, String firstimg, String tel) {
+    public TouristFacilityListResponseDto(String contentId, String contentTypeId, String title, String addr, double rating, String firstimg, String tel) {
         this.contentId = contentId;
         this.contentTypeId = contentTypeId;
         this.title = title;

@@ -5,13 +5,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class TouristFacilityRepositoryImpl implements TouristFacilityRepository {
     private final EntityManager em;
+
+    @Override
+    public void save(TouristFacility touristFacility) {
+        em.persist(touristFacility);
+    }
 
     @Override
     public List<TouristFacility> findByCode(String contentTypeId, String areaCode, String siginguCode) {
@@ -62,6 +69,4 @@ public class TouristFacilityRepositoryImpl implements TouristFacilityRepository 
 
 
     }
-
-
 }

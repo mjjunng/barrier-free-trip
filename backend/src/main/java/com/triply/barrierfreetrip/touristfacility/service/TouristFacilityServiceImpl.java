@@ -110,4 +110,14 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
 
     }
 
+    @Override
+    // review update
+    public void updateRating(TouristFacility touristFacility, double newRating) {
+        double rating = touristFacility.getRating();
+        double updatedRating = Math.round((rating + newRating) / touristFacility.getReviews().size() * 10) / 10.0;
+        touristFacility.setRating(updatedRating);
+
+        touristFacilityRepository.save(touristFacility);
+    }
+
 }

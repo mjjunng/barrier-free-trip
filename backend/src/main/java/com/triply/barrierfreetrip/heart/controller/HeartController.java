@@ -14,7 +14,6 @@ import com.triply.barrierfreetrip.rental.domain.Rental;
 import com.triply.barrierfreetrip.rental.domain.RentalHeart;
 import com.triply.barrierfreetrip.rental.dto.RentalListDto;
 import com.triply.barrierfreetrip.rental.service.RentalService;
-import com.triply.barrierfreetrip.review.dto.ReviewListDto;
 import com.triply.barrierfreetrip.touristfacility.domain.TouristFacility;
 import com.triply.barrierfreetrip.touristfacility.domain.TouristFacilityHeart;
 import com.triply.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
@@ -28,8 +27,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
