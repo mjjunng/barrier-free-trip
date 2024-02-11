@@ -1,12 +1,13 @@
 package com.triply.barrierfreetrip.member.service;
 
-import com.triply.barrierfreetrip.member.domain.Member;
-import com.triply.barrierfreetrip.member.dto.SocialMemberDto;
-import com.triply.barrierfreetrip.member.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.triply.barrierfreetrip.member.domain.Member;
+import com.triply.barrierfreetrip.member.dto.SocialMemberDto;
+import com.triply.barrierfreetrip.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,8 +26,10 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OauthMemberServiceImpl implements OauthMemberService, UserDetailsService {
     private final MemberRepository memberRepository;
+    private final RefreshTokenService refreshTokenService;
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String KAKAO_CLIENT_ID;
