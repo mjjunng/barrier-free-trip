@@ -1,10 +1,7 @@
 package com.triply.barrierfreetrip.member.service;
 
 import com.triply.barrierfreetrip.member.domain.Token;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +28,8 @@ public class TokenService {
     }
 
     public Token generateToken(String email, List<String> roles) {
-        long accessTokenPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
+//        long accessTokenPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
+        long accessTokenPeriod = 1000L * 60L * 10L; // 10분
         long refreshPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
 
         Claims claims = Jwts.claims().setSubject(email);
@@ -65,10 +63,9 @@ public class TokenService {
             return claims.getBody()
                     .getExpiration().after(new Date());
 
-        } catch (Exception e) {
-            //System.out.println(e.getMessage());
-            return false;
-        }
+        } catch (ExpiredJwtException e) {
+            throw new JwtException("토큰 기한 만료");
+        } // 후에 예외 추가 필요
     }
 
     // search authentication

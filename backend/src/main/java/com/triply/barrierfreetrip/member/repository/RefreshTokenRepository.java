@@ -14,7 +14,10 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
 {
     Optional<RefreshToken> findByRefreshToken(String refreshToken);
     boolean existsByKeyEmail(String email);
-    void deleteByKeyEmail(String email);
+
+    @Modifying
+    @Query("delete from RefreshToken rt where rt.keyEmail=:emails")
+    void deleteByKeyEmail(@Param("emails") String email);
 
     @Modifying
     @Query("delete from RefreshToken rt where rt.refreshToken=:tokens")
