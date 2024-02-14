@@ -28,8 +28,8 @@ public class TokenService {
     }
 
     public Token generateToken(String email, List<String> roles) {
-//        long accessTokenPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
-        long accessTokenPeriod = 1000L * 60L * 10L; // 10분
+        long accessTokenPeriod = 1000L * 60L * 60L * 24L * 30L;    // 한 달
+        //long accessTokenPeriod = 1000L * 60L * 10L; // 10분
         long refreshPeriod = 1000L * 60L * 60L * 24L * 30L * 3L;
 
         Claims claims = Jwts.claims().setSubject(email);
