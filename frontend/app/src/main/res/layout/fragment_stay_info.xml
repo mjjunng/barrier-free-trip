@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:layout_marginStart="9dp"
-                    android:background="@drawable/shape_sub_pink_btn"
+                    android:background="@drawable/shape_sub_pink"
                     android:drawableStart="@drawable/ic_stayinfo_review"
                     android:paddingHorizontal="11dp"
                     android:text='@{"hi " + numReview}'
