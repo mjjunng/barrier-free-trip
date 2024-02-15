@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 public class JwtExceptionResponse {
     private String exceptionMessage;
     private HttpStatus status;
+    private String code;
 
     public String convertToJson(JwtExceptionResponse jwtExceptionResponse) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

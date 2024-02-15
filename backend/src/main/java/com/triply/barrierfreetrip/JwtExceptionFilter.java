@@ -26,7 +26,15 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         response.setStatus(status.value());
         response.setContentType("application/json; charset=UTF-8");
 
-        JwtExceptionResponse jwtExceptionResponse = new JwtExceptionResponse(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        String code = "";
+        if (e.getMessage().equals("유효하지 않은 토큰")) {
+            code = "600";
+        } else if (e.getMessage().equals("헤더에 토큰 없음")) {
+            code = "601";
+        } else {
+          code = "602";
+        }
+        JwtExceptionResponse jwtExceptionResponse = new JwtExceptionResponse(e.getMessage(), HttpStatus.UNAUTHORIZED, code);
         response.getWriter().write(jwtExceptionResponse.convertToJson(jwtExceptionResponse));
     }
 }
