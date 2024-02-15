@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 @Setter
+@Table(name = "member")
 public class Member implements UserDetails {
     @Id
     @GeneratedValue
