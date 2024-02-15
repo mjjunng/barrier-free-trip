@@ -3,6 +3,7 @@ import json
 import pymysql
 from time import sleep
 
+
 serviceKey = "x80%2Fkb1fC2Bm2WJYIVN%2BvX%2Blx2CQEs5rB6fQyz6jRL359DglzzDBeKCjZ2jkyvjaVpinPrXRgDOpRCbVIf1k6A%3D%3D"
 
 
@@ -68,6 +69,7 @@ def saveTouristFacility(host, user, password, db, charset):
 
                 try:
                     res = requests.get(url1, verify=False).text
+
                     data = json.loads(res)
                     resultCode = data["response"]["header"]["resultCode"]
                     res_cnt1 = int(data["response"]["body"]["totalCount"])
@@ -137,6 +139,7 @@ def saveTouristFacility(host, user, password, db, charset):
 
                             # print("url3: ", url3)
                             res = requests.get(url3, verify=False).text
+                            
                             try:
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
@@ -173,6 +176,7 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&serviceKey=' + serviceKey
 
                             res = requests.get(url4, verify=False).text
+
                             try:
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
@@ -234,6 +238,7 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&serviceKey=' + serviceKey
                             try:
                                 res = requests.get(url5, verify=False).text
+
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
                                 cnt = int(data["response"]["body"]["totalCount"])
@@ -250,6 +255,7 @@ def saveTouristFacility(host, user, password, db, charset):
 
                                         saveMysqlTouristImg(tuple([contentId, originImgurl, cpyrhtDivCd, serialnum]),
                                                             cursor, conn)
+
                                         touristFacilityImgCnt += 1
 
                             except Exception as e:
@@ -268,6 +274,3 @@ def saveTouristFacility(host, user, password, db, charset):
     print("touristFacility: {}".format(touristFacilityCnt))
     print("barrierFreeFacility: {}".format(barrierFreeFacilityCnt))
     print("touristFacilityImg: {}".format(touristFacilityImgCnt))
-
-
-
