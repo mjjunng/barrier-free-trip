@@ -15,6 +15,8 @@ object RetroInstance {
     )
     private val KAKAO_KEY = appInfo.metaData.getString("KAKAO_KEY").toString()
     private val NAVER_KEY = appInfo.metaData.getString("NAVER_KEY").toString()
+    private val KAKAO_URL = "http://localhost:8080/oauth/kakao&response_type=code"
+    private val NAVER_URL = "http://localhost:8080/oauth/naver"
 
     private val client: Retrofit = Retrofit
         .Builder()
