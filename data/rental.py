@@ -20,7 +20,6 @@ def saveRental(host, user, password, db, charset):
                            db=db,
                            charset=charset)
     cursor = conn.cursor()
-
     driver = webdriver.Chrome()
     url = "https://www.socialservice.or.kr:444/user/search/supply/supplyTotalList.do"
 
@@ -35,6 +34,7 @@ def saveRental(host, user, password, db, charset):
                '//*[@id="contents"]/div[2]/div[3]/div/span[9]'
                 ]
     idx = 0
+    rentalCnt = 0
 
     for x_path in x_paths:
         driver.find_element(By.XPATH, x_path).click()
@@ -56,3 +56,9 @@ def saveRental(host, user, password, db, charset):
 
             saveMysqlRentalService(tuple([idx, title, tel, sido, sigungu, addr]), cursor, conn)
             idx += 1
+            rentalCnt += 1
+
+    print("=====FINISH SAVE TENTAL DATA=====")
+    print("=====        SAVE TOTAL           =====")
+    print("rental: {}".format(rentalCnt))
+

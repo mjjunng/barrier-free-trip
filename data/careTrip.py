@@ -38,6 +38,8 @@ def saveCareTrip(host, user, password, db, charset):
                '//*[@id="contents"]/div[2]/div[3]/div/span[5]'
                 ]
     idx = 0
+    careTripCnt = 0
+
     for x_path in x_paths:
         if x_path == '//*[@id="contents"]/div[2]/div[3]/div/a[3]':  # 다음 10페이지
             driver.find_element(By.XPATH, x_path).send_keys(Keys.ENTER)
@@ -63,3 +65,8 @@ def saveCareTrip(host, user, password, db, charset):
 
             saveMysqlCareTripService(tuple([idx, title, tel, sido, sigungu, addr]), cursor, conn)
             idx += 1
+            careTripCnt += 1
+
+    print("=====FINISH SAVE CARETRIP DATA=====")
+    print("=====        SAVE TOTAL           =====")
+    print("careTripCnt: {}".format(careTripCnt))

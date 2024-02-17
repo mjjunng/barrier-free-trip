@@ -22,6 +22,8 @@ def saveWheelchairCharger(host, user, password, db, charset):
     file_path = "wheelchairChargerData.json"
 
     idx = 0
+    wheelchairCnt= 0
+
     with open(file_path, 'r', encoding='utf-8') as file:
         json_data = json.load(file)
         data = json_data["records"]
@@ -53,3 +55,9 @@ def saveWheelchairCharger(host, user, password, db, charset):
                                                           weekdayClose, weekendOpen, weekendClose, holidayOpen, holidayClose,
                                                           possible, air, phoneCharge, tel, mapx, mapy]), cursor, conn)
             idx += 1
+            wheelchairCnt += 1
+
+    print("=====FINISH SAVE WHEELCHAIR DATA=====")
+    print("=====        SAVE TOTAL           =====")
+    print("wheelchair: {}".format(wheelchairCnt))
+
