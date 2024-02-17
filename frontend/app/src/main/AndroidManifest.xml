@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".BFTApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -21,6 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="KAKAO_KEY"
+            android:value="${KAKAO_CLIENT_ID}" />
+        <meta-data
+            android:name="NAVER_KEY"
+            android:value="${NAVER_CLIENT_ID}" />
     </application>
 
 </manifest>

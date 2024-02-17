@@ -7,7 +7,6 @@ import com.triply.barrierfreetrip.charger.dto.ChargerListDto;
 import com.triply.barrierfreetrip.charger.repository.ChargerHeartRepository;
 import com.triply.barrierfreetrip.charger.repository.ChargerRepository;
 import com.triply.barrierfreetrip.member.domain.Member;
-import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ChargerServiceImpl implements ChargerService{
     private final ChargerRepository chargerRepository;
-    private final OauthMemberService memberService;
     private final ChargerHeartRepository chargerHeartRepository;
 
 

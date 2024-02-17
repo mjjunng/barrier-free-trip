@@ -27,10 +27,10 @@ public class Review {
     @JoinColumn(name = "touristFacilityContentId")
     private TouristFacility facility;
 
-    private double rating;
+    private long rating;
     private String content;
 
-    public Review(Member member, TouristFacility facility, double rating, String content) {
+    public Review(Member member, TouristFacility facility, long rating, String content) {
         this.member = member;
         this.facility = facility;
         this.rating = rating;

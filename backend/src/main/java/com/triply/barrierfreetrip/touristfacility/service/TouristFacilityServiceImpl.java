@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,13 +41,21 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
 
     }
     @Override
-    public List<TouristFacilityListResponseDto> returnListDto(String contentTypeId, String areaCode, String sigunguCode) {
+    public List<TouristFacilityListResponseDto> returnListDto(Member member, String contentTypeId,
+                                                              String areaCode, String sigunguCode) {
         List<TouristFacility> touristFacilities = findByCode(contentTypeId, areaCode, sigunguCode);
+        List<TouristFacilityListResponseDto> result = new ArrayList<>();
 
-        return touristFacilities.stream()
-                .map(tf -> new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentTypeId(),
-                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage(), tf.getTel()))
-                .collect(Collectors.toList());
+        for (TouristFacility tf: touristFacilities) {
+            TouristFacilityListResponseDto  dto = new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentTypeId(),
+                    tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage(), tf.getTel());
+
+            Optional<TouristFacilityHeart> heart = touristFacilityHeartRepository.findByIdsIfLikes(member, tf);
+            dto.setLike(heart.isPresent());
+            result.add(dto);
+        }
+
+        return result;
     }
     @Override
     public TouristFacilityInfoResponseDto returnInfoDto(Member member, String contentId) {

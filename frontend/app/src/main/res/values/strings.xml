@@ -9,6 +9,7 @@
     <string name="all_stay_nearby">내 주변 숙박시설</string>
     <string name="all_charge_nearby">내 주변 전동휠체어 충전기</string>
     <string name="all_more_info">더보기</string>
+    <string name="all_review">리뷰</string>
 
     <string name="all_temp_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="all_temp_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
@@ -36,6 +37,8 @@
     <!-- strings for stayinfo -->
     <string name="stayinfo_enter">입실시간 | </string>
     <string name="stayinfo_leave">퇴실시간 | </string>
+
+
 
     <!-- <string name=""></string> -->
 </resources>

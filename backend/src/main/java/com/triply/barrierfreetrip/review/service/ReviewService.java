@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ReviewService {
     public void createReview(Member member, TouristFacility facility,
-                             double rating, String content);
+                             long rating, String content);
     public List<Review> findByContentId(TouristFacility facility);
 }
