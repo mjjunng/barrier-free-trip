@@ -7,7 +7,6 @@ import com.triply.barrierfreetrip.data.ChargerDetail
 import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.data.RentalServicePlace
 import com.triply.barrierfreetrip.data.SearchRsltItem
-import com.triply.barrierfreetrip.data.TourFacility
 import com.triply.barrierfreetrip.data.TourFacilityDetail
 import retrofit2.Call
 import retrofit2.http.GET
