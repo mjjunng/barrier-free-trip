@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listItem"
+            type="com.triply.barrierfreetrip.data.InfoListDto" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_list_place_img"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_home_caretrip" />
+
+        <TextView
+            android:id="@+id/tv_list_place_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{listItem.title}"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iv_list_place_img"
+            app:layout_constraintTop_toTopOf="@+id/iv_list_place_img" />
+
+        <ImageView
+            android:id="@+id/iv_list_location"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_list_location"
+            app:layout_constraintStart_toStartOf="@+id/tv_list_place_name"
+            app:layout_constraintTop_toTopOf="@+id/tv_list_location"
+            app:srcCompat="@drawable/ic_location" />
+
+        <TextView
+            android:id="@+id/tv_list_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@{listItem.addr}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_list_location"
+            app:layout_constraintTop_toBottomOf="@+id/tv_list_place_name" />
+
+        <ImageView
+            android:id="@+id/iv_list_call"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_list_call_number"
+            app:layout_constraintStart_toStartOf="@+id/iv_list_location"
+            app:layout_constraintTop_toTopOf="@+id/tv_list_call_number"
+            app:srcCompat="@drawable/ic_call" />
+
+        <TextView
+            android:id="@+id/tv_list_call_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{listItem.tel}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_list_call"
+            app:layout_constraintTop_toBottomOf="@+id/iv_list_location" />
+
+        <ToggleButton
+            android:id="@+id/tb_list_like"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/selector_toggle_heart"
+            android:textOff=""
+            android:textOn=""
+            android:checked="@{listItem.like ? true : false}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/shape_sub_pink"
+            android:text="Button"
+            android:textSize="13sp"
+            android:padding="0dp"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

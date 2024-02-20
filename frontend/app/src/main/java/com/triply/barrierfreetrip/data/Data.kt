@@ -1,20 +1,14 @@
 package com.triply.barrierfreetrip.data
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+
 data class LoginDto(
     val accessToken: String,
     val email: String,
     val nickname: String,
     val refreshToken: String
-)
-
-data class TourFacility(
-    val addr: String,
-    val contentId: String,
-    val contentTypeId: String,
-    val firstimg: String,
-    val rating: Long,
-    val tel: String,
-    val title: String
 )
 
 data class TourFacilityDetail(
@@ -91,6 +85,7 @@ data class ChargerDetail(
 )
 
 data class CareTour(
+
     val addr: String,
     val like: Int,
     val tel: String,
@@ -120,3 +115,31 @@ data class RestPlace(
     val rating: Any,
     val title: String
 )
+
+data class InfoListDto(
+    val id: Int,
+    val addr: String,
+    val like: Boolean,
+    val tel: String,
+    val title: String
+)
+data class InfoSquareDto(
+    val addr: String,
+    val contentId: String,
+    val contentTypeId: String,
+    val firstimg: String,
+    val like: Boolean,
+    val rating: Int,
+    val tel: String,
+    val title: String
+) {
+    object SquareBind {
+        @JvmStatic
+        @BindingAdapter("setImage")
+        fun setImgUrl(view: ImageView, img: String) {
+            Glide.with(view.context)
+                .load(img)
+                .into(view)
+        }
+    }
+}
