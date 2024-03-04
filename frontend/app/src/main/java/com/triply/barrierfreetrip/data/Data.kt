@@ -143,3 +143,13 @@ data class InfoSquareDto(
         }
     }
 }
+
+data class Sido (
+    val code: String,
+    val name: String
+)
+
+data class Sigungu (
+    val code: String,
+    val name: String
+)

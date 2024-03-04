@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetroInstance {
-    private val BASE_URL = ""
+    private val BASE_URL = "http://10.0.2.2:8080"
 
     private var appInfo = BFTApplication.ApplicationContext().applicationContext.packageManager.getApplicationInfo(
         BFTApplication.ApplicationContext().applicationContext.packageName, PackageManager.GET_META_DATA
