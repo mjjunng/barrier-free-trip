@@ -52,7 +52,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
         var sidoNames = ArrayList<String>()
 
         // set init on sido spinner
-        // 스피터 초기화 값 세팅해야 함
+        // todo::스피터 초기화 값 세팅해야 함
 //        sidoCodes.add(Sido("-1", "시도 선택"))
 //        sidoNames.add("시도 선택")
 
