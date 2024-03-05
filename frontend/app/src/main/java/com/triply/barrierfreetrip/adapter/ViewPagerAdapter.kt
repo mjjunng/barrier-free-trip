@@ -1,6 +1,5 @@
 package com.triply.barrierfreetrip.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -17,7 +16,6 @@ class ViewPagerAdapter (imgs: List<String>) :
     override fun getItemCount(): Int = item.size
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        //holder.imgs.setImageURI(Uri.parse(item[position]))
         Glide.with(holder.imgs.context)
             .load(item[position])
             .into(holder.imgs)

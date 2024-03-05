@@ -5,14 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.triply.barrierfreetrip.adapter.ViewPagerAdapter
 import com.triply.barrierfreetrip.api.BFTApi
 import com.triply.barrierfreetrip.api.RetroInstance
@@ -55,7 +52,6 @@ class StayInfoFragment : Fragment(R.layout.fragment_stay_info) {
             if (data != null) {
                 binding.vpStayinfo.adapter = ViewPagerAdapter(data.imgs)
                 binding.vpStayinfo.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                //SquareBind.setImgUrl(binding.ivPlaceImage, data.imgs.get(0))
                 binding.tvStayinfoPlaceName.text = data.title
                 binding.tvStayinfoRate.text = data.rating.toString()
                 binding.tvStayinfoLocation.text = data.addr1
@@ -68,15 +64,5 @@ class StayInfoFragment : Fragment(R.layout.fragment_stay_info) {
 
         })
         return binding.root
-    }
-
-    object SquareBind {
-        @JvmStatic
-        @BindingAdapter("setImage")
-        fun setImgUrl(view: ImageView, img: String) {
-            Glide.with(view.context)
-                .load(img)
-                .into(view)
-        }
     }
 }
