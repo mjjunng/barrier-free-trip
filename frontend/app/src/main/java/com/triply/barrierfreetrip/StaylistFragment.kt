@@ -123,7 +123,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
                         Log.d(TAG, "null sigungu code data")
                     }
 
-                    // setting sido data on second spinner
+                    // setting sigungu data on second spinner
                     var adapter2 = ArrayAdapter<String>(
                         requireContext(),
                         android.R.layout.simple_list_item_1, sigunguNames
@@ -174,8 +174,6 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
                 while (list.hasNext()) {
                     val item = list.next()
                     infoSquareDtoList.add(item)
-                    Log.d("test::", item.contentId)
-                    Log.d("test::", item.rating.toString())
                 }
             } else {
                 Log.d(TAG, "null near-hotel data")

@@ -4,6 +4,7 @@ import android.content.pm.ApplicationInfo
 import com.triply.barrierfreetrip.data.CareTour
 import com.triply.barrierfreetrip.data.Charger
 import com.triply.barrierfreetrip.data.ChargerDetail
+import com.triply.barrierfreetrip.data.InfoListDto
 import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.data.RentalServicePlace
 import com.triply.barrierfreetrip.data.RestPlace
@@ -51,7 +52,7 @@ interface BFTApi {
     suspend fun getCareTourList(
         @Path(value = "sido") bidPlaceCode : String,
         @Path(value = "sigungu") smallPlaceCode : String
-    ) : Response<List<CareTour>>
+    ) : Response<List<InfoListDto>>
 
     @GET("/rentals/{sido}/{sigungu}")
     suspend fun getRentalServiceList(

@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun initInViewCreated() {
         val responseLiveData : LiveData<Response<List<InfoSquareDto>>> = liveData {
-            val response = retrofit.getStayList(126.838044, 35.14384) // 사용자 좌표 값 넣어야 함
+            val response = retrofit.getStayList(126.838044, 35.14384) // todo::사용자 좌표 값 넣어야 함
 
             emit(response)
         }
@@ -75,7 +75,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val stayListFragment = StaylistFragment()
         binding.btnHomeStay.setOnClickListener {
             val bundle = Bundle()
-
             bundle.putString("type", "32")
             stayListFragment.arguments = bundle
 
@@ -88,7 +87,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         // 2. 관광지
         binding.btnHomeDestination.setOnClickListener {
             val bundle = Bundle()
-
             bundle.putString("type", "12")
             stayListFragment.arguments = bundle
 
@@ -101,7 +99,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         // 3. 음식점
         binding.btnHomeRestaurant.setOnClickListener {
             val bundle = Bundle()
-
             bundle.putString("type", "39")
             stayListFragment.arguments = bundle
 
@@ -114,6 +111,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         // 4. 돌봄여행
         var wishlistFragment = WishlistFragment()
         binding.btnHomeCaretrip.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("type", "1")
+            wishlistFragment.arguments = bundle
+
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, wishlistFragment)
@@ -122,6 +123,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         // 5. 충전기
         binding.btnHomeCharge.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("type", "2")
+            wishlistFragment.arguments = bundle
+
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, wishlistFragment)
@@ -130,6 +135,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         // 6. 렌탈
         binding.btnHomeRental.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("type", "3")
+            wishlistFragment.arguments = bundle
+
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, wishlistFragment)
