@@ -33,6 +33,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
         super.onCreate(savedInstanceState)
 
         type = arguments?.getString("type")
+
         // 뒤로 가기 버튼 클릭 시
 //        binding.btnBack.setOnClickListener {
 //
@@ -47,12 +48,21 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
         // view binding
         _binding = FragmentStaylistBinding.inflate(inflater, container, false)
 
+        // 목록화면의 타이틀 변경
+        if (type.equals("32")) {
+            binding.tvMain.text = "숙박"
+        } else if (type.equals("12")) {
+            binding.tvMain.text = "관광지"
+        } else {
+            binding.tvMain.text = "음식점"
+        }
+
         // init spinner data
         var sidoCodes = ArrayList<Sido>()
         var sidoNames = ArrayList<String>()
 
         // set init on sido spinner
-        // todo::스피터 초기화 값 세팅해야 함
+        // todo::스피너 초기화 값 세팅해야 함
 //        sidoCodes.add(Sido("-1", "시도 선택"))
 //        sidoNames.add("시도 선택")
 
@@ -164,6 +174,8 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
                 while (list.hasNext()) {
                     val item = list.next()
                     infoSquareDtoList.add(item)
+                    Log.d("test::", item.contentId)
+                    Log.d("test::", item.rating.toString())
                 }
             } else {
                 Log.d(TAG, "null near-hotel data")

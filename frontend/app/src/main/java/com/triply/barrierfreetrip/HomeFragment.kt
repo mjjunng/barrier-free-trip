@@ -71,9 +71,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         })
 
         // 아이콘 클릭 시 이동
+        // 1. 숙박
+        val stayListFragment = StaylistFragment()
         binding.btnHomeStay.setOnClickListener {
             val bundle = Bundle()
-            val stayListFragment = StaylistFragment()
 
             bundle.putString("type", "32")
             stayListFragment.arguments = bundle
@@ -84,9 +85,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 .commit()
         }
 
+        // 2. 관광지
         binding.btnHomeDestination.setOnClickListener {
             val bundle = Bundle()
-            val stayListFragment = StaylistFragment()
 
             bundle.putString("type", "12")
             stayListFragment.arguments = bundle
@@ -97,9 +98,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 .commit()
         }
 
-        binding.btnHomeDestination.setOnClickListener {
+        // 3. 음식점
+        binding.btnHomeRestaurant.setOnClickListener {
             val bundle = Bundle()
-            val stayListFragment = StaylistFragment()
 
             bundle.putString("type", "39")
             stayListFragment.arguments = bundle
@@ -110,24 +111,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 .commit()
         }
 
-        binding.btnHomeDestination.setOnClickListener {
+        // 4. 돌봄여행
+        var wishlistFragment = WishlistFragment()
+        binding.btnHomeCaretrip.setOnClickListener {
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_nav_host_fragment, WishlistFragment())
+                .replace(R.id.main_nav_host_fragment, wishlistFragment)
                 .commit()
         }
 
-        binding.btnHomeDestination.setOnClickListener {
+        // 5. 충전기
+        binding.btnHomeCharge.setOnClickListener {
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_nav_host_fragment, WishlistFragment())
+                .replace(R.id.main_nav_host_fragment, wishlistFragment)
                 .commit()
         }
 
-        binding.btnHomeDestination.setOnClickListener {
+        // 6. 렌탈
+        binding.btnHomeRental.setOnClickListener {
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_nav_host_fragment, WishlistFragment())
+                .replace(R.id.main_nav_host_fragment, wishlistFragment)
                 .commit()
         }
     }
