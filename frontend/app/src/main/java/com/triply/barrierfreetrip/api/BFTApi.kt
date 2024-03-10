@@ -38,10 +38,11 @@ interface BFTApi {
     ) : Response<TourFacilityDetail>
 
     // API for Charger
-    @GET("/chargers/{areaCode}")
+    @GET("/chargers/{sido}/{sigungu}")
     suspend fun getChargerList(
-        @Path(value = "areaCode") areaCode: String
-    ) : Response<List<Charger>>
+        @Path(value = "sido") sido: String,
+        @Path(value = "sigungu") sigungu: String
+    ) : Response<List<InfoListDto>>
 
     @GET("/chargers/info/{contentId}")
     suspend fun getChargerDetail(
@@ -58,7 +59,7 @@ interface BFTApi {
     suspend fun getRentalServiceList(
         @Path(value = "sido") bidPlaceCode : String,
         @Path(value = "sigungu") smallPlaceCode : String
-    ) : Response<List<RentalServicePlace>>
+    ) : Response<List<InfoListDto>>
 
     @GET("/search/{keyword}")
     suspend fun getSearchResult(

@@ -40,17 +40,20 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
         // view binding
         _binding = FragmentWishlistBinding.inflate(inflater, container, false)
 
-        // 목록화면의 타이틀 변경
+        // // 목록화면의 타이틀 변경, set init on sido spinner
+        lateinit var sidoNames : Array<String?>
+
         if (type.equals("1")) {
             binding.tvMain.text = "돌봄여행"
+            sidoNames = resources.getStringArray(R.array.care_sido_nms)
+
         } else if (type.equals("2")) {
             binding.tvMain.text = "충전기"
+            sidoNames = resources.getStringArray(R.array.charger_sido_nms)
         } else {
             binding.tvMain.text = "렌탈"
+            sidoNames = resources.getStringArray(R.array.rental_sido_nms)
         }
-
-        // set init on sido spinner
-        var sidoNames = resources.getStringArray(R.array.care_sido_nms)
 
         // setting sido data on first spinner
         var adapter = ArrayAdapter<String>(
@@ -72,21 +75,116 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
                     // setting sigungu data on second spinner
                     var sigunguArray = 0
 
-                    if (sidoNames[position].equals("광주광역시")) {
-                        sigunguArray = R.array.care_sigungu_gj
+                    if (sidoNames[position].equals("강원도")) {
+                        if (type.equals("3")) {
+                            sigunguArray = R.array.charger_sigungu_gw
+                        }
+                    } else if (sidoNames[position].equals("광주광역시")) {
+                        if (type.equals("1")) {
+                            sigunguArray = R.array.care_sigungu_gj
+                        } else if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_gj
+                        } else {
+                            sigunguArray = R.array.rental_sigungu_gj
+                        }
+
                     } else if (sidoNames[position].equals("대구광역시")) {
-                        sigunguArray = R.array.care_sigungu_dg
+                        if (type.equals("1")) {
+                            sigunguArray = R.array.care_sigungu_dg
+                        } else if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_dg
+                        } else {
+                            sigunguArray = R.array.rental_sigungu_dg
+                        }
+
                     } else if (sidoNames[position].equals("경상북도")) {
-                        sigunguArray = R.array.care_sigungu_gb
+                        if (type.equals("1")) {
+                            sigunguArray = R.array.care_sigungu_gb
+                        } else if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_gb
+                        } else {
+                            sigunguArray = R.array.rental_sigungu_gb
+                        }
+
                     } else if (sidoNames[position].equals("충청북도")) {
-                        sigunguArray = R.array.care_sigungu_cb
+                        if (type.equals("1")) {
+                            sigunguArray = R.array.care_sigungu_cb
+                        } else if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_cb
+                        } else {
+                            sigunguArray = R.array.rental_sigungu_cb
+                        }
+
                     } else if (sidoNames[position].equals("부산광역시")) {
-                        sigunguArray = R.array.care_sigungu_bs
+                        if (type.equals("1")) {
+                            sigunguArray = R.array.care_sigungu_bs
+                        } else if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_bs
+                        } else {
+                            sigunguArray = R.array.rental_sigungu_bs
+                        }
+
                     } else if (sidoNames[position].equals("경상남도")) {
-                        sigunguArray = R.array.care_sigungu_gn
+                        if (type.equals("1")) {
+                            sigunguArray = R.array.care_sigungu_gn
+                        } else if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_gn
+                        } else {
+                            sigunguArray = R.array.rental_sigungu_gn
+                        }
+
                     } else if (sidoNames[position].equals("대전광역시")) {
-                        sigunguArray = R.array.care_sigungu_dj
-                    } else {
+                        if (type.equals("1")) {
+                            sigunguArray = R.array.care_sigungu_dj
+                        } else if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_dj
+                        } else {
+                            sigunguArray = R.array.rental_sigungu_dj
+                        }
+
+                    } else if (sidoNames[position].equals("경기도")) {
+                        if (type.equals("2")) {
+                            sigunguArray = R.array.rental_sigungu_gyeonggi
+                        } else {
+                            sigunguArray = R.array.charger_sigungu_gyeonggi
+                        }
+
+                    } else if (sidoNames[position].equals("서울특별시")) {
+                        if (type.equals("2")) {
+                            sigunguArray = R.array.rental_sigungu_seoul
+                        } else {
+                            sigunguArray = R.array.charger_sigungu_seoul
+                        }
+                    } else if (sidoNames[position].equals("세종특별자치시")) {
+                        if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_sj
+                        }
+                    } else if (sidoNames[position].equals("울산광역시")) {
+                        if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_ws
+                        }
+                    } else if (sidoNames[position].equals("인천광역시")) {
+                        if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_ic
+                        }
+                    } else if (sidoNames[position].equals("전라북도")) {
+                        if (type.equals("3")) {
+                            sigunguArray = R.array.rental_sigungu_jb
+                        } else {
+                            sigunguArray = R.array.charger_sigungu_jb
+                        }
+                    } else if (sidoNames[position].equals("제주특별자치도")) {
+                        if (type.equals("2")) {
+                            sigunguArray = R.array.charger_sigungu_jeju
+                        }
+                    } else if (sidoNames[position].equals("충청남도")) {
+                        if (type.equals("3")) {
+                            sigunguArray = R.array.rental_sigungu_cn
+                        } else {
+                            sigunguArray = R.array.charger_sigungu_cn
+                        }
+                    }
+                    else {
                         sigunguArray = R.array.care_sigungu_no_seleected
                     }
                     var sigunguNames = resources.getStringArray(sigunguArray)
@@ -108,7 +206,7 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
                                 id: Long
                             ) {
                                 // get list data
-                                getListData(sidoNames[position], sigunguNames[position2])
+                                getListData(sidoNames[position], sigunguNames[position2], type)
                             }
                             override fun onNothingSelected(parent: AdapterView<*>?) {
                             }
@@ -120,14 +218,21 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
         return binding.root
     }
 
-    fun getListData(sidoNm: String, sigunguNm: String) {
+    fun getListData(sidoNm: String?, sigunguNm: String, pType: String?) {
         // get list data
         val infoListDtoList = ArrayList<InfoListDto>()
 
         val responseLiveData3: LiveData<Response<List<InfoListDto>>> = liveData {
-            val response = retrofit.getCareTourList(sidoNm, sigunguNm)
-
-            emit(response)
+            if (pType.equals("1")) {
+                val response = retrofit.getCareTourList(sidoNm.toString(), sigunguNm)
+                emit(response)
+            } else if (pType.equals("2")) {
+                val response = retrofit.getChargerList(sidoNm.toString(), sigunguNm)
+                emit(response)
+            } else {
+                val response = retrofit.getRentalServiceList(sidoNm.toString(), sigunguNm)
+                emit(response)
+            }
         }
 
         responseLiveData3.observe(viewLifecycleOwner, Observer {
