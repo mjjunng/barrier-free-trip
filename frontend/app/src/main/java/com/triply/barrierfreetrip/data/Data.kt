@@ -46,7 +46,7 @@ data class TourFacilityDetail(
     val parking: String,
     val promotion: Any,
     val publictransport: Any,
-    val rating: Long,
+    val rating: String,
     val restroom: Any,
     val room: Any,
     val route: Any,
@@ -129,7 +129,7 @@ data class InfoSquareDto(
     val contentTypeId: String,
     val firstimg: String,
     val like: Boolean,
-    val rating: Int,
+    val rating: String,
     val tel: String,
     val title: String
 ) {
@@ -143,3 +143,13 @@ data class InfoSquareDto(
         }
     }
 }
+
+data class Sido (
+    val code: String,
+    val name: String
+)
+
+data class Sigungu (
+    val code: String,
+    val name: String
+)

@@ -1,6 +1,7 @@
 import requests
 import json
 import pymysql
+from time import sleep
 
 serviceKey = "x80%2Fkb1fC2Bm2WJYIVN%2BvX%2Blx2CQEs5rB6fQyz6jRL359DglzzDBeKCjZ2jkyvjaVpinPrXRgDOpRCbVIf1k6A%3D%3D"
 
@@ -50,8 +51,9 @@ def saveTouristFacility(host, user, password, db, charset):
                     [str(i) for i in range(1, 11)], [str(i) for i in range(1, 2)], [str(i) for i in range(1, 11)],
                     [str(i) for i in range(1, 11)]]
 
-    cnt1 = 0
-    cnt2 = 0
+    touristFacilityCnt = 0
+    barrierFreeFacilityCnt = 0
+    touristFacilityImgCnt = 0
 
     for i in range(len(contentTypeIds)):
         for j in range(len(areaCodes)):
@@ -65,7 +67,8 @@ def saveTouristFacility(host, user, password, db, charset):
                        "&sigunguCode=" + sigunguCodes[j][k]
 
                 try:
-                    res = requests.get(url1).text
+                    res = requests.get(url1, verify=False).text
+
                     data = json.loads(res)
                     resultCode = data["response"]["header"]["resultCode"]
                     res_cnt1 = int(data["response"]["body"]["totalCount"])
@@ -111,7 +114,7 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&contentTypeId=' + contentTypeId + \
                                    '&serviceKey=' + serviceKey
 
-                            res = requests.get(url2).text
+                            res = requests.get(url2, verify=False).text
 
                             try:
                                 data = json.loads(res)
@@ -134,7 +137,9 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&serviceKey=' + serviceKey
 
                             # print("url3: ", url3)
-                            res = requests.get(url3).text
+
+                            res = requests.get(url3, verify=False).text
+
                             try:
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
@@ -157,7 +162,8 @@ def saveTouristFacility(host, user, password, db, charset):
                                 saveMysqlTourist(tuple([contentId, contentTypeId, title, addr1, addr2, overview,
                                                       homepage, tel, checkInTime, checkOutTime, parking, areaCode,
                                                       sigunguCode, mapx, mapy, firstimage]), cursor, conn)
-                                cnt1 += 1
+
+                                touristFacilityCnt += 1
 
                             except Exception as e:
                                 print("error: ", e)
@@ -170,7 +176,8 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&_type=json' \
                                    '&serviceKey=' + serviceKey
 
-                            res = requests.get(url4).text
+                            res = requests.get(url4, verify=False).text
+                            
                             try:
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
@@ -215,7 +222,7 @@ def saveTouristFacility(host, user, password, db, charset):
                                                brailepromotion, freeParking, route, publictransport, ticketoffice,
                                                promotion]), cursor, conn)
 
-                                    cnt2 += 1
+                                    barrierFreeFacilityCnt += 1
 
                             except Exception as e:
                                 print("error: ", e)
@@ -231,7 +238,8 @@ def saveTouristFacility(host, user, password, db, charset):
                                    '&_type=json' \
                                    '&serviceKey=' + serviceKey
                             try:
-                                res = requests.get(url5).text
+                                res = requests.get(url5, verify=False).text
+
                                 data = json.loads(res)
                                 resultCode = data["response"]["header"]["resultCode"]
                                 cnt = int(data["response"]["body"]["totalCount"])
@@ -249,6 +257,8 @@ def saveTouristFacility(host, user, password, db, charset):
                                         saveMysqlTouristImg(tuple([contentId, originImgurl, cpyrhtDivCd, serialnum]),
                                                             cursor, conn)
 
+                                        touristFacilityImgCnt += 1
+
                             except Exception as e:
                                 print("error: ", e)
                                 print("url5: ", url5)
@@ -256,12 +266,13 @@ def saveTouristFacility(host, user, password, db, charset):
                 except Exception as e:
                     print("error: ", e)
                     print("url1: ", url1)
+                    
+                sleep(1000)
 
     conn.close()
 
-    print("======FINISH=====")
-    print(cnt1)
-    print(cnt2)
-
-
-
+    print("=====FINISH SAVE TOURFACILITY DATA=====")
+    print("=====        SAVE TOTAL           =====")
+    print("touristFacility: {}".format(touristFacilityCnt))
+    print("barrierFreeFacility: {}".format(barrierFreeFacilityCnt))
+    print("touristFacilityImg: {}".format(touristFacilityImgCnt))
