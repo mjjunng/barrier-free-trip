@@ -21,6 +21,8 @@ import retrofit2.Response
 
 class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
     var retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
+    val activity = MainActivity()
+
     private var _binding:  FragmentWishlistBinding? = null
     lateinit var infoListAapter: InfoListAdapter
     private val binding get() = _binding!!

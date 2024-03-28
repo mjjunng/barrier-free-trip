@@ -21,8 +21,7 @@
             android:layout_height="120dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            setImage="@{squareItem.firstimg}" />
+            app:layout_constraintTop_toTopOf="parent"/>
 <!--            app:srcCompat="@android:drawable/btn_star_big_on" />-->
 
         <ToggleButton
