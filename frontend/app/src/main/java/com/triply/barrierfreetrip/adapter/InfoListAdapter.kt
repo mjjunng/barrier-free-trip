@@ -1,19 +1,16 @@
 package com.triply.barrierfreetrip.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.triply.barrierfreetrip.R
 import com.triply.barrierfreetrip.data.InfoListDto
 import com.triply.barrierfreetrip.databinding.ItemInfoListBinding
 
 // 화면에 표시만 하면 되는 경우 사용하는 기본 Adapter
 open class InfoListAdapter(var infoList : ArrayList<InfoListDto>) : RecyclerView.Adapter<ListViewHolder>() {
-
     private lateinit var binding : ItemInfoListBinding
     //var infoList = ArrayList<InfoListDto>()
 
@@ -34,7 +31,6 @@ open class InfoListAdapter(var infoList : ArrayList<InfoListDto>) : RecyclerView
 
 // 충전기처럼 다른 페이지로 넘어가야 하는 경우 사용하는 Adapter
 class InfoListClickAdapter(infoList: ArrayList<InfoListDto>) : InfoListAdapter(infoList) {
-
     private lateinit var itemClickListener: InfoListClickAdapter.OnItemClickListener
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
