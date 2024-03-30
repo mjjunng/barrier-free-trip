@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_homeFragment_to_staylistFragment"
             app:destination="@id/staylistFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_wishListFragment"
-            app:destination="@id/wishListFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -42,11 +39,6 @@
         android:name="com.triply.barrierfreetrip.StaylistFragment"
         android:label="fragment_staylist"
         tools:layout="@layout/fragment_staylist" />
-    <fragment
-        android:id="@+id/pickFragment"
-        android:name="com.triply.barrierfreetrip.PickFragment"
-        android:label="fragment_pick"
-        tools:layout="@layout/fragment_pick" />
 
 
 </navigation>

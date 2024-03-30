@@ -13,8 +13,4 @@
     <color name="yellow">#FFDA2D</color>
     <color name="green">#668077</color>
     <color name="transparent">#00ffffff</color>
-
-    <color name="kakao_yellow">#FDDD35</color>
-    <color name="kakao_brown">#381f1f</color>
-    <color name="naver_green">#06BE34</color>
 </resources>
