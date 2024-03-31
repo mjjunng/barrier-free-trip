@@ -22,6 +22,7 @@ interface BFTApi {
     // API for Login
 
     // API for Review
+
     // API for tourist facilities
     // 말 그대로 음식점, 관광 명소, 숙박 시설 다 조회 가능
     @GET("/tourist-facilities/{contentTypeId}/{areaCode}/{sigunguCode}")
