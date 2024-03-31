@@ -38,7 +38,8 @@
     <string name="stayinfo_enter">입실시간 | </string>
     <string name="stayinfo_leave">퇴실시간 | </string>
 
-
+    <!-- strings for search -->
+    <string name="serch_hint">검색어를 입력하세요</string>
 
     <!-- <string name=""></string> -->
 </resources>
