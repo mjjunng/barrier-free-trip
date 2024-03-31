@@ -3,33 +3,44 @@ package com.triply.barrierfreetrip
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
 import com.triply.barrierfreetrip.api.BFTApi
 import com.triply.barrierfreetrip.api.RetroInstance
 import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.databinding.FragmentHomeBinding
-import com.triply.barrierfreetrip.feature.BaseFragment
 import retrofit2.Response
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+
+class HomeFragment : Fragment(R.layout.fragment_home) {
     var retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
     lateinit var infoSquareAdapter: InfoSquareAdapter
     val infoSquareDtoList = ArrayList<InfoSquareDto>()
+    private var _binding:  FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val TAG = "HomeFragment"
 
-    override fun initInViewCreated() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         val responseLiveData : LiveData<Response<List<InfoSquareDto>>> = liveData {
             val response = retrofit.getStayList(126.838044, 35.14384) // todo::사용자 좌표 값 넣어야 함
 
             emit(response)
         }
 
-        responseLiveData.observe(this, Observer {
+        responseLiveData.observe(viewLifecycleOwner, Observer {
             val list = it.body()?.listIterator()
             if (list != null) {
                 while (list.hasNext()) {
@@ -39,18 +50,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             } else {
                 Log.d(TAG, "null near-hotel data")
             }
+
+
             infoSquareAdapter = InfoSquareAdapter(infoSquareDtoList)
             binding.rvNearHotelList.adapter = infoSquareAdapter
 //            binding.rvNearHotelList.addItemDecoration(
 //                GridSpacingItemDecoration(spanCount = 2, spacing = 10f.fromDpToPx())
 //            )
-//            binding.rvNearHotelList.run {
-//                adapter = infoSquareAdapter
-//                val spanCount = 2
-//                val space = 20
-//                addItemDecoration(GridSpacingItemDecoration(spanCount, space))
-//            }
-            binding.rvNearHotelList.layoutManager = LinearLayoutManager(context)
+
+            binding.rvNearHotelList.layoutManager = GridLayoutManager(context, 2)
 
             infoSquareAdapter.setItemClickListener(object : InfoSquareAdapter.OnItemClickListener {
                 override fun onClick(view: View, position: Int) {
@@ -144,6 +152,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 .replace(R.id.main_nav_host_fragment, wishlistFragment)
                 .commit()
         }
+
+        return binding.root
     }
 
     fun Float.fromDpToPx(): Int = (

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
 import com.triply.barrierfreetrip.api.BFTApi
@@ -149,10 +150,8 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
                     }
                 })
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
-
         }
 
         return binding.root
@@ -180,16 +179,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
             }
             infoSquareAdapter = InfoSquareAdapter(infoSquareDtoList)
             binding.rvList.adapter = infoSquareAdapter
-//            binding.rvNearHotelList.addItemDecoration(
-//                GridSpacingItemDecoration(spanCount = 2, spacing = 10f.fromDpToPx())
-//            )
-//            binding.rvNearHotelList.run {
-//                adapter = infoSquareAdapter
-//                val spanCount = 2
-//                val space = 20
-//                addItemDecoration(GridSpacingItemDecoration(spanCount, space))
-//            }
-            binding.rvList.layoutManager = LinearLayoutManager(context)
+            binding.rvList.layoutManager = GridLayoutManager(context, 2)
 
             infoSquareAdapter.setItemClickListener(object : InfoSquareAdapter.OnItemClickListener {
                 override fun onClick(view: View, position: Int) {
