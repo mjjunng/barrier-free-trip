@@ -1,7 +1,7 @@
 package com.triply.barrierfreetrip;
 
-import com.triply.barrierfreetrip.member.domain.Member;
 import com.triply.barrierfreetrip.member.service.TokenService;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,13 +23,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = tokenService.extractToken(request);
 
         // if token is valid
-        if ((token != null) && (tokenService.verifyToken(token))) {
-            // get member info from token
-            Authentication authentication = tokenService.getAuthentication(token);
+        if (token != null) {
+            if (tokenService.verifyToken(token)) {
+                // get member info from token
+                Authentication authentication = tokenService.getAuthentication(token);
 
-            // save member in securityContext
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
+                // save member in securityContext
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                throw new JwtException("유효하지 않은 토큰");
+            }
+        } else {
+            throw new JwtException("헤더에 토큰 없음");
         }
         // execute next filter
         filterChain.doFilter(request, response);

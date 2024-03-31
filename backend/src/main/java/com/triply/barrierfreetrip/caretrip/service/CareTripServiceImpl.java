@@ -6,7 +6,6 @@ import com.triply.barrierfreetrip.caretrip.dto.CareTripListResponseDto;
 import com.triply.barrierfreetrip.caretrip.repository.CareTripHeartRepository;
 import com.triply.barrierfreetrip.caretrip.repository.CareTripRepository;
 import com.triply.barrierfreetrip.member.domain.Member;
-import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -20,7 +19,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CareTripServiceImpl implements CareTripService{
     private final CareTripRepository careTripRepository;
-    private final OauthMemberService memberService;
     private final CareTripHeartRepository careTripHeartRepository;
 
     public List<CareTripListResponseDto> returnListDto(Member member, String sido, String sigungu) {
@@ -33,11 +31,7 @@ public class CareTripServiceImpl implements CareTripService{
         for (CareTrip c: careTrips) {
             CareTripListResponseDto dto = modelMapper.map(c, CareTripListResponseDto.class);
             Optional<CareTripHeart> likes = careTripHeartRepository.findByIdsIfLikes(member, c);
-            if (likes.isPresent()) {
-                dto.setLike(1);
-            } else {
-                dto.setLike(0);
-            }
+            dto.setLike(likes.isPresent());
             result.add(dto);
         }
 
@@ -45,13 +39,14 @@ public class CareTripServiceImpl implements CareTripService{
 
     }
 
-    public void likes(Member member, Long contentId, int likes) {
+    public CareTripHeart likes(Member member, Long contentId, int likes) {
         Optional<CareTrip> careTrip = careTripRepository.findById(contentId);
 
         if (likes == 1) {  // 찜 추가
             if (careTrip.isPresent()) {
                 CareTripHeart careTripHeart = new CareTripHeart(member, careTrip.get());
                 careTripHeartRepository.save(careTripHeart);
+                return careTripHeart;
             }
 
         } else {    // 찜 해제
@@ -61,7 +56,7 @@ public class CareTripServiceImpl implements CareTripService{
                     int cnt = careTripHeartRepository.delete(careTripHeart.get().getId());
                 }
             }
-
         }
+        return null;
     }
 }

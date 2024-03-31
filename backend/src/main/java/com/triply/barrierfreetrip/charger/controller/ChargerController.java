@@ -5,7 +5,6 @@ import com.triply.barrierfreetrip.charger.dto.ChargerInfoDto;
 import com.triply.barrierfreetrip.charger.dto.ChargerListDto;
 import com.triply.barrierfreetrip.charger.service.ChargerService;
 import com.triply.barrierfreetrip.member.domain.Member;
-import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChargerController {
     private final ChargerService chargerService;
-    private final OauthMemberService memberService;
 
     @GetMapping("/chargers/{areaCode}")
     public ResponseEntity returnChargerList(@PathVariable("areaCode") String areaCode) {

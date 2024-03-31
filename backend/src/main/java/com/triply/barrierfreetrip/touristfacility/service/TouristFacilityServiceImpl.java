@@ -1,13 +1,12 @@
 package com.triply.barrierfreetrip.touristfacility.service;
 
-import com.triply.barrierfreetrip.touristfacility.domain.TouristFacilityHeart;
-import com.triply.barrierfreetrip.touristfacility.repository.TouristFacilityHeartRepository;
 import com.triply.barrierfreetrip.member.domain.Member;
-import com.triply.barrierfreetrip.member.repository.MemberRepository;
 import com.triply.barrierfreetrip.touristfacility.domain.BarrierFreeFacility;
 import com.triply.barrierfreetrip.touristfacility.domain.TouristFacility;
+import com.triply.barrierfreetrip.touristfacility.domain.TouristFacilityHeart;
 import com.triply.barrierfreetrip.touristfacility.dto.TouristFacilityInfoResponseDto;
 import com.triply.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
+import com.triply.barrierfreetrip.touristfacility.repository.TouristFacilityHeartRepository;
 import com.triply.barrierfreetrip.touristfacility.repository.TouristFacilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -24,6 +23,7 @@ import java.util.stream.Collectors;
 public class TouristFacilityServiceImpl implements TouristFacilityService {
     private final TouristFacilityRepository touristFacilityRepository;
     private final TouristFacilityHeartRepository touristFacilityHeartRepository;
+    private final BarrierFreeFacilityService barrierFreeFacilityService;
 
     @Override
     public List<TouristFacility> findByCode(String contentTypeId, String areaCode, String sigunguCode) {
@@ -61,7 +61,7 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
     public TouristFacilityInfoResponseDto returnInfoDto(Member member, String contentId) {
         List<String> imgs = findImgByContentId(contentId);
         TouristFacility facility = findByContentId(contentId);
-        BarrierFreeFacility barrierFreeFacility = facility.getBarrierFreeFacility();
+        BarrierFreeFacility barrierFreeFacility = barrierFreeFacilityService.findByContentId(contentId);
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -108,6 +108,16 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
                         tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage(), tf.getTel()))
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    // review update
+    public void updateRating(TouristFacility touristFacility, double newRating) {
+        double rating = touristFacility.getRating();
+        double updatedRating = Math.round((rating + newRating) / touristFacility.getReviews().size() * 10) / 10.0;
+        touristFacility.setRating(updatedRating);
+
+        touristFacilityRepository.save(touristFacility);
     }
 
 }

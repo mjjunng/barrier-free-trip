@@ -14,10 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -32,8 +29,8 @@ public class ReviewController {
                                       @RequestBody ReviewRequestDto requestData) {
         Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         TouristFacility touristFacility = touristFacilityService.findByContentId(contentId);
-
-        reviewService.createReview(member, touristFacility, requestData.getRating(), requestData.getContent());
+        Review review = reviewService.createReview(member, touristFacility,
+                                                    requestData.getRating(), requestData.getContent());
 
         return ResponseEntity.status(HttpStatus.OK).body("");
     }

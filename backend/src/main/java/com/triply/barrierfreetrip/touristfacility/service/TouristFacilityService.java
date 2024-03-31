@@ -20,4 +20,6 @@ public interface TouristFacilityService {
     public TouristFacilityInfoResponseDto returnInfoDto(Member member, String contentId);
 
     public List<TouristFacilityListResponseDto> returnNearHotelDto(Double userX, Double userY, int dis);
+
+    public void updateRating(TouristFacility touristFacility, double newRating);
 }
