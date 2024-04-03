@@ -42,5 +42,8 @@
     <string name="kakao_login">카카오톡으로 로그인</string>
     <string name="naver_login">네이버로 로그인</string>
 
+    <!-- strings for search -->
+    <string name="serch_hint">검색어를 입력하세요</string>
+
     <!-- <string name=""></string> -->
 </resources>

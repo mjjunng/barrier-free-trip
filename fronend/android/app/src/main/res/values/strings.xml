@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">fronend</string>
-    <string name="kakao_app_key">@string/KAKAO_NATIVE_API_KEY</string>
-    <string name="kakao_app_key_string">@string/KAKAO_NATIVE_API_STRING</string>
-    <string name="client_id">@string/NAVER_CLIENT_ID</string>
-    <string name="client_secret">@string/NAVER_CLIENT_SECRET</string>
-    <string name="client_name">barrier-free-trip</string>
-    <string name="google_map_key">@string/GOOGLE_MAP_API_KEY</string>
-</resources>
