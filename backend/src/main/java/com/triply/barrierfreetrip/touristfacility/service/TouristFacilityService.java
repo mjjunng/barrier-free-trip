@@ -6,6 +6,7 @@ import com.triply.barrierfreetrip.touristfacility.dto.TouristFacilityInfoRespons
 import com.triply.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TouristFacilityService {
     public List<TouristFacility> findByCode(String contentTypeId,
@@ -22,4 +23,5 @@ public interface TouristFacilityService {
     public List<TouristFacilityListResponseDto> returnNearHotelDto(Double userX, Double userY, int dis);
 
     public void updateRating(TouristFacility touristFacility, double newRating);
+    public Optional<TouristFacility> findByTitle(String keyword);
 }

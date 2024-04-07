@@ -90,4 +90,9 @@ public class ChargerServiceImpl implements ChargerService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Optional<Charger> findByTitle(String keyword) {
+        return chargerRepository.findByTitle(keyword);
+    }
+
 }
