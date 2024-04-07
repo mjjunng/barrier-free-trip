@@ -24,8 +24,8 @@ public class ChargerServiceImpl implements ChargerService{
     private final ChargerHeartRepository chargerHeartRepository;
 
 
-    public List<ChargerListDto> returnListDto(Member member, String areaCode) {
-        List<Charger> chargers = chargerRepository.findByAreaCode(areaCode);
+    public List<ChargerListDto> returnListDto(Member member, String sido, String sigungu) {
+        List<Charger> chargers = chargerRepository.findByAreaCode(sido, sigungu);
         List<ChargerListDto> result = new ArrayList<>();
 
         for (Charger c: chargers) {

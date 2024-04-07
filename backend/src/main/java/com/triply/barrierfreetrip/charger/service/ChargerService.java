@@ -8,7 +8,7 @@ import com.triply.barrierfreetrip.member.domain.Member;
 import java.util.List;
 
 public interface ChargerService {
-    public List<ChargerListDto> returnListDto(Member member, String areaCode);
+    public List<ChargerListDto> returnListDto(Member member, String sido, String sigungu);
     public ChargerHeart likes(Member member, Long contentId, int likes);
 
     public ChargerInfoDto returnChargerInfo(Member member, Long contentId);

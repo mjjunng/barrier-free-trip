@@ -13,9 +13,10 @@ import java.util.Optional;
 public class ChargerRepositoryImpl implements ChargerRepository{
     private final EntityManager em;
 
-    public List<Charger> findByAreaCode(String areaCode) {
-        return em.createQuery("select c from Charger c where c.areaCode=:areaCodes")
-                .setParameter("areaCodes", areaCode)
+    public List<Charger> findByAreaCode(String sido, String sigungu) {
+        return em.createQuery("select c from Charger c where c.sido=:sidos and c.sigungu=:sigungus")
+                .setParameter("sidos", sido)
+                .setParameter("sigungus", sigungu)
                 .getResultList();
     }
 
@@ -48,7 +49,5 @@ public class ChargerRepositoryImpl implements ChargerRepository{
                 .setParameter("userXs", userX)
                 .setParameter("diss", dis)
                 .getResultList();
-
-
     }
 }
