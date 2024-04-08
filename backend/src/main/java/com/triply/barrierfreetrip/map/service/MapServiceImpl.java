@@ -29,7 +29,6 @@ public class MapServiceImpl implements MapService{
                 .map(c -> new NearServiceInfo(0, c.getTitle(), c.getMapx(), c.getMapy()))
                 .collect(Collectors.toList()));
 
-
         return result;
     }
 }

@@ -21,7 +21,7 @@ public class TouristFacilityInfoResponseDto {
     private String checkInTime;
     private String checkOutTime;
     private String parking;
-    private Long rating;
+    private double rating;
     private String areaCode;
     private String sigunguCode;
     private Double mapx;

@@ -60,3 +60,4 @@ def saveWheelchairCharger(host, user, password, db, charset):
     print("=====FINISH SAVE WHEELCHAIR DATA=====")
     print("=====        SAVE TOTAL           =====")
     print("wheelchair: {}".format(wheelchairCnt))
+
