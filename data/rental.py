@@ -61,4 +61,3 @@ def saveRental(host, user, password, db, charset):
     print("=====FINISH SAVE TENTAL DATA=====")
     print("=====        SAVE TOTAL           =====")
     print("rental: {}".format(rentalCnt))
-

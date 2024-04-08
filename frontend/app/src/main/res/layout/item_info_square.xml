@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="squareItem"
+            type="com.triply.barrierfreetrip.data.InfoSquareDto" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_place_image"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            setImage="@{squareItem.firstimg}" />
+<!--            app:srcCompat="@android:drawable/btn_star_big_on" />-->
+
+        <ToggleButton
+            android:id="@+id/tb_square_like"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:textOn=""
+            android:textOff=""
+            android:checked="@{squareItem.like ? true : false}"
+            android:background="@drawable/selector_toggle_heart"
+            android:button="@null"
+            app:layout_constraintEnd_toEndOf="@+id/iv_place_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_place_image" />
+
+        <ImageView
+            android:id="@+id/iv_square_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_square_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_square_location"
+            app:srcCompat="@drawable/ic_location" />
+
+        <TextView
+            android:id="@+id/tv_square_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{squareItem.addr}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_square_destination"
+            app:layout_constraintTop_toBottomOf="@+id/iv_place_image" />
+
+        <TextView
+            android:id="@+id/tv_square_place_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{squareItem.title}"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/iv_square_destination"
+            app:layout_constraintTop_toBottomOf="@+id/iv_square_destination" />
+
+        <TextView
+            android:id="@+id/tv_square_CallNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{squareItem.tel}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_square_place_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_square_place_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

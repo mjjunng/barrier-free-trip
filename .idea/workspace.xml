@@ -1,30 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
+    <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7f1eecc-fd08-46a5-ac00-dec4cd564c67" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/barrier-free-trip.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/dto/TouristFacilityListResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/dto/TouristFacilityListResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/service/TouristFacilityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/service/TouristFacilityServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExternalProjectsData">
-    <projectState path="$PROJECT_DIR$">
-      <ProjectState />
-    </projectState>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,46 +24,29 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2PpjaGg9NbWJRMqdRbHq4raW4MI" />
+  <component name="ProjectId" id="2cVGU9Vsp4vmAwsKjxr5gyx9izG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/work/spring/barrier-free-trip/backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "spring.configuration.checksum": "4416daeb0ccd7b976926ea7b0fa1bb59",
-    "vue.rearranger.settings.migration": "true"
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "develop",
+    "last_opened_file_path": "C:/Users/JUNGMINJI/StudioProjects/barrier-free-trip/frontend",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="Android API 34, extension level 7 Platform" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <module name="barrier-free-trip" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="barrier-free-trip" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BarrierFreeTripApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="barrier-free-trip.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.barrierfreetrip.BarrierFreeTripApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -81,22 +56,11 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="a7f1eecc-fd08-46a5-ac00-dec4cd564c67" name="Changes" comment="" />
-      <created>1684160982540</created>
+      <created>1708189348799</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1684160982540</updated>
-      <workItem from="1684160983651" duration="709000" />
-      <workItem from="1684164617286" duration="1280000" />
-      <workItem from="1684236920300" duration="4456000" />
-      <workItem from="1684242959113" duration="1971000" />
-      <workItem from="1684244957266" duration="87000" />
-      <workItem from="1691412237467" duration="790000" />
-      <workItem from="1698556199731" duration="787000" />
-      <workItem from="1699794076750" duration="755000" />
+      <updated>1708189348799</updated>
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>
