@@ -34,6 +34,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        // 내 주변 숙박시설 API 호출
         val responseLiveData : LiveData<Response<List<InfoSquareDto>>> = liveData {
             val response = retrofit.getStayList(126.838044, 35.14384) // todo::사용자 좌표 값 넣어야 함
 
@@ -71,12 +72,59 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                     requireActivity().supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.main_nav_host_fragment, stayInfoFragment)
+                        .add(R.id.main_nav_host_fragment, stayInfoFragment)
                         .commit()
                 }
             })
 
         })
+
+        // 내 주변 전동휠체어 충전기 API 호출
+        val responseLiveDataWheelchairList : LiveData<Response<List<InfoSquareDto>>> = liveData {
+            val response = retrofit.getStayList(126.838044, 35.14384) // todo::사용자 좌표 값 넣어야 함
+
+            emit(response)
+        }
+
+        responseLiveData.observe(viewLifecycleOwner, Observer {
+            val list = it.body()?.listIterator()
+            if (list != null) {
+                while (list.hasNext()) {
+                    val item = list.next()
+                    infoSquareDtoList.add(item)
+                }
+            } else {
+                Log.d(TAG, "null near-hotel data")
+            }
+
+
+            infoSquareAdapter = InfoSquareAdapter(infoSquareDtoList)
+            binding.rvNearHotelList.adapter = infoSquareAdapter
+//            binding.rvNearHotelList.addItemDecoration(
+//                GridSpacingItemDecoration(spanCount = 2, spacing = 10f.fromDpToPx())
+//            )
+
+            binding.rvNearHotelList.layoutManager = GridLayoutManager(context, 2)
+
+            infoSquareAdapter.setItemClickListener(object : InfoSquareAdapter.OnItemClickListener {
+                override fun onClick(view: View, position: Int) {
+                    val item = infoSquareDtoList[position]
+                    val bundle = Bundle()
+                    val stayInfoFragment = StayInfoFragment()
+
+                    bundle.putString("contentId", item.contentId)
+                    stayInfoFragment.arguments = bundle
+
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.main_nav_host_fragment, stayInfoFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+            })
+
+        })
+
 
         // 아이콘 클릭 시 이동
         // 1. 숙박
@@ -89,6 +137,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, stayListFragment)
+                .addToBackStack(null)
                 .commit()
         }
 
@@ -101,6 +150,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, stayListFragment)
+                .addToBackStack(null)
                 .commit()
         }
 
@@ -113,6 +163,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, stayListFragment)
+                .addToBackStack(null)
                 .commit()
         }
 
@@ -126,6 +177,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, wishlistFragment)
+                .addToBackStack(null)
                 .commit()
         }
 
@@ -138,6 +190,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, wishlistFragment)
+                .addToBackStack(null)
                 .commit()
         }
 
@@ -150,6 +203,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_nav_host_fragment, wishlistFragment)
+                .addToBackStack(null)
                 .commit()
         }
 
