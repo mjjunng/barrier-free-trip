@@ -101,10 +101,13 @@ data class RentalServicePlace(
 
 data class SearchRsltItem(
     val addr: String,
-    val firstImage: Any,
-    val rating: Any,
+    val firstImage: String,
+    val rating: String,
     val tel: String,
-    val title: String
+    val title: String,
+    val type: Int,
+    val id: Int,
+    val like: Boolean
 )
 
 data class RestPlace(
@@ -123,6 +126,7 @@ data class InfoListDto(
     val tel: String,
     val title: String
 )
+
 data class InfoSquareDto(
     val addr: String,
     val contentId: String,
