@@ -25,13 +25,9 @@ public class RentalServiceImpl implements RentalService{
         List<RentalListDto> result = new ArrayList<>();
 
         for (Rental r: rentals) {
-            RentalListDto dto = new RentalListDto(r.getTitle(), r.getAddr(), r.getTel());
+            RentalListDto dto = new RentalListDto(r.getId(), r.getTitle(), r.getAddr(), r.getTel());
             Optional<RentalHeart> likes = rentalHeartRepository.findByIdsIfLikes(member, r);
-            if (likes.isPresent()) {
-                dto.setLike(1);
-            } else {
-                dto.setLike(0);
-            }
+            dto.setLike(likes.isPresent());
             result.add(dto);
         }
 
@@ -39,13 +35,14 @@ public class RentalServiceImpl implements RentalService{
 
     }
 
-    public void likes(Member member, Long contentId, int likes) {
+    public RentalHeart likes(Member member, Long contentId, int likes) {
         Optional<Rental> rental = rentalRepository.findById(contentId);
 
         if (likes == 1) {  // 찜 추가
             if (rental.isPresent()) {
                 RentalHeart rentalHeart = new RentalHeart(member, rental.get());
                 rentalHeartRepository.save(rentalHeart);
+                return rentalHeart;
             }
 
         } else {    // 찜 해제
@@ -55,7 +52,7 @@ public class RentalServiceImpl implements RentalService{
                     int cnt = rentalHeartRepository.delete(rentalHeart.get().getId());
                 }
             }
-
         }
+        return null;
     }
 }

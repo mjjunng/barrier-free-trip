@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "review")
 public class Review {
 
     @Id
@@ -21,16 +22,17 @@ public class Review {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "memberId")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "touristFacilityContentId")
     private TouristFacility facility;
 
-    private long rating;
+    private double rating;
     private String content;
 
-    public Review(Member member, TouristFacility facility, long rating, String content) {
+    public Review(Member member, TouristFacility facility, double rating, String content) {
         this.member = member;
         this.facility = facility;
         this.rating = rating;

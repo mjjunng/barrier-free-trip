@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChargerListDto {
-    private Long contentId;
+    private Long id;
     private String title;
     private String addr;
     private String tel;
-    private int like;
+    private boolean like;
 
     public ChargerListDto(Long contentId, String title, String addr, String tel) {
-        this.contentId = contentId;
+        this.id = contentId;
         this.title = title;
         this.addr = addr;
         this.tel = tel;

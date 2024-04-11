@@ -15,11 +15,11 @@ public class CareTripHeart {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "memberId")
     private Member member;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "careTripId")
     private CareTrip careTrip;
 

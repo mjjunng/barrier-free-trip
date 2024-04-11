@@ -78,4 +78,8 @@ public class RefreshTokenService {
 
         return accessToken;
     }
+
+    public void deleteRefreshToken(String refreshToken) {
+        refreshTokenRepository.deleteByRefreshToken(refreshToken);
+    }
 }
