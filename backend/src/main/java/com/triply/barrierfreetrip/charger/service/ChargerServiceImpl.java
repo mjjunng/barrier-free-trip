@@ -31,24 +31,21 @@ public class ChargerServiceImpl implements ChargerService{
         for (Charger c: chargers) {
             ChargerListDto dto = new ChargerListDto(c.getId(), c.getTitle(), c.getAddr(), c.getTel());
             Optional<ChargerHeart> likes = chargerHeartRepository.findByIdsIfLikes(member, c);
-            if (likes.isPresent()) {
-                dto.setLike(1);
-            } else {
-                dto.setLike(0);
-            }
+            dto.setLike(likes.isPresent());
             result.add(dto);
         }
 
         return result;
     }
 
-    public void likes(Member member, Long contentId, int likes) {
+    public ChargerHeart likes(Member member, Long contentId, int likes) {
         Optional<Charger> charger = chargerRepository.findById(contentId);
 
         if (likes == 1) {  // 찜 추가
             if (charger.isPresent()) {
                 ChargerHeart chargerHeart = new ChargerHeart(member, charger.get());
                 chargerHeartRepository.save(chargerHeart);
+                return chargerHeart;
             }
 
         } else {    // 찜 해제
@@ -58,8 +55,8 @@ public class ChargerServiceImpl implements ChargerService{
                     int cnt = chargerHeartRepository.delete(chargerHeart.get().getId());
                 }
             }
-
         }
+        return null;
     }
 
     @Override

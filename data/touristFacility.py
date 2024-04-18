@@ -3,6 +3,7 @@ import json
 import pymysql
 from time import sleep
 
+
 serviceKey = "x80%2Fkb1fC2Bm2WJYIVN%2BvX%2Blx2CQEs5rB6fQyz6jRL359DglzzDBeKCjZ2jkyvjaVpinPrXRgDOpRCbVIf1k6A%3D%3D"
 
 
@@ -276,3 +277,4 @@ def saveTouristFacility(host, user, password, db, charset):
     print("touristFacility: {}".format(touristFacilityCnt))
     print("barrierFreeFacility: {}".format(barrierFreeFacilityCnt))
     print("touristFacilityImg: {}".format(touristFacilityImgCnt))
+    

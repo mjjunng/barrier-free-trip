@@ -12,18 +12,19 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "touristFacilityHeart")
 public class TouristFacilityHeart {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "memberId")
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "touristFacilityContentId")
+    @JoinColumn(name = "contentId")
     private TouristFacility touristFacility;
 
     public TouristFacilityHeart(Member member, TouristFacility touristFacility) {

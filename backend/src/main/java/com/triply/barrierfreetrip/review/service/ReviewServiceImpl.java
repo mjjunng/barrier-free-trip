@@ -6,6 +6,7 @@ import com.triply.barrierfreetrip.review.dto.ReviewListDto;
 import com.triply.barrierfreetrip.review.repository.ReviewRepository;
 import com.triply.barrierfreetrip.touristfacility.domain.TouristFacility;
 import com.triply.barrierfreetrip.touristfacility.dto.TouristFacilityListResponseDto;
+import com.triply.barrierfreetrip.touristfacility.service.TouristFacilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService{
     private final ReviewRepository reviewRepository;
+    private final TouristFacilityService touristFacilityService;
     @Override
-    public void createReview(Member member, TouristFacility facility,
-                             long rating, String content) {
+    public Review createReview(Member member, TouristFacility facility,
+                             double rating, String content) {
         Review review = new Review(member, facility, rating, content);
         reviewRepository.save(review);
+
+        // 평점 update
+        touristFacilityService.updateRating(facility, rating);
+
+        return review;
     }
 
     @Override

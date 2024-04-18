@@ -15,7 +15,7 @@ public class RentalHeart {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "memberId")
     private Member member;
 

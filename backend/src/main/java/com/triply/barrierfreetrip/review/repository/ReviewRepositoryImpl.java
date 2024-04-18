@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class ReviewRepositoryImpl implements ReviewRepository{
     private final EntityManager em;
     @Override
