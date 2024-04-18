@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@color/white"
+                android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -210,14 +211,17 @@
                 android:layout_height="94dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+                app:layout_constraintBottom_toTopOf="@+id/cl_stayinfo_conv_info"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <Button
+                    style="@style/StaylistBigButtonStyle"
                     android:id="@+id/btn_stayinfo_call"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:drawableTop="@drawable/ic_call"
+                    android:text="@string/stayinfo_call"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/view"
                     app:layout_constraintStart_toStartOf="parent"
@@ -234,9 +238,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
+                    style="@style/StaylistBigButtonStyle"
                     android:id="@+id/btn_stayinfo_map"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:drawableTop="@drawable/ic_location"
+                    android:text="@string/stayinfo_map"
+                    android:background="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/view2"
                     app:layout_constraintStart_toEndOf="@id/view"
@@ -253,9 +261,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
+                    style="@style/StaylistBigButtonStyle"
                     android:id="@+id/btn_stayinfo_page"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:drawableTop="@drawable/ic_stayinfo_home"
+                    android:text="@string/stayinfo_page"
+                    android:background="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/view2"
@@ -263,13 +275,47 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout3"
+                android:id="@+id/cl_stayinfo_conv_info"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="0dp"
                 android:background="@color/white"
+                app:layout_constraintDimensionRatio="1:0.4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
+
+                <View
+                    android:id="@+id/view6"
+                    style="@style/divider"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                    app:layout_constraintStart_toEndOf="@+id/textView8"
+                    app:layout_constraintTop_toTopOf="@+id/textView8"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/view5"
+                    style="@style/divider"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                    app:layout_constraintStart_toEndOf="@+id/textView6"
+                    app:layout_constraintTop_toTopOf="@+id/textView6"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/view4"
+                    style="@style/divider"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="@+id/textView4"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -285,11 +331,96 @@
                     android:id="@+id/tv_stayinfo_info_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ddsfdsgffds"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/stayinfo_convinfo_title"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView" />
 
+                <TextView
+                    android:id="@+id/tv_stayinfo_parking_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+                <View
+                    android:id="@+id/view3"
+                    style="@style/divider"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_stayinfo_parking_title"
+                    app:layout_constraintStart_toEndOf="@+id/tv_stayinfo_parking_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_stayinfo_parking_title"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_stayinfo_parking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_stayinfo_parking_title"
+                    app:layout_constraintStart_toEndOf="@+id/view3"
+                    app:layout_constraintTop_toTopOf="@+id/tv_stayinfo_parking_title" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_stayinfo_parking_title" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                    app:layout_constraintStart_toEndOf="@+id/view4"
+                    app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                    app:layout_constraintStart_toEndOf="@+id/view5"
+                    app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    tools:layout_editor_absoluteX="21dp"
+                    tools:layout_editor_absoluteY="139dp" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    tools:layout_editor_absoluteX="96dp"
+                    tools:layout_editor_absoluteY="139dp" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

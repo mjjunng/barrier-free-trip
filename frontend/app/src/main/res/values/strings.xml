@@ -38,6 +38,15 @@
     <!-- strings for stayinfo -->
     <string name="stayinfo_enter">입실시간 | </string>
     <string name="stayinfo_leave">퇴실시간 | </string>
+    <string name="stayinfo_call">전화</string>
+    <string name="stayinfo_map">지도</string>
+    <string name="stayinfo_page">홈페이지</string>
+    <string name="stayinfo_intro">소개</string>
+    <string name="stayinfo_convinfo_title">무장애 편의정보</string>
+    <string name="stayinfo_parking">주차시설</string>
+    <string name="stayinfo_route">핵심동선</string>
+    <string name="stayinfo_toilet">화장실</string>
+    <string name="stayinfo_dog">보조견</string>
 
     <string name="kakao_login">카카오톡으로 로그인</string>
     <string name="naver_login">네이버로 로그인</string>
