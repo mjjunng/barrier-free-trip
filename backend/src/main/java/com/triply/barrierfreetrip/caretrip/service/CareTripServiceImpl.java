@@ -59,4 +59,9 @@ public class CareTripServiceImpl implements CareTripService{
         }
         return null;
     }
+
+    @Override
+    public Optional<CareTrip> findByTitle(String keyword) {
+        return careTripRepository.findByTitle(keyword);
+    }
 }

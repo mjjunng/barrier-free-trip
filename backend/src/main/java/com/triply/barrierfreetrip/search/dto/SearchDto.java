@@ -1,4 +1,4 @@
-package com.triply.barrierfreetrip.search;
+package com.triply.barrierfreetrip.search.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,4 +11,5 @@ public class SearchDto {
     private String tel;
     private String firstImage;
     private double rating;
+    private int type;
 }
