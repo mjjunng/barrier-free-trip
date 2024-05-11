@@ -8,12 +8,15 @@ import com.triply.barrierfreetrip.data.InfoListDto
 import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.data.RentalServicePlace
 import com.triply.barrierfreetrip.data.RestPlace
+import com.triply.barrierfreetrip.data.ReviewListDTO
+import com.triply.barrierfreetrip.data.ReviewRegistrationDTO
 import com.triply.barrierfreetrip.data.SearchRsltItem
 import com.triply.barrierfreetrip.data.Sido
 import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.data.TourFacilityDetail
 import retrofit2.Call
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -65,7 +68,7 @@ interface BFTApi {
     @GET("/search/{keyword}")
     suspend fun getSearchResult(
         @Path(value = "keyword") keyword : String
-    ) : Response<SearchRsltItem>
+    ) : Response<List<SearchRsltItem>>
 
     @GET("/near-hotels/{userX}/{userY}")
     suspend fun getStayList(
@@ -81,4 +84,15 @@ interface BFTApi {
     suspend fun getSigunguCode(
         @Path(value = "sidoCode") sidoCode : String,
     ) : Response<List<Sigungu>>
+
+    @GET("/reviews/{contentId}")
+    suspend fun getReviews(
+        @Path(value = "contentId") contentId: String
+    ): Response<ReviewListDTO>
+
+    @POST("/reviews/{contentId}")
+    suspend fun postReview(
+        @Path(value = "contentId") contentId: String,
+        @Body body: ReviewRegistrationDTO
+    ): Response<Unit>
 }

@@ -1,59 +1,69 @@
 package com.triply.barrierfreetrip
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.triply.barrierfreetrip.adapter.ReviewAdapter
+import com.triply.barrierfreetrip.adapter.decoration.ReviewViewHolderDecoration
+import com.triply.barrierfreetrip.data.ReviewListDTO
+import com.triply.barrierfreetrip.databinding.FragmentReviewBinding
+import com.triply.barrierfreetrip.feature.BaseFragment
+import com.triply.barrierfreetrip.model.MainViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ReviewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
+    private var contentId : String? = null
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        contentId = arguments?.getString("contentId")
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_review, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ReviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ReviewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun initInViewCreated() {
+        with(binding) {
+            // 제목 설정
+            
+            // 리뷰 리사이클러뷰 설정
+            rvReview.adapter = ReviewAdapter()
+            rvReview.layoutManager = LinearLayoutManager(context).apply {
+                orientation = LinearLayoutManager.VERTICAL
             }
+            if (rvReview.itemDecorationCount == 0) {
+                rvReview.addItemDecoration(ReviewViewHolderDecoration())
+            }
+            (rvReview.adapter as ReviewAdapter?)?.setDataList(
+                listOf(
+                    ReviewListDTO.ReviewDTO("리뷰어1", 5.toDouble(), "좋아요", "2024-05-05T14:41:35"),
+                    ReviewListDTO.ReviewDTO("리뷰어2", 4.toDouble(), "훌륭해요", "2024-05-05T14:41:35"),
+                    ReviewListDTO.ReviewDTO("리뷰어3", 3.toDouble(), "보통이에요", "2024-05-05T14:41:35"),
+                    ReviewListDTO.ReviewDTO("리뷰어4", 3.toDouble(), "별로에요", "2024-05-05T14:41:35"),
+                )
+            )
+
+            // 리뷰 작성 버튼
+            btnWritingReview.setOnClickListener {
+                val bundle = Bundle()
+                val reviewWritingFragment = ReviewWritingFragment()
+
+                bundle.putString("contentId", "")
+                reviewWritingFragment.arguments = bundle
+
+                requireActivity().supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.main_nav_host_fragment, reviewWritingFragment)
+                    .commit()
+            }
+        }
+
+        contentId?.let {
+            viewModel.getReviews(it)
+        }
+
+        viewModel.reviews.observe(viewLifecycleOwner) {
+            val totalReviewCnt = it.totalCnt
+            val reviews = it.reviews
+            (binding.rvReview.adapter as ReviewAdapter).setDataList(reviews)
+            (binding.tvReviewCount).text = totalReviewCnt.toString()
+        }
     }
 }

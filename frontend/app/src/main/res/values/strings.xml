@@ -55,4 +55,10 @@
     <string name="search_hint">검색어를 입력하세요</string>
 
     <!-- <string name=""></string> -->
+
+    <!-- strings for review -->
+    <string name="review_write">리뷰 작성하기</string>
+    <string name="load_more">더보기</string>
+    <string name="review_writing_upload">등록</string>
+    <string name="review_writing_content_hint">방문후를 적어주세요.</string>
 </resources>

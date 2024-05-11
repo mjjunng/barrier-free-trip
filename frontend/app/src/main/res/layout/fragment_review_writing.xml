@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/iv_review_back"
+                android:id="@+id/iv_review_writing_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
@@ -42,65 +42,61 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text='@{"ss" + strStayName}'
-                android:textSize="20sp"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_review_back"
+                app:layout_constraintStart_toEndOf="@+id/iv_review_writing_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btn_review_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="@string/review_writing_upload"
+                android:textColor="@color/bright_gray"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_review"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_writing_review"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_review_title" />
-
         <TextView
-            android:id="@+id/tv_review_title"
+            android:id="@+id/tv_review_writing_title"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:textColor="@color/review_black"
-            android:text="@string/all_review"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_review_top_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_review_top_bar"
+            tools:text="힐하우스 호텔" />
 
-        <TextView
-            android:id="@+id/tv_review_count"
-            android:layout_width="24dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="4dp"
-            android:text="38"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:background="@drawable/shape_sub_pink"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_review_title"
-            app:layout_constraintStart_toEndOf="@+id/tv_review_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_review_title"
-            tools:text="38" />
+        <com.triply.barrierfreetrip.BFTRatingStar
+            android:id="@+id/rtbar_review_writing_rating"
+            android:layout_width="128dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_review_writing_title" />
 
-        <TextView
-            android:id="@+id/btn_writing_review"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_review_writing_content"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/shape_round_corner12_main_pink"
-            android:gravity="center"
-            android:text="@string/review_write"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@id/rv_review"
+            android:layout_marginVertical="28dp"
+            android:padding="12dp"
+            android:background="@drawable/shape_rect_round_corner12_stroke1_lightgray"
+            android:textColor="@color/review_black"
+            android:textSize="16sp"
+            android:gravity="top"
+            android:hint="@string/review_writing_content_hint"
+            android:textColorHint="@color/bright_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rtbar_review_writing_rating" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -157,3 +157,20 @@ data class Sigungu (
     val code: String,
     val name: String
 )
+
+data class ReviewListDTO(
+    val totalCnt: Int,
+    val reviews: List<ReviewDTO>
+) {
+    data class ReviewDTO(
+        val nickname: String,
+        val rating: Double,
+        val content: String,
+        val createdDate: String
+    )
+}
+
+data class ReviewRegistrationDTO(
+    val rating: Double,
+    val content: String
+)
