@@ -1,5 +1,6 @@
 package com.triply.barrierfreetrip.review.domain;
 
+import com.triply.barrierfreetrip.BaseTimeEntity;
 import com.triply.barrierfreetrip.member.domain.Member;
 import com.triply.barrierfreetrip.touristfacility.domain.TouristFacility;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "review")
-public class Review {
+public class Review extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
