@@ -9,7 +9,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.triply.barrierfreetrip.databinding.DialogReviewUploadBinding
 
-class BFTDialog(context: Context): Dialog(context) {
+class BFTDialog(
+    context: Context,
+    private val onDismiss: () -> Unit = {}
+): Dialog(context) {
 
     private val binding by lazy {
         DialogReviewUploadBinding.inflate(LayoutInflater.from(context), null, false)
@@ -23,5 +26,10 @@ class BFTDialog(context: Context): Dialog(context) {
 
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    }
+
+    override fun dismiss() {
+        super.dismiss()
+        onDismiss()
     }
 }

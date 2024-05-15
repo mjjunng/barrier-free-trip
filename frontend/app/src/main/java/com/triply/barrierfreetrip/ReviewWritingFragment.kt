@@ -2,6 +2,8 @@ package com.triply.barrierfreetrip
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.fragment.app.viewModels
 import com.triply.barrierfreetrip.databinding.FragmentReviewWritingBinding
@@ -20,11 +22,18 @@ class ReviewWritingFragment : BaseFragment<FragmentReviewWritingBinding>(R.layou
 
     override fun initInViewCreated() {
         with(binding) {
-//            // 제목 설정
-//
-//
-//            // 등록 버튼 설정
+            // 제목 설정
+
+            // 돌아가기 버튼 설정
+            ivReviewWritingBack.setOnClickListener {
+                backToPrevFragment()
+            }
+
+            // 등록 버튼 설정
             btnReviewUpload.setOnClickListener {
+                if (etReviewWritingContent.text.isNullOrBlank()) {
+                    return@setOnClickListener
+                }
                 contentId?.let {
                     viewModel.postReview(
                         contentId = it,
@@ -33,6 +42,28 @@ class ReviewWritingFragment : BaseFragment<FragmentReviewWritingBinding>(R.layou
                     )
                 }
             }
+
+            etReviewWritingContent.addTextChangedListener(object: TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val isActivated = s.isNullOrBlank().not()
+                    btnReviewUpload.setTextColor(
+                        requireContext()
+                            .getColor(
+                                if (isActivated) R.color.black
+                                else R.color.bright_gray
+                            )
+                    )
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
 
             rtbarReviewWritingRating.isClickable = true
 
@@ -53,7 +84,7 @@ class ReviewWritingFragment : BaseFragment<FragmentReviewWritingBinding>(R.layou
 
         viewModel.isUploadingReviewSucceed.observe(viewLifecycleOwner) {
             if (it.getContentIfNotHandled() == true) {
-                BFTDialog(requireContext()).show()
+                BFTDialog(requireContext()) { backToPrevFragment() }.show()
             }
         }
     }
