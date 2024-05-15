@@ -29,12 +29,12 @@
 
         </activity>
 
-<!--        <meta-data-->
-<!--            android:name="KAKAO_KEY"-->
-<!--            android:value="${KAKAO_CLIENT_ID}" />-->
-<!--        <meta-data-->
-<!--            android:name="NAVER_KEY"-->
-<!--            android:value="${NAVER_CLIENT_ID}" />-->
+        <meta-data
+            android:name="KAKAO_KEY"
+            android:value="${KAKAO_CLIENT_ID}" />
+        <meta-data
+            android:name="NAVER_KEY"
+            android:value="${NAVER_CLIENT_ID}" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
