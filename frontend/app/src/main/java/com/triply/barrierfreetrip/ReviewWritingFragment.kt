@@ -15,7 +15,7 @@ class ReviewWritingFragment : BaseFragment<FragmentReviewWritingBinding>(R.layou
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        contentId = arguments?.getString("contentId")
+        contentId = arguments?.getString(MainActivity.CONTENT_ID)
     }
 
     override fun initInViewCreated() {
