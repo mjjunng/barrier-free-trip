@@ -1,6 +1,5 @@
 package com.triply.barrierfreetrip.adapter
 
-import android.util.TimeUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
