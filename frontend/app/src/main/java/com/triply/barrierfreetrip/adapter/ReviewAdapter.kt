@@ -1,5 +1,6 @@
 package com.triply.barrierfreetrip.adapter
 
+import android.util.TimeUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -9,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.triply.barrierfreetrip.data.ReviewListDTO
 import com.triply.barrierfreetrip.databinding.ItemReviewContentBinding
 import com.triply.barrierfreetrip.databinding.ItemReviewMoreBinding
+import com.triply.barrierfreetrip.util.getElapsedTime
+import java.text.SimpleDateFormat
+import java.util.Locale
 import kotlin.math.roundToInt
 
 class ReviewAdapter : RecyclerView.Adapter<ReviewViewHolder>() {
@@ -20,7 +24,7 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewViewHolder>() {
     private var isFullyLoaded = false
 
     fun setDataList(list: List<ReviewListDTO.ReviewDTO>) {
-        if (list.size <= 3) isFullyLoaded = true
+        isFullyLoaded = list.size <= 3
 
         reviewList.clear()
         preReviewList.clear()
@@ -93,10 +97,16 @@ class ReviewContentViewHolder(private val binding: ItemReviewContentBinding) : R
 
     fun bind(data: ReviewListDTO.ReviewDTO?) {
         data ?: return
+
+        val reviewDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).parse(data.createdDate)?.time ?: 0L
+        val elapsedTime = getElapsedTime(reviewDate)
+        // 테스트용
+//        val elapsedTime = "1"
         binding.apply {
             rtbarReviewScore.setRating(data.rating.roundToInt())
             tvReviewContent.text = data.content
             tvReviewerName.text = data.nickname
+            tvReviewDate.text = elapsedTime
         }
     }
 }
