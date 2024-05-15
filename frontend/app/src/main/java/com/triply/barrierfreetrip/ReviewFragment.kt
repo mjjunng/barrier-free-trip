@@ -30,14 +30,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             if (rvReview.itemDecorationCount == 0) {
                 rvReview.addItemDecoration(ReviewViewHolderDecoration())
             }
-            (rvReview.adapter as ReviewAdapter?)?.setDataList(
-                listOf(
-                    ReviewListDTO.ReviewDTO("리뷰어1", 5.toDouble(), "좋아요", "2024-05-05T14:41:35"),
-                    ReviewListDTO.ReviewDTO("리뷰어2", 4.toDouble(), "훌륭해요", "2024-05-05T14:41:35"),
-                    ReviewListDTO.ReviewDTO("리뷰어3", 3.toDouble(), "보통이에요", "2024-05-05T14:41:35"),
-                    ReviewListDTO.ReviewDTO("리뷰어4", 3.toDouble(), "별로에요", "2024-05-05T14:41:35"),
-                )
-            )
 
             // 리뷰 작성 버튼
             btnWritingReview.setOnClickListener {
@@ -57,6 +49,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         contentId?.let {
             viewModel.getReviews(it)
         }
+        // 테스트용
+//        viewModel.getReviews("1882945")
 
         viewModel.reviews.observe(viewLifecycleOwner) {
             val totalReviewCnt = it.totalCnt
