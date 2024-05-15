@@ -5,7 +5,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.triply.barrierfreetrip.adapter.ReviewAdapter
 import com.triply.barrierfreetrip.adapter.decoration.ReviewViewHolderDecoration
-import com.triply.barrierfreetrip.data.ReviewListDTO
 import com.triply.barrierfreetrip.databinding.FragmentReviewBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
@@ -16,7 +15,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        contentId = arguments?.getString("contentId")
+        contentId = arguments?.getString(MainActivity.CONTENT_ID)
     }
 
     override fun initInViewCreated() {
@@ -45,10 +44,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 val bundle = Bundle()
                 val reviewWritingFragment = ReviewWritingFragment()
 
-                bundle.putString("contentId", "")
+                bundle.putString(MainActivity.CONTENT_ID, contentId)
                 reviewWritingFragment.arguments = bundle
 
-                requireActivity().supportFragmentManager
+                parentFragmentManager
                     .beginTransaction()
                     .add(R.id.main_nav_host_fragment, reviewWritingFragment)
                     .commit()

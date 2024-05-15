@@ -57,4 +57,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    companion object {
+        const val CONTENT_ID = "contentId"
+    }
 }

@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
 
-    <data>
-
-        <variable
-            name="strStayName"
-            type="String" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +34,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text='@{"ss" + strStayName}'
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -69,8 +61,7 @@
             android:textColor="@color/review_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_review_top_bar"
-            tools:text="힐하우스 호텔" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_review_top_bar" />
 
         <com.triply.barrierfreetrip.BFTRatingStar
             android:id="@+id/rtbar_review_writing_rating"
