@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_round_corner12_stroke1_lightgray"
+        android:padding="20dp">
+
+        <com.triply.barrierfreetrip.BFTRatingStar
+            android:id="@+id/rtbar_review_score"
+            android:layout_width="128dp"
+            android:layout_height="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_reviewer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/rtbar_review_score"
+            app:layout_constraintLeft_toRightOf="@id/rtbar_review_score"
+            app:layout_constraintTop_toTopOf="@id/rtbar_review_score"
+            tools:text="Reviewer 이름" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_review_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/review_black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rtbar_review_score"
+            tools:text="리뷰 내용" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_review_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/review_dark_gray"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_review_content"
+            tools:text="3일 전" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

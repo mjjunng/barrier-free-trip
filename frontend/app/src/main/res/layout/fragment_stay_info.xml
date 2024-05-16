@@ -62,7 +62,7 @@
                     android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_stayinfo_place_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_stayinfo_place_name"
-                    app:srcCompat="@drawable/ic_round_star_rate" />
+                    app:srcCompat="@drawable/ic_round_star_rate_filled" />
 
                 <TextView
                     android:id="@+id/tv_stayinfo_rate"

@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.triply.barrierfreetrip.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_staylistFragment"
             app:destination="@id/staylistFragment" />
@@ -47,6 +47,20 @@
         android:name="com.triply.barrierfreetrip.PickFragment"
         android:label="fragment_pick"
         tools:layout="@layout/fragment_pick" />
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.triply.barrierfreetrip.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review">
+        <action
+            android:id="@+id/action_reviewFragment_to_reviewWrtingFragment"
+            app:destination="@id/reviewWritingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewWritingFragment"
+        android:name="com.triply.barrierfreetrip.ReviewWritingFragment"
+        android:label="fragment_review_writing"
+        tools:layout="@layout/fragment_review_writing" />
 
 
 </navigation>

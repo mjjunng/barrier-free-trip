@@ -17,4 +17,9 @@
     <color name="kakao_yellow">#FDDD35</color>
     <color name="kakao_brown">#381f1f</color>
     <color name="naver_green">#06BE34</color>
+
+    <!--  리뷰페이지  -->
+    <color name="review_light_gray">#EBEBEB</color>
+    <color name="review_dark_gray">#808080</color>
+    <color name="review_black">#242424</color>
 </resources>
