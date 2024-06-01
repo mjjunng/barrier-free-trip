@@ -12,7 +12,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
 import com.triply.barrierfreetrip.api.BFTApi
 import com.triply.barrierfreetrip.api.RetroInstance
@@ -87,8 +86,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
 
             // setting sido data on first spinner
             var adapter = ArrayAdapter<String>(
-                requireContext(),
-                android.R.layout.simple_list_item_1, sidoNames
+                requireContext(), R.layout.item_spinner_tv, sidoNames
             )
 
             binding.spnBigArea.adapter = adapter
@@ -126,8 +124,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
 
                     // setting sigungu data on second spinner
                     var adapter2 = ArrayAdapter<String>(
-                        requireContext(),
-                        android.R.layout.simple_list_item_1, sigunguNames
+                        requireContext(), R.layout.item_spinner_tv, sigunguNames
                     )
 
                     binding.spnSmallArea.adapter = adapter2
