@@ -37,6 +37,6 @@ class BFTSpinner: androidx.appcompat.widget.AppCompatSpinner {
 
     init {
         background = ContextCompat.getDrawable(this.context, R.drawable.bg_spinner_not_focused)
-        setPopupBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.shape_round_corner12_white))
+        setPopupBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.shape_round_corner6_white))
     }
 }
