@@ -3,7 +3,9 @@ package com.triply.barrierfreetrip
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
+import android.util.TypedValue
 import androidx.core.content.ContextCompat
+import kotlin.math.roundToInt
 
 class BFTSpinner: androidx.appcompat.widget.AppCompatSpinner {
     constructor(context: Context) : super(context)
@@ -13,7 +15,6 @@ class BFTSpinner: androidx.appcompat.widget.AppCompatSpinner {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         dropDownWidth = width
-        dropDownHorizontalOffset = -100
     }
 
     private var hasBeenOpened = false
@@ -38,5 +39,6 @@ class BFTSpinner: androidx.appcompat.widget.AppCompatSpinner {
     init {
         background = ContextCompat.getDrawable(this.context, R.drawable.bg_spinner_not_focused)
         setPopupBackgroundDrawable(ContextCompat.getDrawable(this.context, R.drawable.shape_round_corner6_white))
+        dropDownVerticalOffset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8F, context.resources.displayMetrics).roundToInt()
     }
 }
