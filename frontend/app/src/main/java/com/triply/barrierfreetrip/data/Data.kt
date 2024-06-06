@@ -12,52 +12,52 @@ data class LoginDto(
 )
 
 data class TourFacilityDetail(
-    val _exit: Any,
+    val _exit: String?,
     val addr1: String,
     val addr2: String,
     val areaCode: String,
-    val audioguide: Any,
-    val auditorium: Any,
-    val babysparechair: Any,
-    val bigprint: Any,
-    val blindhandicapetc: Any,
-    val braileblock: Any,
-    val brailepromotion: Any,
+    val audioguide: String?,
+    val auditorium: String?,
+    val babysparechair: String?,
+    val bigprint: String?,
+    val blindhandicapetc: String?,
+    val braileblock: String?,
+    val brailepromotion: String?,
     val checkInTime: String,
     val checkOutTime: String,
     val contentId: String,
     val contentTypeId: String,
-    val elevator: Any,
-    val freeParking: Any,
-    val guidehuman: Any,
-    val guidesystem: Any,
-    val handicapetc: Any,
-    val hearinghandicapetc: Any,
-    val hearingroom: Any,
-    val helpdog: Any,
+    val elevator: String?,
+    val freeParking: String?,
+    val guidehuman: String?,
+    val guidesystem: String?,
+    val handicapetc: String?,
+    val hearinghandicapetc: String?,
+    val hearingroom: String?,
+    val helpdog: String?,
     val homepage: String,
     val imgs: List<String>,
-    val infantsfamilyetc: Any,
-    val lactationroom: Any,
+    val infantsfamilyetc: String?,
+    val lactationroom: String?,
     val like: Int, // 0 -> 찜X | 1 -> 찜O
     val mapx: String,
     val mapy: String,
     val overview: String,
     val parking: String,
-    val promotion: Any,
-    val publictransport: Any,
+    val promotion: String?,
+    val publictransport: String?,
     val rating: String,
-    val restroom: Any,
-    val room: Any,
-    val route: Any,
+    val restroom: String?,
+    val room: String?,
+    val route: String?,
     val signguide: String,
     val sigunguCode: Any,
-    val stroller: Any,
+    val stroller: String?,
     val tel: String,
-    val ticketoffice: Any,
+    val ticketoffice: String?,
     val title: String,
-    val videoguide: Any,
-    val wheelchair: Any
+    val videoguide: String?,
+    val wheelchair: String?
 )
 
 data class Charger(
@@ -172,5 +172,10 @@ data class ReviewListDTO(
 
 data class ReviewRegistrationDTO(
     val rating: Double,
+    val content: String
+)
+
+data class ConvenienceInfoDTO(
+    val subject: String,
     val content: String
 )
