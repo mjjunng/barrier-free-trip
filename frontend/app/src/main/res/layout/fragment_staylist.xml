@@ -67,18 +67,16 @@
             <com.triply.barrierfreetrip.BFTSpinner
                 android:id="@+id/spn_big_area"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
                 style="@style/BFTSpinner"
-                android:spinnerMode="dropdown"
                 android:layout_weight="0.5" />
 
             <com.triply.barrierfreetrip.BFTSpinner
                 android:id="@+id/spn_small_area"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
-                android:spinnerMode="dropdown"
                 style="@style/BFTSpinner"
                 android:layout_weight="0.5" />
         </LinearLayout>
