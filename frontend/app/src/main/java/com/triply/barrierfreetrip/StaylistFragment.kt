@@ -196,7 +196,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist) {
         }
     }
 
-    fun initSpinner() {
+    private fun initSpinner() {
         binding.spnBigArea.adapter = BFTSpinnerAdapter(requireContext(), R.layout.item_spinner_tv, sidoNames)
         binding.spnBigArea.setSelection(0)
         binding.spnBigArea.isEnabled = true

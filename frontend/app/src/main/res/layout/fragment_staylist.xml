@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".StaylistFragment">
@@ -38,7 +37,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-<!--            android:text="@string/all_stay"-->
+            <!--            android:text="@string/all_stay"-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -66,18 +65,18 @@
 
             <com.triply.barrierfreetrip.BFTSpinner
                 android:id="@+id/spn_big_area"
+                style="@style/BFTSpinnerStyle"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
-                style="@style/BFTSpinner"
                 android:layout_weight="0.5" />
 
             <com.triply.barrierfreetrip.BFTSpinner
                 android:id="@+id/spn_small_area"
+                style="@style/BFTSpinnerStyle"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
-                style="@style/BFTSpinner"
                 android:layout_weight="0.5" />
         </LinearLayout>
 

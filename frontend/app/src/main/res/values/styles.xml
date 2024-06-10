@@ -51,10 +51,9 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
-    <style name="BFTSpinner" parent="Widget.AppCompat.Spinner">
+    <style name="BFTSpinnerStyle" parent="Widget.AppCompat.Spinner">
         <item name="android:overlapAnchor">false</item>
         <item name="overlapAnchor">false</item>
         <item name="android:spinnerMode">dropdown</item>
-        <item name="android:colorControlHighlight">@color/transparent</item>
     </style>
 </resources>

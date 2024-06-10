@@ -4,10 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.TypedValue
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.ContextCompat
 import kotlin.math.roundToInt
 
-class BFTSpinner: androidx.appcompat.widget.AppCompatSpinner {
+class BFTSpinner: AppCompatSpinner {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
@@ -16,6 +17,7 @@ class BFTSpinner: androidx.appcompat.widget.AppCompatSpinner {
         super.onDraw(canvas)
         dropDownWidth = width
         getChildAt(0).background = ContextCompat.getDrawable(this.context, R.color.transparent)
+        getChildAt(0).foreground = ContextCompat.getDrawable(this.context, R.color.transparent)
     }
 
     private var hasBeenOpened = false
