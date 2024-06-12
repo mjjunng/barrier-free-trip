@@ -71,34 +71,12 @@ class StayInfoFragment : Fragment(R.layout.fragment_stay_info) {
                 binding.tvStayinfoIntroduce.text = data.overview
 
                 val convenienceInfos = mutableListOf(
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_wheelchair), content = data.wheelchair?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_exit), content = data._exit?.toUIString() ?: ""),
                     ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_elevator), content = data.elevator?.toUIString() ?: ""),
                     ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_restroom), content = data.restroom?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_guidesystem), content = data.guidesystem?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_blindhandicapetc), content = data.blindhandicapetc?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_signguide), content = data.signguide?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_videoguide), content = data.videoguide?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_hearingroom), content = data.hearingroom?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_hearinghandicapetc), content = data.hearinghandicapetc?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_stroller), content = data.stroller?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_lactationroom), content = data.lactationroom?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_babysparechair), content = data.babysparechair?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_infantsfamilyetc), content = data.infantsfamilyetc?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_auditorium), content = data.auditorium?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_room), content = data.room?.toUIString() ?: ""),
                     ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_handicapetc), content = data.handicapetc?.toUIString() ?: ""),
                     ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_braileblock), content = data.braileblock?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_helpdog), content = data.helpdog?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_guidehuman), content = data.guidehuman?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_audioguide), content = data.audioguide?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_bigprint), content = data.bigprint?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_brailepromotion), content = data.brailepromotion?.toUIString() ?: ""),
                     ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_freeParking), content = data.freeParking?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_route), content = data.route?.toUIString() ?: ""),
                     ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_publictransport), content = data.publictransport?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_ticketoffice), content = data.ticketoffice?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_promotion), content = data.promotion?.toUIString() ?: "")
                 ).filter {
                     it.content.isNotBlank()
                 }
