@@ -64,20 +64,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_area_choose">
 
-            <Spinner
+            <com.triply.barrierfreetrip.BFTSpinner
                 android:id="@+id/spn_big_area"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/BFTSpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/bg_spinner_outside"
                 android:layout_weight="0.5" />
 
-            <Spinner
+            <com.triply.barrierfreetrip.BFTSpinner
                 android:id="@+id/spn_small_area"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/BFTSpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/bg_spinner_outside"
                 android:layout_weight="0.5" />
         </LinearLayout>
 

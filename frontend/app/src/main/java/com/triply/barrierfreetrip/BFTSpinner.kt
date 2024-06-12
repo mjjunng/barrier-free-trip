@@ -16,8 +16,10 @@ class BFTSpinner: AppCompatSpinner {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         dropDownWidth = width
-        getChildAt(0).background = ContextCompat.getDrawable(this.context, R.color.transparent)
-        getChildAt(0).foreground = ContextCompat.getDrawable(this.context, R.color.transparent)
+        if (this.childCount > 0) {
+            getChildAt(0).background = ContextCompat.getDrawable(this.context, R.color.transparent)
+            getChildAt(0).foreground = ContextCompat.getDrawable(this.context, R.color.transparent)
+        }
     }
 
     private var hasBeenOpened = false
