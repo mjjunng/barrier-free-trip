@@ -24,7 +24,6 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
 
     private var _binding: FragmentWishlistBinding? = null
     private val binding get() = _binding!!
-    private val TAG = "WishlistFragment"
     private var type: String? = null
     private var sidoNames = arrayListOf("시도 선택")
     private var sigunguNames = arrayListOf("구군 선택")
@@ -38,10 +37,13 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // view binding
+    ): View {
         _binding = FragmentWishlistBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         when {
             type.equals(TYPE_CARE_TOUR) -> {
                 binding.tvMain.text = "돌봄여행"
@@ -62,8 +64,6 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
             }
         }
         initSpinner()
-
-        // click event on sido spinner
         binding.spnBigArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -187,17 +187,16 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
+
         val infoListAdapter = InfoListAdapter()
         binding.rvList.adapter = infoListAdapter
         binding.rvList.layoutManager = LinearLayoutManager(context)
-        return binding.root
     }
 
-    fun getListData(sidoNm: String?, sigunguNm: String) {
-        // get list data
-        val infoListDtoList = ArrayList<InfoListDto>()
+    private fun getListData(sidoNm: String?, sigunguNm: String) {
+        val infoListDtoList = arrayListOf<InfoListDto>()
 
-        val responseLiveData3: LiveData<Response<List<InfoListDto>>> = liveData {
+        val facilityListLiveData: LiveData<Response<List<InfoListDto>>> = liveData {
             val response = when {
                 type.equals(TYPE_CARE_TOUR) -> retrofit.getCareTourList(
                     sidoNm.toString(),
@@ -210,7 +209,7 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
             emit(response)
         }
 
-        responseLiveData3.observe(viewLifecycleOwner) {
+        facilityListLiveData.observe(viewLifecycleOwner) {
             val list = it.body()?.listIterator()
             if (list != null) {
                 while (list.hasNext()) {
@@ -268,6 +267,7 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
     }
 
     companion object {
+        private const val TAG = "WishlistFragment"
         private const val TYPE_CARE_TOUR = "1"
         private const val TYPE_CHARGER = "2"
         private const val TYPE_RENTAL = "3"
