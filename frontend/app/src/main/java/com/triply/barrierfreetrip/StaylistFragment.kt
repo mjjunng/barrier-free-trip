@@ -189,7 +189,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist) {
     }
 
     fun initTitle() {
-        binding.tvMain.text = when {
+        binding.tvTitle.text = when {
             type.equals("32") -> "숙박"
             type.equals("12") -> "관광지"
             else -> "음식점"

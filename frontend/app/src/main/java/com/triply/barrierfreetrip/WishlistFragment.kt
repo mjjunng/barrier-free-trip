@@ -17,13 +17,11 @@ import com.triply.barrierfreetrip.api.BFTApi
 import com.triply.barrierfreetrip.api.RetroInstance
 import com.triply.barrierfreetrip.data.InfoListDto
 import com.triply.barrierfreetrip.databinding.FragmentWishlistBinding
+import com.triply.barrierfreetrip.feature.BaseFragment
 import retrofit2.Response
 
-class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
-    var retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
-
-    private var _binding: FragmentWishlistBinding? = null
-    private val binding get() = _binding!!
+class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment_wishlist) {
+    private val retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
     private var type: String? = null
     private var sidoNames = arrayListOf("시도 선택")
     private var sigunguNames = arrayListOf("구군 선택")
@@ -33,32 +31,22 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
         type = arguments?.getString("type")
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentWishlistBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initInViewCreated() {
         when {
             type.equals(TYPE_CARE_TOUR) -> {
-                binding.tvMain.text = "돌봄여행"
+                binding.tvTitle.text = "돌봄여행"
                 sidoNames.clear()
                 sidoNames.addAll(resources.getStringArray(R.array.care_sido_nms))
             }
 
             type.equals(TYPE_CHARGER) -> {
-                binding.tvMain.text = "충전기"
+                binding.tvTitle.text = "충전기"
                 sidoNames.clear()
                 sidoNames.addAll(resources.getStringArray(R.array.charger_sido_nms))
             }
 
             else -> {
-                binding.tvMain.text = "렌탈"
+                binding.tvTitle.text = "렌탈"
                 sidoNames.clear()
                 sidoNames.addAll(resources.getStringArray(R.array.rental_sido_nms))
             }
@@ -225,14 +213,17 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
                     override fun onItemClick(position: Int) {
                         val item = infoListDtoList[position]
                         val bundle = Bundle()
-                        val stayInfoFragment = StayInfoFragment()
+                        val fragment = when {
+                            type.equals(TYPE_CARE_TOUR) || type.equals(TYPE_RENTAL) -> StayInfoFragment()
+                            else -> MapFragment()
+                        }
 
                         bundle.putString("contentId", item.addr)
-                        stayInfoFragment.arguments = bundle
+                        fragment.arguments = bundle
 
                         requireActivity().supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.main_nav_host_fragment, stayInfoFragment)
+                            .replace(R.id.main_nav_host_fragment, fragment)
                             .commit()
                     }
                 }
@@ -271,5 +262,7 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
         private const val TYPE_CARE_TOUR = "1"
         private const val TYPE_CHARGER = "2"
         private const val TYPE_RENTAL = "3"
+
+        const val CONTENT_ID = "content_id"
     }
 }
