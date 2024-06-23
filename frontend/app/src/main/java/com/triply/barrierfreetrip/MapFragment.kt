@@ -1,59 +1,102 @@
 package com.triply.barrierfreetrip
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import com.kakao.vectormap.KakaoMap
+import com.kakao.vectormap.KakaoMapReadyCallback
+import com.kakao.vectormap.LatLng
+import com.kakao.vectormap.MapLifeCycleCallback
+import com.kakao.vectormap.mapwidget.InfoWindowOptions
+import com.kakao.vectormap.mapwidget.component.GuiImage
+import com.kakao.vectormap.mapwidget.component.GuiLayout
+import com.kakao.vectormap.mapwidget.component.GuiText
+import com.kakao.vectormap.mapwidget.component.Orientation
+import com.triply.barrierfreetrip.databinding.FragmentMapBinding
+import com.triply.barrierfreetrip.feature.BaseFragment
+import com.triply.barrierfreetrip.model.MainViewModel
+import com.triply.barrierfreetrip.util.convertDrawableToBitmapIcon
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MapFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MapFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
+    private val viewModel: MainViewModel by viewModels()
+    private var contentId: String? = null
+    private var _kakaoMap: KakaoMap? = null
+    private val kakaoMap: KakaoMap
+        get() = _kakaoMap!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            contentId = it.getString(WishlistFragment.CONTENT_ID)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false)
+    override fun initInViewCreated() {
+        initMap()
+
+        binding.btnBack.setOnClickListener {
+            backToPrevFragment()
+        }
+
+        viewModel.getChargerInfo(contentId = "0")
+        viewModel.chargerInfo.observe(viewLifecycleOwner) {
+            setChargerWidget(it.title, it.longitude, it.latitude)
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MapFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MapFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onResume() {
+        super.onResume()
+        binding.mapChargerInfo.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapChargerInfo.pause()
+    }
+
+    private fun backToPrevFragment() {
+        val frgManager = parentFragmentManager
+        frgManager.beginTransaction()
+            .remove(this@MapFragment)
+            .commit()
+        frgManager.popBackStack()
+    }
+
+    private fun initMap() {
+        val mapLifeCycleCallback = object : MapLifeCycleCallback() {
+            override fun onMapDestroy() {
+
             }
+
+            override fun onMapError(e: Exception?) {
+                e?.printStackTrace()
+            }
+        }
+        val kakaoMapReadyCycleCallback = object: KakaoMapReadyCallback() {
+            override fun onMapReady(kakaoMap: KakaoMap) {
+                _kakaoMap = kakaoMap
+            }
+        }
+        binding.mapChargerInfo.start(mapLifeCycleCallback, kakaoMapReadyCycleCallback)
+    }
+
+    private fun setChargerWidget(title: String, longitude: Double, latitude: Double): InfoWindowOptions {
+        val body = GuiLayout(Orientation.Horizontal)
+        body.setPadding(10, 8, 10, 10)
+        val background = GuiImage(R.drawable.shape_oval_white_stroke1_main_pink_widget, true)
+        body.setBackground(background)
+
+        val chargerIcon = GuiImage(convertDrawableToBitmapIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_charge_with_background)!!))
+        body.addView(chargerIcon)
+
+        val text = GuiText(" $title")
+        text.setTextSize(24)
+        body.addView(text)
+
+        val options = InfoWindowOptions.from(LatLng.from(latitude, longitude))
+        options.setBody(body)
+        options.setBodyOffset(0f, -4F)
+        return options
     }
 }

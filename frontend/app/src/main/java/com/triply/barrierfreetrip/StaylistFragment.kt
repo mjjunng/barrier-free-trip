@@ -20,14 +20,12 @@ import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.data.Sido
 import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.databinding.FragmentStaylistBinding
+import com.triply.barrierfreetrip.feature.BaseFragment
 import retrofit2.Response
 
-class StaylistFragment : Fragment(R.layout.fragment_staylist) {
-    var retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
-    private var _binding: FragmentStaylistBinding? = null
+class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment_staylist) {
+    private val retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
     lateinit var infoSquareAdapter: InfoSquareAdapter
-    private val binding get() = _binding!!
-    private val TAG = "StayListFragment"
     private var type: String? = null
 
     // init spinner data
@@ -50,12 +48,8 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist) {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // view binding
-        _binding = FragmentStaylistBinding.inflate(inflater, container, false)
+    override fun initInViewCreated() {
+
 
         // 목록화면의 타이틀 변경
         initTitle()
@@ -68,7 +62,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist) {
             emit(response)
         }
 
-        responseLiveData.observe(viewLifecycleOwner, Observer {
+        responseLiveData.observe(viewLifecycleOwner, {
             val list = it.body()?.listIterator()
             if (list != null) {
                 while (list.hasNext()) {
@@ -142,8 +136,6 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist) {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
-
-        return binding.root
     }
 
     fun getListData(sidoCode: String, sigunguCode: String) {
@@ -204,6 +196,10 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist) {
         binding.spnSmallArea.adapter = BFTSpinnerAdapter(requireContext(), R.layout.item_spinner_tv, sigunguNames)
         binding.spnSmallArea.setSelection(0)
         binding.spnSmallArea.isEnabled = false
+    }
+
+    companion object {
+        private const val TAG = "StayListFragment"
     }
 }
 

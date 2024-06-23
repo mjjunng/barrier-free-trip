@@ -25,4 +25,7 @@
     <color name="review_light_gray">#EBEBEB</color>
     <color name="review_dark_gray">#808080</color>
     <color name="review_black">#242424</color>
+
+    <!--  충전기 상세페이지  -->
+    <color name="divider_gray">#E5E5E5</color>
 </resources>

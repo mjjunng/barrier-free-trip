@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/mapFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.triply.barrierfreetrip.MapFragment"
+        android:name="com.triply.barrierfreetrip.TestMapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
     <fragment
@@ -61,6 +61,5 @@
         android:name="com.triply.barrierfreetrip.ReviewWritingFragment"
         android:label="fragment_review_writing"
         tools:layout="@layout/fragment_review_writing" />
-
 
 </navigation>
