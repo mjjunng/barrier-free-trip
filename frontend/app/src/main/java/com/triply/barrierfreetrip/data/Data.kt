@@ -12,52 +12,29 @@ data class LoginDto(
 )
 
 data class TourFacilityDetail(
-    val _exit: Any,
     val addr1: String,
     val addr2: String,
     val areaCode: String,
-    val audioguide: Any,
-    val auditorium: Any,
-    val babysparechair: Any,
-    val bigprint: Any,
-    val blindhandicapetc: Any,
-    val braileblock: Any,
-    val brailepromotion: Any,
+    val braileblock: String?,
     val checkInTime: String,
     val checkOutTime: String,
     val contentId: String,
     val contentTypeId: String,
-    val elevator: Any,
-    val freeParking: Any,
-    val guidehuman: Any,
-    val guidesystem: Any,
-    val handicapetc: Any,
-    val hearinghandicapetc: Any,
-    val hearingroom: Any,
-    val helpdog: Any,
+    val elevator: String?,
+    val freeParking: String?,
+    val handicapetc: String?,
     val homepage: String,
     val imgs: List<String>,
-    val infantsfamilyetc: Any,
-    val lactationroom: Any,
     val like: Int, // 0 -> 찜X | 1 -> 찜O
     val mapx: String,
     val mapy: String,
     val overview: String,
-    val parking: String,
-    val promotion: Any,
-    val publictransport: Any,
+    val publictransport: String?,
     val rating: String,
-    val restroom: Any,
-    val room: Any,
-    val route: Any,
-    val signguide: String,
+    val restroom: String?,
     val sigunguCode: Any,
-    val stroller: Any,
     val tel: String,
-    val ticketoffice: Any,
     val title: String,
-    val videoguide: Any,
-    val wheelchair: Any
 )
 
 data class Charger(
@@ -172,5 +149,10 @@ data class ReviewListDTO(
 
 data class ReviewRegistrationDTO(
     val rating: Double,
+    val content: String
+)
+
+data class ConvenienceInfoDTO(
+    val subject: String,
     val content: String
 )

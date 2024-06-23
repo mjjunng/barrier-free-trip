@@ -12,7 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.triply.barrierfreetrip.adapter.BFTSpinnerAdapter
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
 import com.triply.barrierfreetrip.api.BFTApi
 import com.triply.barrierfreetrip.api.RetroInstance
@@ -22,13 +22,21 @@ import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.databinding.FragmentStaylistBinding
 import retrofit2.Response
 
-class StaylistFragment : Fragment(R.layout.fragment_staylist){
+class StaylistFragment : Fragment(R.layout.fragment_staylist) {
     var retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
-    private var _binding:  FragmentStaylistBinding? = null
+    private var _binding: FragmentStaylistBinding? = null
     lateinit var infoSquareAdapter: InfoSquareAdapter
     private val binding get() = _binding!!
     private val TAG = "StayListFragment"
-    private var type : String? = null
+    private var type: String? = null
+
+    // init spinner data
+    private val sidoCodes = arrayListOf(Sido(code = "-1", name = "시도 선택"))
+    private val sidoNames = arrayListOf("시도 선택")
+
+    // call api to get sigungu code
+    private val sigunguCodes = arrayListOf(Sigungu(code = "-1", name = "구군 선택"))
+    private val sigunguNames = arrayListOf("구군 선택")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,24 +58,11 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
         _binding = FragmentStaylistBinding.inflate(inflater, container, false)
 
         // 목록화면의 타이틀 변경
-        if (type.equals("32")) {
-            binding.tvMain.text = "숙박"
-        } else if (type.equals("12")) {
-            binding.tvMain.text = "관광지"
-        } else {
-            binding.tvMain.text = "음식점"
-        }
+        initTitle()
 
-        // init spinner data
-        var sidoCodes = ArrayList<Sido>()
-        var sidoNames = ArrayList<String>()
+        initSpinner()
 
-        // set init on sido spinner
-        // todo::스피너 초기화 값 세팅해야 함
-//        sidoCodes.add(Sido("-1", "시도 선택"))
-//        sidoNames.add("시도 선택")
-
-        val responseLiveData : LiveData<Response<List<Sido>>> = liveData {
+        val responseLiveData: LiveData<Response<List<Sido>>> = liveData {
             val response = retrofit.getSidoCode()
 
             emit(response)
@@ -84,36 +79,35 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
             } else {
                 Log.d(TAG, "null sido code data")
             }
-
-            // setting sido data on first spinner
-            var adapter = ArrayAdapter<String>(
-                requireContext(),
-                android.R.layout.simple_list_item_1, sidoNames
-            )
-
-            binding.spnBigArea.adapter = adapter
+            binding.spnBigArea.setSelection(0)
         })
 
         // click event on sido spinner
-        binding.spnBigArea.onItemSelectedListener = object :
-        AdapterView.OnItemSelectedListener {
+        binding.spnBigArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                // call api to get sigungu code
-                var sigunguCodes = ArrayList<Sigungu>()
-                var sigunguNames = ArrayList<String>()
+                if (position == 0) {
+                    binding.spnSmallArea.setSelection(0)
+                    binding.spnSmallArea.isEnabled = false
+                    return
+                }
+                binding.spnSmallArea.isEnabled = true
 
-                val responseLiveData2 : LiveData<Response<List<Sigungu>>> = liveData {
+                val responseLiveData2: LiveData<Response<List<Sigungu>>> = liveData {
                     val response = retrofit.getSigunguCode(sidoCodes[position].code)
                     emit(response)
                 }
 
                 responseLiveData2.observe(viewLifecycleOwner, Observer {
                     val list = it.body()?.listIterator()
+                    sigunguCodes.clear()
+                    sigunguNames.clear()
+                    sigunguCodes.add(Sigungu(code = "-1", name = "구군 선택"))
+                    sigunguNames.add("구군 선택")
                     if (list != null) {
                         while (list.hasNext()) {
                             val item = list.next()
@@ -123,24 +117,18 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
                     } else {
                         Log.d(TAG, "null sigungu code data")
                     }
-
-                    // setting sigungu data on second spinner
-                    var adapter2 = ArrayAdapter<String>(
-                        requireContext(),
-                        android.R.layout.simple_list_item_1, sigunguNames
-                    )
-
-                    binding.spnSmallArea.adapter = adapter2
+                    binding.spnSmallArea.setSelection(0)
 
                     // click event on sigungu spinner
-                    binding.spnSmallArea.onItemSelectedListener = object :
-                    AdapterView.OnItemSelectedListener {
+                    binding.spnSmallArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(
                             parent: AdapterView<*>?,
                             view: View?,
                             position2: Int,
                             id: Long
                         ) {
+                            if (position2 == 0) return
+
                             // get list data
                             getListData(sidoCodes[position].code, sigunguCodes[position2].code)
                         }
@@ -150,6 +138,7 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
                     }
                 })
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
@@ -197,6 +186,24 @@ class StaylistFragment : Fragment(R.layout.fragment_staylist){
                 }
             })
         })
+    }
+
+    fun initTitle() {
+        binding.tvTitle.text = when {
+            type.equals("32") -> "숙박"
+            type.equals("12") -> "관광지"
+            else -> "음식점"
+        }
+    }
+
+    private fun initSpinner() {
+        binding.spnBigArea.adapter = BFTSpinnerAdapter(requireContext(), R.layout.item_spinner_tv, sidoNames)
+        binding.spnBigArea.setSelection(0)
+        binding.spnBigArea.isEnabled = true
+
+        binding.spnSmallArea.adapter = BFTSpinnerAdapter(requireContext(), R.layout.item_spinner_tv, sigunguNames)
+        binding.spnSmallArea.setSelection(0)
+        binding.spnSmallArea.isEnabled = false
     }
 }
 

@@ -1,6 +1,5 @@
 package com.triply.barrierfreetrip.adapter
 
-import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +44,10 @@ class InfoSquareAdapter(var infoList : ArrayList<InfoSquareDto>) : RecyclerView.
 class SquareViewHolder(
     private val binding : ItemInfoSquareBinding
 ) : RecyclerView.ViewHolder(binding.root) {
+    init {
+        binding.ivPlaceImage.clipToOutline = true
+    }
+
     fun bind(item : InfoSquareDto) {
         binding.squareItem = item
     }
