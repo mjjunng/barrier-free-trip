@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.triply.barrierfreetrip.TestMapFragment"
+        android:name="com.triply.barrierfreetrip.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
     <fragment
