@@ -23,10 +23,9 @@
 
         <ToggleButton
             android:id="@+id/tb_square_like"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="6dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="24dp"
             android:background="@drawable/selector_toggle_heart"
             android:button="@null"
             android:textOff=""
@@ -135,23 +134,25 @@
             android:id="@+id/ll_chargerinfo_multicharger_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"
-            android:paddingVertical="12dp"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_chargerinfo_detail_container">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_multicharger_title"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="동시충전개수 : "
                 android:textColor="@color/gray"
-                android:textSize="12sp"
-                tools:text="동시충전개수 : " />
+                android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_multicharger"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
@@ -163,23 +164,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toEndOf="@id/ll_chargerinfo_multicharger_container"
-            app:layout_constraintEnd_toStartOf="@id/ll_chargerinfo_phonecharger_container"
             android:layout_marginTop="16dp"
+            android:orientation="horizontal"
             android:paddingVertical="12dp"
+            app:layout_constraintEnd_toStartOf="@id/ll_chargerinfo_phonecharger_container"
+            app:layout_constraintStart_toEndOf="@id/ll_chargerinfo_multicharger_container"
             app:layout_constraintTop_toBottomOf="@id/cl_chargerinfo_detail_container">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_aircharger_title"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="공기주입가능여부 : "
                 android:textColor="@color/gray"
-                android:textSize="12sp"
-                tools:text="공기주입가능여부 : " />
+                android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_aircharger"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
@@ -192,23 +195,25 @@
             android:id="@+id/ll_chargerinfo_phonecharger_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
-            android:paddingVertical="12dp"
             android:layout_marginEnd="12dp"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_chargerinfo_detail_container">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_phonecharger_title"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="휴대전화충전가능여부 : "
                 android:textColor="@color/gray"
-                android:textSize="12sp"
-                tools:text="휴대전화충전가능여부 : " />
+                android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_phonecharger"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"

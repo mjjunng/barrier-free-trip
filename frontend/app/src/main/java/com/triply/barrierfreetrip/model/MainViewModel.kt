@@ -14,7 +14,6 @@ import com.triply.barrierfreetrip.util.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
 
 class MainViewModel : ViewModel() {
     //    val
@@ -108,6 +107,24 @@ class MainViewModel : ViewModel() {
                 } else {
                     when (response.code()) {
 
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun postLikes(type: Int, contentId: String, likes: Int) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.postLikes(type = type, contentId = contentId, likes = likes)
+                if (response.isSuccessful) {
+                    val chargerInfoResponse = retrofit.getChargerDetail(contentId = contentId)
+                    if (chargerInfoResponse.isSuccessful) {
+                        _chargerInfo.value = _chargerInfo.value?.copy(
+                            like = chargerInfoResponse.body()?.like ?: 0
+                        )
                     }
                 }
             } catch (e: Exception) {

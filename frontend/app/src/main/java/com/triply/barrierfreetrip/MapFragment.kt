@@ -7,6 +7,7 @@ import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
+import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.kakao.vectormap.mapwidget.InfoWindowOptions
 import com.kakao.vectormap.mapwidget.component.GuiImage
 import com.kakao.vectormap.mapwidget.component.GuiLayout
@@ -16,6 +17,7 @@ import com.triply.barrierfreetrip.databinding.FragmentMapBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
 import com.triply.barrierfreetrip.util.convertDrawableToBitmapIcon
+import java.lang.System.currentTimeMillis
 
 
 class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
@@ -24,6 +26,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
     private var _kakaoMap: KakaoMap? = null
     private val kakaoMap: KakaoMap
         get() = _kakaoMap!!
+    private var timeOnClickLike = currentTimeMillis()
+    private val debouncingInterval = 300L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +38,40 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
 
     override fun initInViewCreated() {
         initMap()
+        initTitle("전동휠체어 급속충전기")
 
         binding.btnBack.setOnClickListener {
             backToPrevFragment()
         }
 
-        viewModel.getChargerInfo(contentId = "0")
-        viewModel.chargerInfo.observe(viewLifecycleOwner) {
-            setChargerWidget(it.title, it.longitude, it.latitude)
+        viewModel.chargerInfo.observe(viewLifecycleOwner) { chargerInfo ->
+            if (chargerInfo == null) return@observe
+
+            binding.dialogMapInfo.setDialogInfo(
+                title = chargerInfo.title,
+                officeHour = "Open" + chargerInfo.weekdayOpen + "| Close" + chargerInfo.weekdayClose,
+                location = chargerInfo.addr.replace("  ", " "),
+                callNumber = chargerInfo.tel,
+                multiCharger = chargerInfo.possible,
+                airChargerCapability = if (chargerInfo.equals("N")) "불가" else "가능",
+                phoneChargerCapability = if (chargerInfo.equals("N")) "불가" else "가능",
+                like = chargerInfo.like == 1,
+            )
+            makeWidget(chargerInfo.title, chargerInfo.latitude, chargerInfo.longitude)
+            setCameraPosition(chargerInfo.latitude, chargerInfo.longitude)
+            binding.dialogMapInfo.setOnClickListener { _ ->
+                setCameraPosition(chargerInfo.latitude, chargerInfo.longitude)
+            }
+            binding.dialogMapInfo.setOnLikeClick {
+                if (currentTimeMillis() - timeOnClickLike < debouncingInterval) {
+                    return@setOnLikeClick
+                }
+                timeOnClickLike = currentTimeMillis()
+                viewModel.postLikes(type = 1, contentId = contentId ?: "", likes = chargerInfo.like xor 1)
+                binding.dialogMapInfo.updateLike(
+                    like = chargerInfo.like xor 1 == 1
+                )
+            }
         }
     }
 
@@ -76,12 +106,13 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
         val kakaoMapReadyCycleCallback = object: KakaoMapReadyCallback() {
             override fun onMapReady(kakaoMap: KakaoMap) {
                 _kakaoMap = kakaoMap
+                viewModel.getChargerInfo(contentId = "0")
             }
         }
         binding.mapChargerInfo.start(mapLifeCycleCallback, kakaoMapReadyCycleCallback)
     }
 
-    private fun setChargerWidget(title: String, longitude: Double, latitude: Double): InfoWindowOptions {
+    private fun makeWidget(title: String, latitude: Double, longitude: Double): InfoWindowOptions {
         val body = GuiLayout(Orientation.Horizontal)
         body.setPadding(10, 8, 10, 10)
         val background = GuiImage(R.drawable.shape_oval_white_stroke1_main_pink_widget, true)
@@ -98,5 +129,14 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
         options.setBody(body)
         options.setBodyOffset(0f, -4F)
         return options
+    }
+
+    private fun setCameraPosition(latitude: Double, longitude: Double) {
+        val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(latitude, longitude))
+        kakaoMap.moveCamera(cameraUpdate)
+    }
+    
+    private fun initTitle(title: String) {
+        binding.tvTitle.text = title
     }
 }

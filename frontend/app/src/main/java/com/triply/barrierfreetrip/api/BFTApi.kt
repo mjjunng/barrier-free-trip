@@ -95,4 +95,11 @@ interface BFTApi {
         @Path(value = "contentId") contentId: String,
         @Body body: ReviewRegistrationDTO
     ): Response<Unit>
+
+    @GET("/heart/{type}/{contentId}/{likes}")
+    suspend fun postLikes(
+        @Path(value = "type") type: Int,
+        @Path(value = "contentId") contentId: String,
+        @Path(value = "likes") likes: Int
+    ): Response<Unit>
 }
