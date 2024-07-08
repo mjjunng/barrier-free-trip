@@ -71,7 +71,7 @@ class MainViewModel : ViewModel() {
     val chargerInfo: LiveData<ChargerDetail>
         get() = _chargerInfo
 
-    fun getChargerInfo(contentId: String) {
+    fun getChargerInfo(contentId: Long) {
         viewModelScope.launch {
             try {
                 var longitude = 0.0
@@ -120,7 +120,7 @@ class MainViewModel : ViewModel() {
             try {
                 val response = retrofit.postLikes(type = type, contentId = contentId, likes = likes)
                 if (response.isSuccessful) {
-                    val chargerInfoResponse = retrofit.getChargerDetail(contentId = contentId)
+                    val chargerInfoResponse = retrofit.getChargerDetail(contentId = contentId.toLong())
                     if (chargerInfoResponse.isSuccessful) {
                         _chargerInfo.value = _chargerInfo.value?.copy(
                             like = chargerInfoResponse.body()?.like ?: 0

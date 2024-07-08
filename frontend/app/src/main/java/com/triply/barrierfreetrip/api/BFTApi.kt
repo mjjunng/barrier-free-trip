@@ -50,7 +50,7 @@ interface BFTApi {
 
     @GET("/chargers/info/{contentId}")
     suspend fun getChargerDetail(
-        @Path(value = "contentId") contentId: String
+        @Path(value = "contentId") contentId: Long
     ) : Response<ChargerDetail>
 
     @GET("/care-services/{sido}/{sigungu}")
