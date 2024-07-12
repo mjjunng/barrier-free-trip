@@ -1,137 +1,108 @@
 package com.triply.barrierfreetrip
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.liveData
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
-import com.triply.barrierfreetrip.api.BFTApi
-import com.triply.barrierfreetrip.api.RetroInstance
+import com.triply.barrierfreetrip.adapter.OnItemClickListener
+import com.triply.barrierfreetrip.adapter.decoration.StayListItemViewHolderDecoration
 import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.databinding.FragmentHomeBinding
-import retrofit2.Response
+import com.triply.barrierfreetrip.feature.BaseFragment
+import com.triply.barrierfreetrip.model.MainViewModel
 
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+    private val viewModel: MainViewModel by viewModels()
+    private val nearbyStayListAdapter = InfoSquareAdapter()
+    private val nearbyChargerDtoList = ArrayList<InfoSquareDto>()
+    private val nearbyStayDtoList = ArrayList<InfoSquareDto>()
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
-    var retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
-    lateinit var infoSquareAdapter: InfoSquareAdapter
-    val infoSquareDtoList = ArrayList<InfoSquareDto>()
-    private var _binding:  FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-    private val TAG = "HomeFragment"
+    override fun initInViewCreated() {
+        with(binding.rvNearHotelList) {
+            adapter = nearbyStayListAdapter
+            if (itemDecorationCount < 1) {
+                addItemDecoration(StayListItemViewHolderDecoration())
+            }
+            layoutManager = GridLayoutManager(context, 2)
+            (adapter as InfoSquareAdapter).setOnItemClickListener(
+                object: OnItemClickListener {
+                    override fun onItemClick(position: Int) {
+                        val item = nearbyStayDtoList[position]
+                        val bundle = Bundle()
+                        val stayInfoFragment = StayInfoFragment()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+                        bundle.putString(CONTENT_ID, item.contentId)
+                        stayInfoFragment.arguments = bundle
+
+                        requireActivity().supportFragmentManager
+                            .beginTransaction()
+                            .add(R.id.main_nav_host_fragment, stayInfoFragment)
+                            .commit()
+                    }
+                }
+            )
+        }
+        with(binding.rvChargerList) {
+//            adapter = nearbyStayListAdapter
+//            if (itemDecorationCount < 1) {
+//                addItemDecoration(StayListItemViewHolderDecoration())
+//            }
+//            layoutManager = GridLayoutManager(context, 2)
+//            (adapter as InfoSquareAdapter).setOnItemClickListener(
+//                object: OnItemClickListener {
+//                    override fun onItemClick(position: Int) {
+//                        val item = nearbyStayDtoList[position]
+//                        val bundle = Bundle()
+//                        val stayInfoFragment = StayInfoFragment()
+//
+//                        bundle.putString(CONTENT_ID, item.contentId)
+//                        stayInfoFragment.arguments = bundle
+//
+//                        requireActivity().supportFragmentManager
+//                            .beginTransaction()
+//                            .add(R.id.main_nav_host_fragment, stayInfoFragment)
+//                            .commit()
+//                    }
+//                }
+//            )
+        }
 
         // 내 주변 숙박시설 API 호출
-        val responseLiveData : LiveData<Response<List<InfoSquareDto>>> = liveData {
-            val response = retrofit.getStayList(126.838044, 35.14384) // todo::사용자 좌표 값 넣어야 함
+        viewModel.getNearbyStayList(126.838044, 35.14384)
 
-            emit(response)
-        }
-
-        responseLiveData.observe(viewLifecycleOwner, Observer {
-            val list = it.body()?.listIterator()
-            if (list != null) {
-                while (list.hasNext()) {
-                    val item = list.next()
-                    infoSquareDtoList.add(item)
-                }
-            } else {
+        viewModel.nearbyStayList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
                 Log.d(TAG, "null near-hotel data")
+                return@observe
             }
 
-
-            infoSquareAdapter = InfoSquareAdapter(infoSquareDtoList)
-            binding.rvNearHotelList.adapter = infoSquareAdapter
-//            binding.rvNearHotelList.addItemDecoration(
-//                GridSpacingItemDecoration(spanCount = 2, spacing = 10f.fromDpToPx())
-//            )
-
-            binding.rvNearHotelList.layoutManager = GridLayoutManager(context, 2)
-
-            infoSquareAdapter.setItemClickListener(object : InfoSquareAdapter.OnItemClickListener {
-                override fun onClick(view: View, position: Int) {
-                    val item = infoSquareDtoList[position]
-                    val bundle = Bundle()
-                    val stayInfoFragment = StayInfoFragment()
-
-                    bundle.putString("contentId", item.contentId)
-                    stayInfoFragment.arguments = bundle
-
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .add(R.id.main_nav_host_fragment, stayInfoFragment)
-                        .commit()
-                }
-            })
-
-        })
+            nearbyStayDtoList.clear()
+            nearbyStayDtoList.addAll(it)
+            (binding.rvNearHotelList.adapter as InfoSquareAdapter).setDataList(it)
+        }
 
         // 내 주변 전동휠체어 충전기 API 호출
-        val responseLiveDataWheelchairList : LiveData<Response<List<InfoSquareDto>>> = liveData {
-            val response = retrofit.getStayList(126.838044, 35.14384) // todo::사용자 좌표 값 넣어야 함
+        viewModel.getNearbyChargerList(126.838044, 35.14384)
 
-            emit(response)
-        }
-
-        responseLiveData.observe(viewLifecycleOwner, Observer {
-            val list = it.body()?.listIterator()
-            if (list != null) {
-                while (list.hasNext()) {
-                    val item = list.next()
-                    infoSquareDtoList.add(item)
-                }
-            } else {
-                Log.d(TAG, "null near-hotel data")
+        viewModel.nearbyChargerList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                Log.d(TAG, "null near-charger data")
+                return@observe
             }
 
-
-            infoSquareAdapter = InfoSquareAdapter(infoSquareDtoList)
-            binding.rvNearHotelList.adapter = infoSquareAdapter
-//            binding.rvNearHotelList.addItemDecoration(
-//                GridSpacingItemDecoration(spanCount = 2, spacing = 10f.fromDpToPx())
-//            )
-
-            binding.rvNearHotelList.layoutManager = GridLayoutManager(context, 2)
-
-            infoSquareAdapter.setItemClickListener(object : InfoSquareAdapter.OnItemClickListener {
-                override fun onClick(view: View, position: Int) {
-                    val item = infoSquareDtoList[position]
-                    val bundle = Bundle()
-                    val stayInfoFragment = StayInfoFragment()
-
-                    bundle.putString("contentId", item.contentId)
-                    stayInfoFragment.arguments = bundle
-
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_nav_host_fragment, stayInfoFragment)
-                        .addToBackStack(null)
-                        .commit()
-                }
-            })
-
-        })
+            nearbyChargerDtoList.clear()
+            nearbyChargerDtoList.addAll(it)
+//            (binding.rvChargerList.adapter as InfoSquareAdapter).setDataList(it)
+        }
 
 
         // 아이콘 클릭 시 이동
+        val bundle = Bundle()
         // 1. 숙박
         val stayListFragment = StaylistFragment()
         binding.btnHomeStay.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("type", "32")
+            bundle.putString(CONTENT_TYPE, CONTENT_TYPE_STAY)
             stayListFragment.arguments = bundle
 
             requireActivity().supportFragmentManager
@@ -143,8 +114,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // 2. 관광지
         binding.btnHomeDestination.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("type", "12")
+            bundle.putString(CONTENT_TYPE, CONTENT_TYPE_TOUR)
             stayListFragment.arguments = bundle
 
             requireActivity().supportFragmentManager
@@ -156,8 +126,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // 3. 음식점
         binding.btnHomeRestaurant.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("type", "39")
+            bundle.putString(CONTENT_TYPE, CONTENT_TYPE_RESTAURANT)
             stayListFragment.arguments = bundle
 
             requireActivity().supportFragmentManager
@@ -168,10 +137,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         // 4. 돌봄여행
-        var wishlistFragment = WishlistFragment()
+        val wishlistFragment = WishlistFragment()
         binding.btnHomeCaretrip.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("type", "1")
+            bundle.putString(CONTENT_TYPE, CONTENT_TYPE_CARE)
             wishlistFragment.arguments = bundle
 
             requireActivity().supportFragmentManager
@@ -183,8 +151,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // 5. 충전기
         binding.btnHomeCharge.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("type", "2")
+            bundle.putString(CONTENT_TYPE, CONTENT_TYPE_CHARGER)
             wishlistFragment.arguments = bundle
 
             requireActivity().supportFragmentManager
@@ -196,8 +163,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // 6. 렌탈
         binding.btnHomeRental.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("type", "3")
+            bundle.putString(CONTENT_TYPE, CONTENT_TYPE_RENTAL)
             wishlistFragment.arguments = bundle
 
             requireActivity().supportFragmentManager
@@ -206,13 +172,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 .addToBackStack(null)
                 .commit()
         }
-
-        return binding.root
     }
 
-    fun Float.fromDpToPx(): Int = (
-            this * Resources.getSystem().displayMetrics.density
-            ).toInt()
+    companion object {
+        private const val TAG = "HomeFragment"
+        const val CONTENT_ID = "contentId"
+        const val CONTENT_TYPE = "type"
+        const val CONTENT_TYPE_STAY = "32"
+        const val CONTENT_TYPE_TOUR = "12"
+        const val CONTENT_TYPE_RESTAURANT = "39"
+        const val CONTENT_TYPE_CARE = "1"
+        const val CONTENT_TYPE_CHARGER = "2"
+        const val CONTENT_TYPE_RENTAL = "3"
+    }
 }
 
 

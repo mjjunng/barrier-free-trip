@@ -16,9 +16,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel : ViewModel() {
-    //    val
+//    val
     private val retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
     private val kakaoRetrofit = LocationInstance.getLocationApi()
+
+    private val _nearbyStayList by lazy { MutableLiveData(listOf<InfoSquareDto>()) }
+    val nearbyStayList: LiveData<List<InfoSquareDto>>
+        get() = _nearbyStayList
+
+    private val _nearbyChargerList by lazy { MutableLiveData(listOf<InfoSquareDto>()) }
+    val nearbyChargerList: LiveData<List<InfoSquareDto>>
+        get() = _nearbyChargerList
 
     private val _reviews by lazy { MutableLiveData(ReviewListDTO(0, emptyList())) }
     val reviews: LiveData<ReviewListDTO>
@@ -27,6 +35,34 @@ class MainViewModel : ViewModel() {
     private val _isUploadingReviewSucceed by lazy { MutableLiveData(Event(false)) }
     val isUploadingReviewSucceed: LiveData<Event<Boolean>>
         get() = _isUploadingReviewSucceed
+
+    fun getNearbyStayList(userX: Double, userY: Double) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getStayList(userX = userX, userY = userY)
+
+                if (response.isSuccessful) {
+                    _nearbyStayList.value = response.body() ?: listOf()
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getNearbyChargerList(userX: Double, userY: Double) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getNearbyChargerList(userX = userX, userY = userY)
+
+                if (response.isSuccessful) {
+                    _nearbyChargerList.value = response.body() ?: listOf()
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 
     fun getReviews(contentId: String) {
         viewModelScope.launch {

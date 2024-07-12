@@ -23,7 +23,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id= "@+id/logo_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_home_stay"
                         style="@style/Home_ButtonStyle"
                         android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/logo_home" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_home_destination"
                         style="@style/Home_ButtonStyle"
                         android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                         app:layout_constraintStart_toEndOf="@+id/btn_home_stay"
                         app:layout_constraintTop_toBottomOf="@+id/logo_home" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_home_restaurant"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/logo_home" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_home_caretrip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_home_charge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                         app:layout_constraintStart_toEndOf="@+id/btn_home_caretrip"
                         app:layout_constraintTop_toBottomOf="@+id/btn_home_destination" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_home_rental"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                     android:background="@color/white"
                     android:layout_marginTop="9dp">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_stay_nearby"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_stay_more_info"
                         style="@style/Home_MoreInfoBtnStyle"
                         android:layout_width="wrap_content"
@@ -170,7 +170,7 @@
                     android:background="@color/white"
                     android:layout_marginTop="9dp">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_charge_nearby"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_charge_more_info"
                         style="@style/Home_MoreInfoBtnStyle"
                         android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_charge_nearby" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_charge_list"
+                        android:id="@+id/rv_charger_list"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"

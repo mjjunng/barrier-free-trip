@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="squareItem"
             type="com.triply.barrierfreetrip.data.InfoSquareDto" />
@@ -12,21 +10,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_place_image"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:background="@drawable/shape_round_corner18"
-            android:src="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--            app:srcCompat="@android:drawable/btn_star_big_on" />-->
 
-        <ToggleButton
+        <androidx.appcompat.widget.AppCompatToggleButton
             android:id="@+id/tb_square_like"
             android:layout_width="28dp"
             android:layout_height="28dp"
@@ -40,44 +35,51 @@
             app:layout_constraintEnd_toEndOf="@+id/iv_place_image"
             app:layout_constraintTop_toTopOf="@+id/iv_place_image" />
 
-        <ImageView
-            android:id="@+id/iv_square_destination"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_square_location"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_square_location"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_square_address"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_square_location"
+            app:layout_constraintTop_toTopOf="@+id/tv_square_address"
             app:srcCompat="@drawable/ic_location" />
 
-        <TextView
-            android:id="@+id/tv_square_location"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_square_address"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
             android:text="@{squareItem.addr}"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_square_destination"
+            android:textColor="@color/subtitle_gray"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_square_location"
             app:layout_constraintTop_toBottomOf="@+id/iv_place_image" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_square_place_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{squareItem.title}"
-            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/iv_square_destination"
-            app:layout_constraintTop_toBottomOf="@+id/iv_square_destination" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_square_address" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_square_CallNumber"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{squareItem.tel}"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_square_place_name"
+            android:textColor="@color/subtitle_gray"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_square_place_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
