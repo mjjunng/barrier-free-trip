@@ -10,6 +10,8 @@ import com.triply.barrierfreetrip.api.RetroInstance
 import com.triply.barrierfreetrip.data.ChargerDetail
 import com.triply.barrierfreetrip.data.ReviewListDTO
 import com.triply.barrierfreetrip.data.ReviewRegistrationDTO
+import com.triply.barrierfreetrip.data.Sido
+import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.util.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +30,18 @@ class MainViewModel : ViewModel() {
     val nearbyChargerList: LiveData<List<InfoSquareDto>>
         get() = _nearbyChargerList
 
+    private val _sidoCodes by lazy { MutableLiveData(listOf(Sido(code = "-1", name = "시도 선택"))) }
+    val sidoCodes: LiveData<List<Sido>>
+        get() = _sidoCodes
+
+    private val _sigunguCodes by lazy { MutableLiveData(listOf(Sigungu(code = "-1", name = "구군 선택"))) }
+    val sigunguCodes: LiveData<List<Sigungu>>
+        get() = _sigunguCodes
+
+    private val _fcltList by lazy { MutableLiveData(listOf<InfoSquareDto>()) }
+    val fcltList: LiveData<List<InfoSquareDto>>
+        get() = _fcltList
+
     private val _reviews by lazy { MutableLiveData(ReviewListDTO(0, emptyList())) }
     val reviews: LiveData<ReviewListDTO>
         get() = _reviews
@@ -43,6 +57,10 @@ class MainViewModel : ViewModel() {
 
                 if (response.isSuccessful) {
                     _nearbyStayList.value = response.body() ?: listOf()
+                } else {
+                    when (response.code()) {
+
+                    }
                 }
             } catch(e: Exception) {
                 e.printStackTrace()
@@ -57,6 +75,64 @@ class MainViewModel : ViewModel() {
 
                 if (response.isSuccessful) {
                     _nearbyChargerList.value = response.body() ?: listOf()
+                } else {
+                    when (response.code()) {
+
+                    }
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getSidoCode() {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getSidoCode()
+
+                if (response.isSuccessful) {
+                    _sidoCodes.value = response.body() ?: listOf(Sido(code = "-1", name = "시도 선택"))
+                } else {
+                    when (response.code()) {
+
+                    }
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getSigunguCode(sidoCode: String) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getSigunguCode(sidoCode)
+
+                if (response.isSuccessful) {
+                    _sigunguCodes.value = response.body() ?: listOf(Sigungu(code = "-1", name = "구군 선택"))
+                } else {
+                    when (response.code()) {
+
+                    }
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getTourFcltList(type: String, areaCode: String, bigPlaceCode: String) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getTourFcltList(typeId = type, areaCode = areaCode, bigPlaceCode = bigPlaceCode)
+
+                if (response.isSuccessful) {
+                    _fcltList.value = response.body() ?: listOf()
+                } else {
+                    when (response.code()) {
+
+                    }
                 }
             } catch(e: Exception) {
                 e.printStackTrace()

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="squareItem"
             type="com.triply.barrierfreetrip.data.InfoSquareDto" />
@@ -46,6 +47,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_square_address"
+            style="@style/TextViewStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -59,6 +61,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_square_place_name"
+            style="@style/TextViewStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -72,6 +75,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_square_CallNumber"
+            style="@style/TextViewStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
