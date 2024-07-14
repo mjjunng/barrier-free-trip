@@ -1,90 +1,108 @@
 package com.triply.barrierfreetrip
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.adapter.ConvenienceInfoAdapter
 import com.triply.barrierfreetrip.adapter.ViewPagerAdapter
 import com.triply.barrierfreetrip.adapter.decoration.ConvenienceInfoViewHolderDecoration
-import com.triply.barrierfreetrip.api.BFTApi
-import com.triply.barrierfreetrip.api.RetroInstance
 import com.triply.barrierfreetrip.data.ConvenienceInfoDTO
-import com.triply.barrierfreetrip.data.TourFacilityDetail
 import com.triply.barrierfreetrip.databinding.FragmentStayInfoBinding
-import retrofit2.Response
+import com.triply.barrierfreetrip.feature.BaseFragment
+import com.triply.barrierfreetrip.model.MainViewModel
 import com.triply.barrierfreetrip.util.toUIString
 
-class StayInfoFragment : Fragment(R.layout.fragment_stay_info) {
+class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment_stay_info) {
+    private val viewModel: MainViewModel by viewModels()
     private var contentId : String? = null
-    var retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
-    private var _binding: FragmentStayInfoBinding? = null
-    private val binding get() = _binding!!
-    private val TAG = "StayInfoFragment"
+    private var isLike = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        contentId = arguments?.getString("contentId")
+        contentId = arguments?.getString(CONTENT_ID)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // view binding
-        _binding = FragmentStayInfoBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun initInViewCreated() {
+        with(binding.rvConvenienceInfo) {
+            adapter = ConvenienceInfoAdapter()
+            layoutManager = LinearLayoutManager(requireContext(), androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+            if (itemDecorationCount < 1) addItemDecoration(ConvenienceInfoViewHolderDecoration())
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.rvConvenienceInfo.adapter = ConvenienceInfoAdapter()
-        binding.rvConvenienceInfo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        if (binding.rvConvenienceInfo.itemDecorationCount < 1) binding.rvConvenienceInfo.addItemDecoration(ConvenienceInfoViewHolderDecoration())
+        with(binding.cardToggleLike) {
+            setOnClickListener {
+                // like 업데이트
+            }
+        }
+
+        binding.btnStayinfoReview.setOnClickListener {
+            contentId?.let {
+                val bundle = Bundle()
+                val reviewFragment = ReviewFragment()
+
+                bundle.putString(CONTENT_ID, it)
+                reviewFragment.arguments = bundle
+
+                requireActivity().supportFragmentManager
+                    .beginTransaction()
+                    .add(android.R.id.content, reviewFragment)
+                    .commit()
+            }
+        }
+
+        with(binding.vpStayinfo) {
+            adapter = ViewPagerAdapter()
+            registerOnPageChangeCallback(object: OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    binding.indicatorVp.setCurrentIndicator(position)
+                }
+            })
+
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        }
 
         // call api
-        val responseLiveData: LiveData<Response<TourFacilityDetail>> = liveData {
-            val response = contentId?.let { retrofit.getTourFcltDetail(it) }
-
-            if (response != null) {
-                emit(response)
-            }
+        contentId?.let {
+            viewModel.getFcltDetail(it)
         }
+        viewModel.fcltDetail.observe(viewLifecycleOwner) { detail ->
+            if (detail.contentId.isBlank()) return@observe
 
-        //todo::viewpagage 애니메이션 주기
-        responseLiveData.observe(viewLifecycleOwner) { infoResponse ->
-            val data = infoResponse.body()
-            if (data != null) {
-                binding.vpStayinfo.adapter = ViewPagerAdapter(data.imgs)
-                binding.vpStayinfo.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                binding.tvStayinfoPlaceName.text = data.title
-                binding.tvStayinfoRate.text = data.rating
-                binding.tvStayinfoLocation.text = data.addr1
-                binding.tvStayinfoEnterTime.text = data.checkInTime
-                binding.tvStayinfoLeaveTime.text = data.checkOutTime
-                binding.tvStayinfoIntroduce.text = data.overview
+            (binding.vpStayinfo.adapter as ViewPagerAdapter).setDataList(detail.imgs)
+            binding.indicatorVp.initIndicators(detail.imgs.size)
 
-                val convenienceInfos = mutableListOf(
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_elevator), content = data.elevator?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_restroom), content = data.restroom?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_handicapetc), content = data.handicapetc?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_braileblock), content = data.braileblock?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_freeParking), content = data.freeParking?.toUIString() ?: ""),
-                    ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_publictransport), content = data.publictransport?.toUIString() ?: ""),
-                ).filter {
-                    it.content.isNotBlank()
-                }
-                binding.clStayinfoConvInfo.visibility = if (convenienceInfos.isEmpty()) View.GONE else View.VISIBLE
-                (binding.rvConvenienceInfo.adapter as ConvenienceInfoAdapter).setInfoList(convenienceInfos)
-            } else {
-                Log.d(TAG, "null touistfacility-info data")
+            binding.tvStayinfoPlaceName.text = detail.title
+            binding.tvStayinfoRate.text = detail.rating
+            binding.tvStayinfoLocation.text = detail.addr1
+            binding.tvStayinfoEnterTime.text = detail.checkInTime
+            binding.tvStayinfoLeaveTime.text = detail.checkOutTime
+            binding.tvStayinfoIntroduce.text = detail.overview
+            binding.ivLike.setImageResource(
+                if (detail.like == 0) R.drawable.ic_stay_heart_filled
+                else R.drawable.ic_stay_heart_empty
+            )
+
+            val convenienceInfos = mutableListOf(
+                ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_elevator), content = detail.elevator?.toUIString() ?: ""),
+                ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_restroom), content = detail.restroom?.toUIString() ?: ""),
+                ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_handicapetc), content = detail.handicapetc?.toUIString() ?: ""),
+                ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_braileblock), content = detail.braileblock?.toUIString() ?: ""),
+                ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_freeParking), content = detail.freeParking?.toUIString() ?: ""),
+                ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_publictransport), content = detail.publictransport?.toUIString() ?: ""),
+            ).filter {
+                it.content.isNotBlank()
             }
+            binding.clStayinfoConvInfo.visibility = if (convenienceInfos.isEmpty()) View.GONE else View.VISIBLE
+            (binding.rvConvenienceInfo.adapter as ConvenienceInfoAdapter).setInfoList(convenienceInfos)
         }
+    }
+
+    companion object {
+        private const val TAG = "StayInfoFragment"
     }
 }

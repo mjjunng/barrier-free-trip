@@ -6,10 +6,10 @@ import android.view.View
 import android.widget.AdapterView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_TYPE
 import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_TYPE_STAY
 import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_TYPE_TOUR
+import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.adapter.BFTSpinnerAdapter
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
 import com.triply.barrierfreetrip.adapter.OnItemClickListener

@@ -12,13 +12,13 @@ import com.triply.barrierfreetrip.data.ReviewListDTO
 import com.triply.barrierfreetrip.data.ReviewRegistrationDTO
 import com.triply.barrierfreetrip.data.Sido
 import com.triply.barrierfreetrip.data.Sigungu
+import com.triply.barrierfreetrip.data.TourFacilityDetail
 import com.triply.barrierfreetrip.util.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel : ViewModel() {
-//    val
     private val retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
     private val kakaoRetrofit = LocationInstance.getLocationApi()
 
@@ -41,6 +41,10 @@ class MainViewModel : ViewModel() {
     private val _fcltList by lazy { MutableLiveData(listOf<InfoSquareDto>()) }
     val fcltList: LiveData<List<InfoSquareDto>>
         get() = _fcltList
+
+    private val _fcltDetail by lazy { MutableLiveData(TourFacilityDetail()) }
+    val fcltDetail: LiveData<TourFacilityDetail>
+        get() = _fcltDetail
 
     private val _reviews by lazy { MutableLiveData(ReviewListDTO(0, emptyList())) }
     val reviews: LiveData<ReviewListDTO>
@@ -129,6 +133,24 @@ class MainViewModel : ViewModel() {
 
                 if (response.isSuccessful) {
                     _fcltList.value = response.body() ?: listOf()
+                } else {
+                    when (response.code()) {
+
+                    }
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getFcltDetail(contentId: String) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getTourFcltDetail(contentId)
+
+                if (response.isSuccessful) {
+                    _fcltDetail.value = response.body() ?: TourFacilityDetail()
                 } else {
                     when (response.code()) {
 

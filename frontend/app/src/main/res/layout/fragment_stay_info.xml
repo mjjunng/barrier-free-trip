@@ -39,79 +39,118 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="15dp"
+                    android:background="@color/transparent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.triply.barrierfreetrip.BFTDotIndicator
+                    android:id="@+id/indicator_vp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/vp_stayinfo"
+                    app:layout_constraintEnd_toEndOf="@id/vp_stayinfo"
+                    app:layout_constraintBottom_toBottomOf="@id/vp_stayinfo"
+                    android:layout_marginBottom="13dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_toggle_like"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="-24dp"
+                    android:layout_marginEnd="24dp"
+                    android:elevation="1dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vp_stayinfo">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_like"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_stay_heart_empty" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_place_name"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="21dp"
                     android:layout_marginTop="12dp"
-                    android:text="TextView"
-                    android:textSize="20sp"
+                    android:textColor="@color/tv_black"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vp_stayinfo" />
+                    app:layout_constraintTop_toBottomOf="@+id/vp_stayinfo"
+                    tools:text="힐하우스 호텔" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_stayinfo_star"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_stayinfo_place_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_stayinfo_place_name"
                     app:srcCompat="@drawable/ic_round_star_rate_filled" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_rate"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
-                    android:text="TextView"
-                    android:textSize="15sp"
+                    android:textColor="@color/tv_black"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_stayinfo_star"
                     app:layout_constraintStart_toEndOf="@+id/iv_stayinfo_star"
-                    app:layout_constraintTop_toTopOf="@+id/iv_stayinfo_star" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_stayinfo_star"
+                    tools:text="4.7" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_stayinfo_review"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:layout_marginStart="9dp"
                     android:background="@drawable/shape_sub_pink"
                     android:drawableStart="@drawable/ic_stayinfo_review"
-                    android:paddingHorizontal="11dp"
+                    android:paddingHorizontal="12dp"
                     android:text='@{"리뷰 " + numReview + " 개 보기"}'
                     app:layout_constraintBottom_toBottomOf="@+id/tv_stayinfo_rate"
                     app:layout_constraintStart_toEndOf="@+id/tv_stayinfo_rate"
                     app:layout_constraintTop_toTopOf="@+id/tv_stayinfo_rate" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_stayinfo_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextViewStyle"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="@+id/iv_stayinfo_star"
                     app:layout_constraintTop_toBottomOf="@+id/iv_stayinfo_star"
                     app:srcCompat="@drawable/ic_nav_location" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_location"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="TextView"
+                    android:textColor="@color/tv_black"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_stayinfo_location"
                     app:layout_constraintStart_toEndOf="@+id/iv_stayinfo_location"
-                    app:layout_constraintTop_toTopOf="@+id/iv_stayinfo_location" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_stayinfo_location"
+                    tools:text="서울특별시 중구 소공로3길 42" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_stayinfo_enter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -119,51 +158,83 @@
                     app:layout_constraintTop_toBottomOf="@+id/iv_stayinfo_location"
                     app:srcCompat="@drawable/ic_stayinfo_time_enter" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_enter"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
                     android:text="@string/stayinfo_enter"
+                    android:textColor="@color/tv_black"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_stayinfo_enter"
                     app:layout_constraintStart_toEndOf="@+id/iv_stayinfo_enter"
                     app:layout_constraintTop_toTopOf="@+id/iv_stayinfo_enter" />
 
-                <TextView
-                    android:id="@+id/tv_stayinfo_enter_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_stayinfo_enter"
-                    app:layout_constraintStart_toEndOf="@+id/tv_stayinfo_enter"
-                    app:layout_constraintTop_toTopOf="@+id/tv_stayinfo_enter" />
+                <View
+                    android:id="@+id/divider_checkin"
+                    style="@style/divider"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_stayinfo_enter"
+                    app:layout_constraintStart_toEndOf="@id/tv_stayinfo_enter"
+                    app:layout_constraintTop_toTopOf="@id/tv_stayinfo_enter" />
 
-                <ImageView
-                    android:id="@+id/iv_stayinfo_leave"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_stayinfo_enter_time"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:textColor="@color/tv_black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_stayinfo_enter"
+                    app:layout_constraintStart_toEndOf="@+id/divider_checkin"
+                    app:layout_constraintTop_toTopOf="@+id/tv_stayinfo_enter"
+                    tools:text="15:00" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_stayinfo_leave"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginStart="20dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_stayinfo_enter_time"
                     app:layout_constraintStart_toEndOf="@+id/tv_stayinfo_enter_time"
                     app:layout_constraintTop_toTopOf="@+id/tv_stayinfo_enter_time"
                     app:srcCompat="@drawable/ic_stayinfo_time_leave" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_leave"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
                     android:text="@string/stayinfo_leave"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_stayinfo_leave"
-                    app:layout_constraintStart_toEndOf="@+id/iv_stayinfo_leave"
-                    app:layout_constraintTop_toTopOf="@+id/iv_stayinfo_leave" />
+                    android:textColor="@color/tv_black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_stayinfo_leave"
+                    app:layout_constraintStart_toEndOf="@id/iv_stayinfo_leave"
+                    app:layout_constraintTop_toTopOf="@id/iv_stayinfo_leave" />
 
-                <TextView
+                <View
+                    android:id="@+id/divider_checkout"
+                    style="@style/divider"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_stayinfo_enter"
+                    app:layout_constraintStart_toEndOf="@id/tv_stayinfo_leave"
+                    app:layout_constraintTop_toTopOf="@id/tv_stayinfo_enter" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_leave_time"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_stayinfo_leave"
-                    app:layout_constraintStart_toEndOf="@+id/tv_stayinfo_leave"
-                    app:layout_constraintTop_toTopOf="@+id/tv_stayinfo_leave" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:textColor="@color/tv_black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_stayinfo_leave"
+                    app:layout_constraintStart_toEndOf="@id/divider_checkout"
+                    app:layout_constraintTop_toTopOf="@id/tv_stayinfo_leave"
+                    tools:text="12:00" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -178,20 +249,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_introduce_title"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="21dp"
                     android:layout_marginTop="15dp"
                     android:text="소개"
-                    android:textSize="17sp"
+                    android:textColor="@color/tv_black"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_introduce"
+                    style="@style/TextViewStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="21dp"
@@ -199,11 +273,13 @@
                     android:layout_marginEnd="21dp"
                     android:layout_marginBottom="15dp"
                     android:text="@string/all_temp_long"
-                    android:textSize="15sp"
+                    android:textColor="@color/tv_black"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_stayinfo_introduce_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_stayinfo_introduce_title"
+                    tools:text="힐하우스 호텔은 서울 남산공원 아래에 위치한 비즈니스 호텔로, 깔끔하고 청결한 객실 컨디션으로 호평을 받고 있다." />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -217,7 +293,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraintLayout4">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_convenience_info_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -225,13 +301,15 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_stayinfo_hand_heart" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_info_title"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:textSize="16sp"
                     android:text="@string/stayinfo_convinfo_title"
+                    android:textColor="@color/tv_black"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_convenience_info_icon"
                     app:layout_constraintStart_toEndOf="@id/iv_convenience_info_icon"
@@ -258,13 +336,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_stayinfo_conv_info">
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_stayinfo_call"
                     style="@style/StaylistBigButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:drawableTop="@drawable/ic_call"
+                    android:drawableTint="@color/tv_black"
                     android:text="@string/stayinfo_call"
+                    android:textColor="@color/tv_black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/view"
                     app:layout_constraintStart_toStartOf="parent"
@@ -280,14 +360,16 @@
                     app:layout_constraintStart_toEndOf="@+id/btn_stayinfo_call"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_stayinfo_map"
                     style="@style/StaylistBigButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@android:color/transparent"
                     android:drawableTop="@drawable/ic_location"
+                    android:drawableTint="@color/tv_black"
                     android:text="@string/stayinfo_map"
+                    android:textColor="@color/tv_black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/view2"
                     app:layout_constraintStart_toEndOf="@id/view"
@@ -303,14 +385,16 @@
                     app:layout_constraintStart_toEndOf="@+id/btn_stayinfo_map"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_stayinfo_page"
                     style="@style/StaylistBigButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@android:color/transparent"
                     android:drawableTop="@drawable/ic_stayinfo_home"
+                    android:drawableTint="@color/tv_black"
                     android:text="@string/stayinfo_page"
+                    android:textColor="@color/tv_black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/view2"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
 import com.triply.barrierfreetrip.adapter.OnItemClickListener
 import com.triply.barrierfreetrip.adapter.decoration.StayListItemViewHolderDecoration
@@ -176,7 +177,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     companion object {
         private const val TAG = "HomeFragment"
-        const val CONTENT_ID = "contentId"
         const val CONTENT_TYPE = "type"
         const val CONTENT_TYPE_STAY = "32"
         const val CONTENT_TYPE_TOUR = "12"

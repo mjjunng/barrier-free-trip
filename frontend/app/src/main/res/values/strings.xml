@@ -36,8 +36,8 @@
     <string name="btn_nav_mypage">마이</string>
 
     <!-- strings for stayinfo -->
-    <string name="stayinfo_enter">입실시간 | </string>
-    <string name="stayinfo_leave">퇴실시간 | </string>
+    <string name="stayinfo_enter">입실시간</string>
+    <string name="stayinfo_leave">퇴실시간</string>
     <string name="stayinfo_call">전화</string>
     <string name="stayinfo_map">지도</string>
     <string name="stayinfo_page">홈페이지</string>
