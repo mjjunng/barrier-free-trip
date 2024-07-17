@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/iv_review_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -30,7 +30,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -52,7 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_review_title" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_review_title"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -63,7 +63,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_review_top_bar" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_review_count"
             android:layout_width="24dp"
             android:layout_height="0dp"
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="@+id/tv_review_title"
             tools:text="38" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_writing_review"
             android:layout_width="0dp"
             android:layout_height="60dp"

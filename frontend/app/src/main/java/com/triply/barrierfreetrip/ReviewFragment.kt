@@ -21,7 +21,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     override fun initInViewCreated() {
         with(binding) {
             // 제목 설정
-            
+            ivReviewBack.setOnClickListener {
+                if (parentFragmentManager.backStackEntryCount > 0) parentFragmentManager.popBackStack()
+            }
+
             // 리뷰 리사이클러뷰 설정
             rvReview.adapter = ReviewAdapter()
             rvReview.layoutManager = LinearLayoutManager(context).apply {
@@ -41,7 +44,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
                 parentFragmentManager
                     .beginTransaction()
-                    .add(R.id.main_nav_host_fragment, reviewWritingFragment)
+                    .add(android.R.id.content, reviewWritingFragment)
                     .commit()
             }
         }
@@ -49,8 +52,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         contentId?.let {
             viewModel.getReviews(it)
         }
-        // 테스트용
-//        viewModel.getReviews("1882945")
 
         viewModel.reviews.observe(viewLifecycleOwner) {
             val totalReviewCnt = it.totalCnt
