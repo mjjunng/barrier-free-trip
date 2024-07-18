@@ -145,7 +145,7 @@ class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
             }
         })
 
-        viewModel.fcltList.observe(viewLifecycleOwner) {
+        viewModel.locationList.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 Log.d(TAG, "null near-hotel data")
             }

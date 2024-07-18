@@ -8,6 +8,8 @@ import com.triply.barrierfreetrip.api.BFTApi
 import com.triply.barrierfreetrip.api.LocationInstance
 import com.triply.barrierfreetrip.api.RetroInstance
 import com.triply.barrierfreetrip.data.ChargerDetail
+import com.triply.barrierfreetrip.data.InfoListDto
+import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.data.ReviewListDTO
 import com.triply.barrierfreetrip.data.ReviewRegistrationDTO
 import com.triply.barrierfreetrip.data.Sido
@@ -38,13 +40,13 @@ class MainViewModel : ViewModel() {
     val sigunguCodes: LiveData<List<Sigungu>>
         get() = _sigunguCodes
 
-    private val _fcltList by lazy { MutableLiveData(listOf<InfoSquareDto>()) }
-    val fcltList: LiveData<List<InfoSquareDto>>
-        get() = _fcltList
+    private val _locationList by lazy { MutableLiveData(listOf<InfoSquareDto>()) }
+    val locationList: LiveData<List<InfoSquareDto>>
+        get() = _locationList
 
-    private val _fcltDetail by lazy { MutableLiveData(TourFacilityDetail()) }
+    private val _locationDetail by lazy { MutableLiveData(TourFacilityDetail()) }
     val fcltDetail: LiveData<TourFacilityDetail>
-        get() = _fcltDetail
+        get() = _locationDetail
 
     private val _reviews by lazy { MutableLiveData(ReviewListDTO(0, emptyList())) }
     val reviews: LiveData<ReviewListDTO>
@@ -53,6 +55,10 @@ class MainViewModel : ViewModel() {
     private val _isUploadingReviewSucceed by lazy { MutableLiveData(Event(false)) }
     val isUploadingReviewSucceed: LiveData<Event<Boolean>>
         get() = _isUploadingReviewSucceed
+
+    private val _fcltList by lazy { MutableLiveData(listOf<InfoListDto>()) }
+    val fcltList: LiveData<List<InfoListDto>>
+        get() = _fcltList
 
     fun getNearbyStayList(userX: Double, userY: Double) {
         viewModelScope.launch {
@@ -132,7 +138,7 @@ class MainViewModel : ViewModel() {
                 val response = retrofit.getTourFcltList(typeId = type, areaCode = areaCode, bigPlaceCode = bigPlaceCode)
 
                 if (response.isSuccessful) {
-                    _fcltList.value = response.body() ?: listOf()
+                    _locationList.value = response.body() ?: listOf()
                 } else {
                     when (response.code()) {
 
@@ -150,7 +156,7 @@ class MainViewModel : ViewModel() {
                 val response = retrofit.getTourFcltDetail(contentId)
 
                 if (response.isSuccessful) {
-                    _fcltDetail.value = response.body() ?: TourFacilityDetail()
+                    _locationDetail.value = response.body() ?: TourFacilityDetail()
                 } else {
                     when (response.code()) {
 
@@ -190,6 +196,60 @@ class MainViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     //
                     _isUploadingReviewSucceed.value = Event(true)
+                } else {
+                    when (response.code()) {
+
+                    }
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getCareTourList(sidoName: String, sigunguName: String) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getCareTourList(bigPlaceCode = sidoName, smallPlaceCode = sigunguName)
+
+                if (response.isSuccessful) {
+                    _fcltList.value = response.body() ?: listOf()
+                } else {
+                    when (response.code()) {
+
+                    }
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getChargerList(sidoName: String, sigunguName: String) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getChargerList(sido = sidoName, sigungu = sigunguName)
+
+                if (response.isSuccessful) {
+                    _fcltList.value = response.body() ?: listOf()
+                } else {
+                    when (response.code()) {
+
+                    }
+                }
+            } catch(e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getRentalServiceList(sidoName: String, sigunguName: String) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.getRentalServiceList(bigPlaceCode = sidoName, smallPlaceCode = sigunguName)
+
+                if (response.isSuccessful) {
+                    _fcltList.value = response.body() ?: listOf()
                 } else {
                     when (response.code()) {
 

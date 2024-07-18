@@ -37,6 +37,7 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
         with(binding.cardToggleLike) {
             setOnClickListener {
                 // like 업데이트
+                
             }
         }
 
@@ -51,6 +52,7 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
                 requireActivity().supportFragmentManager
                     .beginTransaction()
                     .add(android.R.id.content, reviewFragment)
+                    .addToBackStack(null)
                     .commit()
             }
         }

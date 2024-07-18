@@ -1,34 +1,31 @@
 package com.triply.barrierfreetrip
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_TYPE
+import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.adapter.BFTSpinnerAdapter
 import com.triply.barrierfreetrip.adapter.InfoListAdapter
 import com.triply.barrierfreetrip.adapter.OnItemClickListener
-import com.triply.barrierfreetrip.api.BFTApi
-import com.triply.barrierfreetrip.api.RetroInstance
 import com.triply.barrierfreetrip.data.InfoListDto
 import com.triply.barrierfreetrip.databinding.FragmentWishlistBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
-import retrofit2.Response
+import com.triply.barrierfreetrip.model.MainViewModel
 
 class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment_wishlist) {
-    private val retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
+    private val viewModel: MainViewModel by viewModels()
+
     private var type: String? = null
     private var sidoNames = arrayListOf("시도 선택")
     private var sigunguNames = arrayListOf("구군 선택")
+    private val infoList = arrayListOf<InfoListDto>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        type = arguments?.getString("type")
+        type = arguments?.getString(CONTENT_TYPE)
     }
 
     override fun initInViewCreated() {
@@ -161,7 +158,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
                         smallAreaPosition: Int,
                         id: Long
                     ) {
-                        getListData(
+                        getFcltListData(
                             sidoNames.getOrElse(bigAreaPosition) { "" },
                             sigunguNames.getOrElse(smallAreaPosition) { "" }
                         )
@@ -176,74 +173,48 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
             }
         }
 
-        val infoListAdapter = InfoListAdapter()
-        binding.rvList.adapter = infoListAdapter
-        binding.rvList.layoutManager = LinearLayoutManager(context)
-    }
-
-    private fun getListData(sidoNm: String?, sigunguNm: String) {
-        val infoListDtoList = arrayListOf<InfoListDto>()
-
-        val facilityListLiveData: LiveData<Response<List<InfoListDto>>> = liveData {
-            val response = when {
-                type.equals(TYPE_CARE_TOUR) -> retrofit.getCareTourList(
-                    sidoNm.toString(),
-                    sigunguNm
-                )
-
-                type.equals(TYPE_CHARGER) -> retrofit.getChargerList(sidoNm.toString(), sigunguNm)
-                else -> retrofit.getRentalServiceList(sidoNm.toString(), sigunguNm)
-            }
-            emit(response)
-        }
-
-        facilityListLiveData.observe(viewLifecycleOwner) {
-            val list = it.body()?.listIterator()
-            if (list != null) {
-                while (list.hasNext()) {
-                    val item = list.next()
-                    infoListDtoList.add(item)
-                }
-            } else {
-                Log.d(TAG, "null wishlist data")
-            }
-            (binding.rvList.adapter as InfoListAdapter).setInfoList(infoListDtoList)
-            (binding.rvList.adapter as InfoListAdapter).setOnItemClickListener(
-                object : OnItemClickListener {
+        with(binding.rvList) {
+            val infoListAdapter = InfoListAdapter()
+            binding.rvList.adapter = infoListAdapter.apply {
+                setOnItemClickListener(object: OnItemClickListener {
                     override fun onItemClick(position: Int) {
-                        val item = infoListDtoList[position]
-                        val bundle = Bundle()
-                        val fragment = when {
-                            type.equals(TYPE_CARE_TOUR) || type.equals(TYPE_RENTAL) -> StayInfoFragment()
-                            else -> MapFragment()
+                        val item = infoList.getOrNull(position)
+                        item?.addr?.let {
+                            val bundle = Bundle()
+                            val fragment = when {
+                                type.equals(TYPE_CARE_TOUR) || type.equals(TYPE_RENTAL) -> StayInfoFragment()
+                                else -> MapFragment()
+                            }
+
+                            bundle.putString(CONTENT_ID, it)
+                            fragment.arguments = bundle
+
+                            requireActivity().supportFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.main_nav_host_fragment, fragment)
+                                .addToBackStack(null)
+                                .commit()
                         }
 
-                        bundle.putInt(CONTENT_ID, item.id)
-                        fragment.arguments = bundle
-
-                        requireActivity().supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.main_nav_host_fragment, fragment)
-                            .commit()
                     }
-                }
-            )
 
-//            infoListAapter.setItemClickListener(object : InfoSquareAdapter.OnItemClickListener {
-//                override fun onClick(view: View, position: Int) {
-//                    val item = infoListDtoList[position]
-//                    val bundle = Bundle()
-//                    val stayInfoFragment = StayInfoFragment()
-//
-//                    bundle.putString("contentId", item.contentId)
-//                    stayInfoFragment.arguments = bundle
-//
-//                    requireActivity().supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.main_nav_host_fragment, stayInfoFragment)
-//                        .commit()
-//                }
-//            })
+                })
+            }
+            binding.rvList.layoutManager = LinearLayoutManager(context).apply {
+                orientation = LinearLayoutManager.VERTICAL
+            }
+        }
+
+        viewModel.fcltList.observe(viewLifecycleOwner) {
+            (binding.rvList.adapter as InfoListAdapter).setInfoList(it)
+        }
+    }
+
+    private fun getFcltListData(sidoNm: String?, sigunguNm: String) {
+        when (type) {
+            TYPE_CARE_TOUR -> viewModel.getCareTourList(sidoNm.toString(), sigunguNm)
+            TYPE_CHARGER -> viewModel.getChargerList(sidoNm.toString(), sigunguNm)
+            else -> viewModel.getRentalServiceList(sidoNm.toString(), sigunguNm)
         }
     }
 
@@ -262,7 +233,5 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
         private const val TYPE_CARE_TOUR = "1"
         private const val TYPE_CHARGER = "2"
         private const val TYPE_RENTAL = "3"
-
-        const val CONTENT_ID = "content_id"
     }
 }
