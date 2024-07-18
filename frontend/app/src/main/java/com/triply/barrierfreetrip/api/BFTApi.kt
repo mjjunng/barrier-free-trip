@@ -50,7 +50,7 @@ interface BFTApi {
 
     @GET("/chargers/info/{contentId}")
     suspend fun getChargerDetail(
-        @Path(value = "contentId") contentId: String
+        @Path(value = "contentId") contentId: Long
     ) : Response<ChargerDetail>
 
     @GET("/care-services/{sido}/{sigungu}")
@@ -94,5 +94,12 @@ interface BFTApi {
     suspend fun postReview(
         @Path(value = "contentId") contentId: String,
         @Body body: ReviewRegistrationDTO
+    ): Response<Unit>
+
+    @GET("/heart/{type}/{contentId}/{likes}")
+    suspend fun postLikes(
+        @Path(value = "type") type: Int,
+        @Path(value = "contentId") contentId: String,
+        @Path(value = "likes") likes: Int
     ): Response<Unit>
 }

@@ -218,7 +218,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
                             else -> MapFragment()
                         }
 
-                        bundle.putString("contentId", item.addr)
+                        bundle.putInt(CONTENT_ID, item.id)
                         fragment.arguments = bundle
 
                         requireActivity().supportFragmentManager

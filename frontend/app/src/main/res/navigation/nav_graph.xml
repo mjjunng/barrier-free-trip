@@ -31,7 +31,16 @@
         android:id="@+id/wishListFragment"
         android:name="com.triply.barrierfreetrip.WishlistFragment"
         android:label="fragment_wish_list"
-        tools:layout="@layout/fragment_wishlist" />
+        tools:layout="@layout/fragment_wishlist">
+        <action
+            android:id="@+id/action_wishListFragment_to_wisiListMapFragment"
+            app:destination="@id/wishListMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wishListMapFragment"
+        android:name="com.triply.barrierfreetrip.WishlistMapFragment"
+        android:label="fragment_wish_list_map"
+        tools:layout="@layout/fragment_wishlist_map" />
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.triply.barrierfreetrip.MyPageFragment"
@@ -61,6 +70,5 @@
         android:name="com.triply.barrierfreetrip.ReviewWritingFragment"
         android:label="fragment_review_writing"
         tools:layout="@layout/fragment_review_writing" />
-
 
 </navigation>

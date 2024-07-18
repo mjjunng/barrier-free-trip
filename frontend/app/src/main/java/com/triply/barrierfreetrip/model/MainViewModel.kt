@@ -5,15 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.triply.barrierfreetrip.api.BFTApi
+import com.triply.barrierfreetrip.api.LocationInstance
 import com.triply.barrierfreetrip.api.RetroInstance
+import com.triply.barrierfreetrip.data.ChargerDetail
 import com.triply.barrierfreetrip.data.ReviewListDTO
 import com.triply.barrierfreetrip.data.ReviewRegistrationDTO
 import com.triply.barrierfreetrip.util.Event
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel : ViewModel() {
-//    val
+    //    val
     private val retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
+    private val kakaoRetrofit = LocationInstance.getLocationApi()
 
     private val _reviews by lazy { MutableLiveData(ReviewListDTO(0, emptyList())) }
     val reviews: LiveData<ReviewListDTO>
@@ -56,7 +61,73 @@ class MainViewModel : ViewModel() {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private val _chargerInfo by lazy { MutableLiveData<ChargerDetail>() }
+    val chargerInfo: LiveData<ChargerDetail>
+        get() = _chargerInfo
+
+    fun getChargerInfo(contentId: Long) {
+        viewModelScope.launch {
+            try {
+                var longitude = 0.0
+                var latitude = 0.0
+
+                val response = retrofit.getChargerDetail(contentId = contentId)
+
+                if (response.isSuccessful) {
+                    if (!response.body()?.addr.isNullOrEmpty()) {
+                        val locationCoordinate = withContext(Dispatchers.IO) {
+                            kakaoRetrofit.getLocationCoordinate(address = response.body()!!.addr).body()?.documents?.get(0)
+                        }
+                        longitude = locationCoordinate?.longitude?.toDouble() ?: 0.0
+                        latitude = locationCoordinate?.latitude?.toDouble() ?: 0.0
+                    }
+                    _chargerInfo.value = response.body() ?: ChargerDetail(
+                        addr = "",
+                        air = "",
+                        holidayClose = "",
+                        holidayOpen = "",
+                        like = 0,
+                        phoneCharge = "",
+                        possible = "",
+                        tel = "",
+                        title = "",
+                        weekdayClose = "",
+                        weekdayOpen = "",
+                        weekendClose = "",
+                        weekendOpen = "",
+                        latitude = latitude,
+                        longitude = longitude
+                    )
+                } else {
+                    when (response.code()) {
+
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun postLikes(type: Int, contentId: String, likes: Int) {
+        viewModelScope.launch {
+            try {
+                val response = retrofit.postLikes(type = type, contentId = contentId, likes = likes)
+                if (response.isSuccessful) {
+                    val chargerInfoResponse = retrofit.getChargerDetail(contentId = contentId.toLong())
+                    if (chargerInfoResponse.isSuccessful) {
+                        _chargerInfo.value = _chargerInfo.value?.copy(
+                            like = chargerInfoResponse.body()?.like ?: 0
+                        )
+                    }
+                }
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
