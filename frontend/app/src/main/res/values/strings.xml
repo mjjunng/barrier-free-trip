@@ -81,11 +81,13 @@
     <!-- strings for search -->
     <string name="search_hint">검색어를 입력하세요</string>
 
-    <!-- <string name=""></string> -->
+    <!-- <string name="chargerlist" -->
+    <string name="chargerlist_see_map">지도보기</string>
 
     <!-- strings for review -->
     <string name="review_write">리뷰 작성하기</string>
     <string name="load_more">더보기</string>
+    <string name="review_writing_do">리뷰 작성</string>
     <string name="review_writing_upload">등록</string>
     <string name="review_writing_content_hint">방문후를 적어주세요.</string>
 </resources>

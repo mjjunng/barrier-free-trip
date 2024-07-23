@@ -13,6 +13,7 @@ import com.kakao.vectormap.mapwidget.component.GuiImage
 import com.kakao.vectormap.mapwidget.component.GuiLayout
 import com.kakao.vectormap.mapwidget.component.GuiText
 import com.kakao.vectormap.mapwidget.component.Orientation
+import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.databinding.FragmentWishlistMapBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
@@ -32,7 +33,7 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            contentId = it.getInt(WishlistFragment.CONTENT_ID).toString()
+            contentId = it.getInt(CONTENT_ID).toString()
         }
     }
 
@@ -68,10 +69,10 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
                     return@setOnLikeClick
                 }
                 timeOnClickLike = currentTimeMillis()
-                viewModel.postLikes(type = 1, contentId = contentId ?: "", likes = chargerInfo.like xor 1)
-                binding.dialogMapInfo.updateLike(
-                    like = chargerInfo.like xor 1 == 1
-                )
+                contentId?.let {
+                    viewModel.postLikes(type = 1, contentId = it, likes = chargerInfo.like xor 1)
+                    binding.dialogMapInfo.updateLike(like = chargerInfo.like xor 1 == 1)
+                }
             }
         }
     }
@@ -107,7 +108,10 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
         val kakaoMapReadyCycleCallback = object: KakaoMapReadyCallback() {
             override fun onMapReady(kakaoMap: KakaoMap) {
                 _kakaoMap = kakaoMap
-                viewModel.getChargerInfo(contentId = contentId?.toLong() ?: 0)
+                contentId?.let {
+                    viewModel.getChargerInfo(contentId = it.toLong())
+                }
+
             }
         }
         binding.mapChargerInfo.start(mapLifeCycleCallback, kakaoMapReadyCycleCallback)

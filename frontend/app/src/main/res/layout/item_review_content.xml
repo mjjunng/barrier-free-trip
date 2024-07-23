@@ -18,6 +18,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_reviewer_name"
+            style="@style/TextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -28,6 +29,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_review_content"
+            style="@style/TextViewStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -40,6 +42,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_review_date"
+            style="@style/TextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

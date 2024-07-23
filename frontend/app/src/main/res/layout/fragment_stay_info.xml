@@ -113,6 +113,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_stayinfo_review"
+                    style="@style/ButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:layout_marginStart="9dp"
@@ -256,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="21dp"
                     android:layout_marginTop="15dp"
-                    android:text="소개"
+                    android:text="@string/stayinfo_intro"
                     android:textColor="@color/tv_black"
                     android:textSize="15sp"
                     android:textStyle="bold"

@@ -15,17 +15,16 @@ import com.triply.barrierfreetrip.model.MainViewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel: MainViewModel by viewModels()
-    private val nearbyStayListAdapter = InfoSquareAdapter()
     private val nearbyChargerDtoList = ArrayList<InfoSquareDto>()
     private val nearbyStayDtoList = ArrayList<InfoSquareDto>()
 
     override fun initInViewCreated() {
         with(binding.rvNearHotelList) {
-            adapter = nearbyStayListAdapter
+            adapter = InfoSquareAdapter()
             if (itemDecorationCount < 1) {
                 addItemDecoration(StayListItemViewHolderDecoration())
             }
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             (adapter as InfoSquareAdapter).setOnItemClickListener(
                 object: OnItemClickListener {
                     override fun onItemClick(position: Int) {
@@ -39,6 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         requireActivity().supportFragmentManager
                             .beginTransaction()
                             .add(R.id.main_nav_host_fragment, stayInfoFragment)
+                            .addToBackStack(null)
                             .commit()
                     }
                 }
@@ -186,5 +186,3 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         const val CONTENT_TYPE_RENTAL = "3"
     }
 }
-
-
