@@ -82,7 +82,7 @@ class ReviewWritingFragment : BaseFragment<FragmentReviewWritingBinding>(R.layou
             root.viewTreeObserver.addOnGlobalLayoutListener(onLaunchKeyboardListener)
         }
 
-        viewModel.isUploadingReviewSucceed.observe(viewLifecycleOwner) {
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
             if (it.getContentIfNotHandled() == true) {
                 BFTDialog(requireContext()) { backToPrevFragment() }.show()
             }

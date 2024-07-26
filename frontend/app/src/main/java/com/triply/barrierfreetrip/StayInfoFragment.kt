@@ -19,8 +19,8 @@ import com.triply.barrierfreetrip.util.toUIString
 
 class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment_stay_info) {
     private val viewModel: MainViewModel by viewModels()
-    private var contentId : String? = null
-    private var isLike = false
+    private var contentId: String? = null
+    private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +30,12 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
     override fun initInViewCreated() {
         with(binding.rvConvenienceInfo) {
             adapter = ConvenienceInfoAdapter()
-            layoutManager = LinearLayoutManager(requireContext(), androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             if (itemDecorationCount < 1) addItemDecoration(ConvenienceInfoViewHolderDecoration())
         }
 
-        with(binding.cardToggleLike) {
-            setOnClickListener {
-                // like 업데이트
-                
-            }
+        binding.imgbtnBack.setOnClickListener {
+            if (parentFragmentManager.backStackEntryCount > 0) parentFragmentManager.popBackStack()
         }
 
         binding.btnStayinfoReview.setOnClickListener {
@@ -71,6 +68,7 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
         // call api
         contentId?.let {
             viewModel.getFcltDetail(it)
+            viewModel.getReviews(it)
         }
         viewModel.fcltDetail.observe(viewLifecycleOwner) { detail ->
             if (detail.contentId.isBlank()) return@observe
@@ -84,10 +82,6 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
             binding.tvStayinfoEnterTime.text = detail.checkInTime
             binding.tvStayinfoLeaveTime.text = detail.checkOutTime
             binding.tvStayinfoIntroduce.text = detail.overview
-            binding.ivLike.setImageResource(
-                if (detail.like == 0) R.drawable.ic_stay_heart_filled
-                else R.drawable.ic_stay_heart_empty
-            )
 
             val convenienceInfos = mutableListOf(
                 ConvenienceInfoDTO(subject = ContextCompat.getString(requireContext(), R.string.stayinfo_elevator), content = detail.elevator?.toUIString() ?: ""),
@@ -101,6 +95,26 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
             }
             binding.clStayinfoConvInfo.visibility = if (convenienceInfos.isEmpty()) View.GONE else View.VISIBLE
             (binding.rvConvenienceInfo.adapter as ConvenienceInfoAdapter).setInfoList(convenienceInfos)
+
+            binding.btnToggleLike.setOnClickListener {
+                viewModel.postLikes(
+                    contentType = detail.contentTypeId,
+                    contentId = detail.contentId,
+                    likes = detail.like xor 1
+                )
+            }
+        }
+
+        viewModel.reviews.observe(viewLifecycleOwner) {
+            binding.btnStayinfoReview.text = getString(R.string.show_reviews, it.totalCnt)
+        }
+
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
+            if (it.getContentIfNotHandled() == true) {
+                loadingProgressBar.show()
+            } else {
+                loadingProgressBar.dismiss()
+            }
         }
     }
 

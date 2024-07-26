@@ -15,6 +15,7 @@
     <color name="green">#668077</color>
     <color name="transparent">#00ffffff</color>
     <color name="tv_black">#2A2F37</color>
+    <color name="background_back_gray">#F9F8F8</color>
 
     <color name="kakao_yellow">#FDDD35</color>
     <color name="kakao_brown">#381f1f</color>

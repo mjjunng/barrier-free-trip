@@ -7,12 +7,11 @@ import android.widget.AdapterView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_TYPE
-import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_TYPE_STAY
-import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_TYPE_TOUR
 import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.adapter.BFTSpinnerAdapter
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
 import com.triply.barrierfreetrip.adapter.OnItemClickListener
+import com.triply.barrierfreetrip.adapter.OnLikeClickListener
 import com.triply.barrierfreetrip.adapter.decoration.StayListItemViewHolderDecoration
 import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.data.Sido
@@ -20,11 +19,13 @@ import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.databinding.FragmentStaylistBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_STAY
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_TOUR
 
 class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment_staylist) {
-    private val infoSquareAdapter = InfoSquareAdapter()
     private val viewModel: MainViewModel by viewModels()
     private var type: String? = null
+    private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
 
     // sido data
     private val sidoCodes = arrayListOf(Sido(code = "-1", name = "시도 선택"))
@@ -124,26 +125,37 @@ class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
         }
 
         with(binding.rvList) {
-            adapter = infoSquareAdapter
+            adapter = InfoSquareAdapter().apply {
+                setOnItemClickListener(object : OnItemClickListener {
+                    override fun onItemClick(position: Int) {
+                        val item = fcltList[position]
+                        val bundle = Bundle()
+                        val stayInfoFragment = StayInfoFragment()
+
+                        bundle.putString(CONTENT_ID, item.contentId)
+                        bundle.putString(CONTENT_TYPE, CONTENT_TYPE_STAY)
+                        stayInfoFragment.arguments = bundle
+
+                        requireActivity().supportFragmentManager
+                            .beginTransaction()
+                            .replace(android.R.id.content, stayInfoFragment)
+                            .commit()
+                    }
+                })
+                setOnLikeClickListener(object : OnLikeClickListener {
+                    override fun onLikeClick(position: Int) {
+                        val item = fcltList.getOrNull(position) ?: return
+
+                        type?.let {
+                            viewModel.postLikes(contentType = it, contentId = item.contentId, likes = if (item.like) 0 else 1)
+                        }
+                    }
+
+                })
+            }
             layoutManager = GridLayoutManager(context, 2)
             if (itemDecorationCount < 1) addItemDecoration(StayListItemViewHolderDecoration())
         }
-
-        infoSquareAdapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                val item = fcltList[position]
-                val bundle = Bundle()
-                val stayInfoFragment = StayInfoFragment()
-
-                bundle.putString(CONTENT_ID, item.contentId)
-                stayInfoFragment.arguments = bundle
-
-                requireActivity().supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_nav_host_fragment, stayInfoFragment)
-                    .commit()
-            }
-        })
 
         viewModel.locationList.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
@@ -152,6 +164,14 @@ class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
             fcltList.clear()
             fcltList.addAll(it)
             (binding.rvList.adapter as InfoSquareAdapter).setDataList(fcltList)
+        }
+
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
+            if (it.getContentIfNotHandled() == true) {
+                loadingProgressBar.show()
+            } else {
+                loadingProgressBar.dismiss()
+            }
         }
     }
 

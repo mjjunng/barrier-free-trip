@@ -4,69 +4,82 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
+import com.triply.barrierfreetrip.adapter.InfoListAdapter
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
 import com.triply.barrierfreetrip.adapter.OnItemClickListener
+import com.triply.barrierfreetrip.adapter.OnLikeClickListener
 import com.triply.barrierfreetrip.adapter.decoration.StayListItemViewHolderDecoration
+import com.triply.barrierfreetrip.data.InfoListDto
 import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.databinding.FragmentHomeBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_CARE
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_CHARGER
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_RENTAL
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_RESTAURANT
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_STAY
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_TOUR
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel: MainViewModel by viewModels()
-    private val nearbyChargerDtoList = ArrayList<InfoSquareDto>()
+    private val nearbyChargerDtoList = ArrayList<InfoListDto>()
     private val nearbyStayDtoList = ArrayList<InfoSquareDto>()
+    private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
 
     override fun initInViewCreated() {
         with(binding.rvNearHotelList) {
-            adapter = InfoSquareAdapter()
+            adapter = InfoSquareAdapter().apply {
+                setOnItemClickListener(
+                    object: OnItemClickListener {
+                        override fun onItemClick(position: Int) {
+                            val item = nearbyStayDtoList.getOrNull(position) ?: return
+                            val bundle = Bundle()
+                            val stayInfoFragment = StayInfoFragment()
+
+                            bundle.putString(CONTENT_ID, item.contentId)
+                            stayInfoFragment.arguments = bundle
+
+                            requireActivity().supportFragmentManager
+                                .beginTransaction()
+                                .add(android.R.id.content, stayInfoFragment)
+                                .addToBackStack(null)
+                                .commit()
+                        }
+                    }
+                )
+                setLikeVisibility(false)
+            }
             if (itemDecorationCount < 1) {
                 addItemDecoration(StayListItemViewHolderDecoration())
             }
             layoutManager = GridLayoutManager(requireContext(), 2)
-            (adapter as InfoSquareAdapter).setOnItemClickListener(
-                object: OnItemClickListener {
-                    override fun onItemClick(position: Int) {
-                        val item = nearbyStayDtoList[position]
-                        val bundle = Bundle()
-                        val stayInfoFragment = StayInfoFragment()
-
-                        bundle.putString(CONTENT_ID, item.contentId)
-                        stayInfoFragment.arguments = bundle
-
-                        requireActivity().supportFragmentManager
-                            .beginTransaction()
-                            .add(R.id.main_nav_host_fragment, stayInfoFragment)
-                            .addToBackStack(null)
-                            .commit()
-                    }
-                }
-            )
         }
         with(binding.rvChargerList) {
-//            adapter = nearbyStayListAdapter
-//            if (itemDecorationCount < 1) {
-//                addItemDecoration(StayListItemViewHolderDecoration())
-//            }
-//            layoutManager = GridLayoutManager(context, 2)
-//            (adapter as InfoSquareAdapter).setOnItemClickListener(
-//                object: OnItemClickListener {
-//                    override fun onItemClick(position: Int) {
-//                        val item = nearbyStayDtoList[position]
-//                        val bundle = Bundle()
-//                        val stayInfoFragment = StayInfoFragment()
-//
-//                        bundle.putString(CONTENT_ID, item.contentId)
-//                        stayInfoFragment.arguments = bundle
-//
-//                        requireActivity().supportFragmentManager
-//                            .beginTransaction()
-//                            .add(R.id.main_nav_host_fragment, stayInfoFragment)
-//                            .commit()
-//                    }
-//                }
-//            )
+            adapter = InfoListAdapter().apply {
+                setOnItemClickListener(
+                    object : OnItemClickListener {
+                        override fun onItemClick(position: Int) {
+                            val item = nearbyStayDtoList.getOrNull(position) ?: return
+
+                            val bundle = Bundle()
+                            val stayInfoFragment = StayInfoFragment()
+
+                            bundle.putString(CONTENT_ID, item.contentId)
+                            stayInfoFragment.arguments = bundle
+
+                            requireActivity().supportFragmentManager
+                                .beginTransaction()
+                                .add(android.R.id.content, stayInfoFragment)
+                                .commit()
+                        }
+                    }
+                )
+                setLikeVisibility(false)
+            }
+            layoutManager = LinearLayoutManager(this.context)
         }
 
         // 내 주변 숙박시설 API 호출
@@ -94,7 +107,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             nearbyChargerDtoList.clear()
             nearbyChargerDtoList.addAll(it)
-//            (binding.rvChargerList.adapter as InfoSquareAdapter).setDataList(it)
+            (binding.rvChargerList.adapter as InfoListAdapter).setInfoList(it)
+        }
+
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
+            if (it.getContentIfNotHandled() == true) {
+                loadingProgressBar.show()
+            } else {
+                loadingProgressBar.dismiss()
+            }
         }
 
 
@@ -178,11 +199,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     companion object {
         private const val TAG = "HomeFragment"
         const val CONTENT_TYPE = "type"
-        const val CONTENT_TYPE_STAY = "32"
-        const val CONTENT_TYPE_TOUR = "12"
-        const val CONTENT_TYPE_RESTAURANT = "39"
-        const val CONTENT_TYPE_CARE = "1"
-        const val CONTENT_TYPE_CHARGER = "2"
-        const val CONTENT_TYPE_RENTAL = "3"
     }
 }

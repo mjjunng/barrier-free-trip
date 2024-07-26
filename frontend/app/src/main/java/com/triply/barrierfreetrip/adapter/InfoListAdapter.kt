@@ -25,11 +25,8 @@ open class InfoListAdapter : RecyclerView.Adapter<ListViewHolder>() {
             setOnLikeClickListener {
                 onLikeClickListener?.onLikeClick(adapterPosition)
             }
-            if (isShowMapVisible) {
-                setOnShowMapClickListener {
-                    onShowMapClickListener?.onShowMapClick(adapterPosition)
-                }
-                setShowMapVisibility(isShowMapVisible)
+            setOnShowMapClickListener {
+                onShowMapClickListener?.onShowMapClick(adapterPosition)
             }
         }
         return viewHolder
@@ -38,7 +35,7 @@ open class InfoListAdapter : RecyclerView.Adapter<ListViewHolder>() {
     override fun getItemCount() = infoList.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(infoList[position])
+        holder.bind(infoList[position], isShowMapVisible, isLikeVisible)
     }
 
     private var onItemClickListener: OnItemClickListener? = null
@@ -56,6 +53,10 @@ open class InfoListAdapter : RecyclerView.Adapter<ListViewHolder>() {
     private var isShowMapVisible = false
     fun setShowMapVisible(visibility: Boolean) {
         isShowMapVisible = visibility
+    }
+    private var isLikeVisible = true
+    fun setLikeVisibility(visibility: Boolean) {
+        isLikeVisible = visibility
     }
 }
 
@@ -101,14 +102,12 @@ class ListViewHolder(
         showMapClickListener = listener
     }
 
-    fun setShowMapVisibility(visibility: Boolean) {
-        isShowMapVisible = visibility
-    }
-
-    fun bind(item : InfoListDto) {
+    fun bind(item: InfoListDto, isShowMapVisible: Boolean, isLikeVisible: Boolean) {
         binding.listItem = item
         binding.tbListLike.isChecked = item.like
         binding.btnChargerlistMap.visibility = if (isShowMapVisible) View.VISIBLE else View.GONE
+        binding.tbListLike.visibility = if (isLikeVisible) View.VISIBLE else View.GONE
+        binding.tvListLocation.text = item.addr.substring(0, 14)
     }
 
     init {

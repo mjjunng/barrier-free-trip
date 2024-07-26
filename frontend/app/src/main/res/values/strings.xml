@@ -90,4 +90,5 @@
     <string name="review_writing_do">리뷰 작성</string>
     <string name="review_writing_upload">등록</string>
     <string name="review_writing_content_hint">방문후를 적어주세요.</string>
+    <string name="show_reviews">리뷰 %1$d개 보기</string>
 </resources>

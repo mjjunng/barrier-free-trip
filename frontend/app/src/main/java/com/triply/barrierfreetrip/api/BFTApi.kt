@@ -74,7 +74,7 @@ interface BFTApi {
     suspend fun getNearbyChargerList(
         @Path(value = "userX") userX : Double,
         @Path(value = "userY") userY : Double
-    ) : Response<List<InfoSquareDto>>
+    ) : Response<List<InfoListDto>>
 
     @GET("/sido")
     suspend fun getSidoCode(

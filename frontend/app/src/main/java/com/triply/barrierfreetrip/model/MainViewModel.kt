@@ -15,6 +15,9 @@ import com.triply.barrierfreetrip.data.ReviewRegistrationDTO
 import com.triply.barrierfreetrip.data.Sido
 import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.data.TourFacilityDetail
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_CARE
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_CHARGER
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_RENTAL
 import com.triply.barrierfreetrip.util.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,15 +31,24 @@ class MainViewModel : ViewModel() {
     val nearbyStayList: LiveData<List<InfoSquareDto>>
         get() = _nearbyStayList
 
-    private val _nearbyChargerList by lazy { MutableLiveData(listOf<InfoSquareDto>()) }
-    val nearbyChargerList: LiveData<List<InfoSquareDto>>
+    private val _nearbyChargerList by lazy { MutableLiveData(listOf<InfoListDto>()) }
+    val nearbyChargerList: LiveData<List<InfoListDto>>
         get() = _nearbyChargerList
 
     private val _sidoCodes by lazy { MutableLiveData(listOf(Sido(code = "-1", name = "시도 선택"))) }
     val sidoCodes: LiveData<List<Sido>>
         get() = _sidoCodes
 
-    private val _sigunguCodes by lazy { MutableLiveData(listOf(Sigungu(code = "-1", name = "구군 선택"))) }
+    private val _sigunguCodes by lazy {
+        MutableLiveData(
+            listOf(
+                Sigungu(
+                    code = "-1",
+                    name = "구군 선택"
+                )
+            )
+        )
+    }
     val sigunguCodes: LiveData<List<Sigungu>>
         get() = _sigunguCodes
 
@@ -52,9 +64,9 @@ class MainViewModel : ViewModel() {
     val reviews: LiveData<ReviewListDTO>
         get() = _reviews
 
-    private val _isUploadingReviewSucceed by lazy { MutableLiveData(Event(false)) }
-    val isUploadingReviewSucceed: LiveData<Event<Boolean>>
-        get() = _isUploadingReviewSucceed
+    private val _isDataLoading by lazy { MutableLiveData(Event(false)) }
+    val isDataLoading: LiveData<Event<Boolean>>
+        get() = _isDataLoading
 
     private val _fcltList by lazy { MutableLiveData(listOf<InfoListDto>()) }
     val fcltList: LiveData<List<InfoListDto>>
@@ -72,7 +84,7 @@ class MainViewModel : ViewModel() {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -90,7 +102,7 @@ class MainViewModel : ViewModel() {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -108,7 +120,7 @@ class MainViewModel : ViewModel() {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -120,13 +132,14 @@ class MainViewModel : ViewModel() {
                 val response = retrofit.getSigunguCode(sidoCode)
 
                 if (response.isSuccessful) {
-                    _sigunguCodes.value = response.body() ?: listOf(Sigungu(code = "-1", name = "구군 선택"))
+                    _sigunguCodes.value =
+                        response.body() ?: listOf(Sigungu(code = "-1", name = "구군 선택"))
                 } else {
                     when (response.code()) {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -135,7 +148,11 @@ class MainViewModel : ViewModel() {
     fun getTourFcltList(type: String, areaCode: String, bigPlaceCode: String) {
         viewModelScope.launch {
             try {
-                val response = retrofit.getTourFcltList(typeId = type, areaCode = areaCode, bigPlaceCode = bigPlaceCode)
+                val response = retrofit.getTourFcltList(
+                    typeId = type,
+                    areaCode = areaCode,
+                    bigPlaceCode = bigPlaceCode
+                )
 
                 if (response.isSuccessful) {
                     _locationList.value = response.body() ?: listOf()
@@ -144,7 +161,7 @@ class MainViewModel : ViewModel() {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -162,7 +179,7 @@ class MainViewModel : ViewModel() {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -195,13 +212,13 @@ class MainViewModel : ViewModel() {
 
                 if (response.isSuccessful) {
                     //
-                    _isUploadingReviewSucceed.value = Event(true)
+                    _isDataLoading.value = Event(true)
                 } else {
                     when (response.code()) {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -210,7 +227,8 @@ class MainViewModel : ViewModel() {
     fun getCareTourList(sidoName: String, sigunguName: String) {
         viewModelScope.launch {
             try {
-                val response = retrofit.getCareTourList(bigPlaceCode = sidoName, smallPlaceCode = sigunguName)
+                val response =
+                    retrofit.getCareTourList(bigPlaceCode = sidoName, smallPlaceCode = sigunguName)
 
                 if (response.isSuccessful) {
                     _fcltList.value = response.body() ?: listOf()
@@ -219,7 +237,7 @@ class MainViewModel : ViewModel() {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -237,7 +255,7 @@ class MainViewModel : ViewModel() {
 
                     }
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -246,7 +264,10 @@ class MainViewModel : ViewModel() {
     fun getRentalServiceList(sidoName: String, sigunguName: String) {
         viewModelScope.launch {
             try {
-                val response = retrofit.getRentalServiceList(bigPlaceCode = sidoName, smallPlaceCode = sigunguName)
+                val response = retrofit.getRentalServiceList(
+                    bigPlaceCode = sidoName,
+                    smallPlaceCode = sigunguName
+                )
 
                 if (response.isSuccessful) {
                     _fcltList.value = response.body() ?: listOf()
@@ -276,7 +297,8 @@ class MainViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     if (!response.body()?.addr.isNullOrEmpty()) {
                         val locationCoordinate = withContext(Dispatchers.IO) {
-                            kakaoRetrofit.getLocationCoordinate(address = response.body()!!.addr).body()?.documents?.get(0)
+                            kakaoRetrofit.getLocationCoordinate(address = response.body()!!.addr)
+                                .body()?.documents?.get(0)
                         }
                         longitude = locationCoordinate?.longitude?.toDouble() ?: 0.0
                         latitude = locationCoordinate?.latitude?.toDouble() ?: 0.0
@@ -309,12 +331,21 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun postLikes(type: Int, contentId: String, likes: Int) {
+    fun postLikes(contentType: String, contentId: String, likes: Int) {
+        val type = when (contentType) {
+            CONTENT_TYPE_CHARGER -> 1
+            CONTENT_TYPE_CARE -> 2
+            CONTENT_TYPE_RENTAL -> 3
+            else -> 0
+        }
         viewModelScope.launch {
             try {
+                _isDataLoading.value = Event(true)
+
                 val response = retrofit.postLikes(type = type, contentId = contentId, likes = likes)
-                if (response.isSuccessful) {
-                    val chargerInfoResponse = retrofit.getChargerDetail(contentId = contentId.toLong())
+                if (type == 1 && response.isSuccessful) {
+                    val chargerInfoResponse =
+                        retrofit.getChargerDetail(contentId = contentId.toLong())
                     if (chargerInfoResponse.isSuccessful) {
                         _chargerInfo.value = _chargerInfo.value?.copy(
                             like = chargerInfoResponse.body()?.like ?: 0
@@ -323,6 +354,8 @@ class MainViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+            } finally {
+                _isDataLoading.value = Event(false)
             }
         }
     }

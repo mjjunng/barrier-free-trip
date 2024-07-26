@@ -17,6 +17,7 @@ import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.databinding.FragmentWishlistMapBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_CHARGER
 import com.triply.barrierfreetrip.util.convertDrawableToBitmapIcon
 import java.lang.System.currentTimeMillis
 
@@ -29,6 +30,7 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
         get() = _kakaoMap!!
     private var timeOnClickLike = currentTimeMillis()
     private val debouncingInterval = 300L
+    private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,9 +72,17 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
                 }
                 timeOnClickLike = currentTimeMillis()
                 contentId?.let {
-                    viewModel.postLikes(type = 1, contentId = it, likes = chargerInfo.like xor 1)
+                    viewModel.postLikes(contentType = CONTENT_TYPE_CHARGER, contentId = it, likes = chargerInfo.like xor 1)
                     binding.dialogMapInfo.updateLike(like = chargerInfo.like xor 1 == 1)
                 }
+            }
+        }
+
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
+            if (it.getContentIfNotHandled() == true) {
+                loadingProgressBar.show()
+            } else {
+                loadingProgressBar.dismiss()
             }
         }
     }

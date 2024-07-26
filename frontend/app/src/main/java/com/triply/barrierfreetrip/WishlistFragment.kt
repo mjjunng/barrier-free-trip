@@ -21,6 +21,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
     private val viewModel: MainViewModel by viewModels()
     private var type: String? = null
     private val infoList = arrayListOf<InfoListDto>()
+    private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
 
     // sido data
     private val sidoNames = arrayListOf("시도 선택")
@@ -224,14 +225,8 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
                     override fun onLikeClick(position: Int) {
                         val item = infoList.getOrNull(position) ?: return
 
-                        if (item.like) {
-                            type?.let {
-                                viewModel.postLikes(type = it.toInt(), contentId = item.id.toString(), likes = 0)
-                            }
-                        } else {
-                            type?.let {
-                                viewModel.postLikes(type = it.toInt(), contentId = item.id.toString(), likes = 1)
-                            }
+                        type?.let {
+                            viewModel.postLikes(contentType = it, contentId = item.id.toString(), likes = if (item.like) 0 else 1)
                         }
                     }
                 })
@@ -245,6 +240,14 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
             infoList.clear()
             infoList.addAll(it)
             (binding.rvList.adapter as InfoListAdapter).setInfoList(infoList)
+        }
+
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
+            if (it.getContentIfNotHandled() == true) {
+                loadingProgressBar.show()
+            } else {
+                loadingProgressBar.dismiss()
+            }
         }
     }
 
