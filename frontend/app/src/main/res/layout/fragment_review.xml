@@ -28,7 +28,7 @@
                 android:background="@drawable/ic_back" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_content_title"
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

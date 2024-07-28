@@ -22,7 +22,8 @@ import com.triply.barrierfreetrip.util.toUIString
 
 class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment_stay_info) {
     private val viewModel: MainViewModel by viewModels()
-    private var contentId: String? = null
+    private var contentId = ""
+    private var contentTitle = ""
     private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +47,9 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
                 val bundle = Bundle()
                 val reviewFragment = ReviewFragment()
 
-                bundle.putString(CONTENT_ID, it)
-                reviewFragment.arguments = bundle
+            bundle.putString(CONTENT_ID, contentId)
+            bundle.putString(CONTENT_TITLE, contentTitle)
+            reviewFragment.arguments = bundle
 
                 requireActivity().supportFragmentManager
                     .beginTransaction()
