@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_home_stay"
+            style="@style/Home_ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="15dp"
+            android:drawableTop="@drawable/ic_home_stay"
+            android:text="@string/all_stay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo_home" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_home_destination"
+            style="@style/Home_ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:drawableTop="@drawable/ic_home_destination"
+            android:text="@string/home_destination"
+            app:layout_constraintEnd_toStartOf="@+id/btn_home_restaurant"
+            app:layout_constraintStart_toEndOf="@+id/btn_home_stay"
+            app:layout_constraintTop_toBottomOf="@+id/logo_home" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_home_restaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="50dp"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_home_restaurant"
+            android:text="@string/home_restaurant"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo_home" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_home_caretrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="22dp"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_home_caretrip"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:text="@string/all_caretrip"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_home_charge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="22dp"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_home_charge"
+            android:text="@string/home_charge"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_home_rental"
+            app:layout_constraintStart_toEndOf="@+id/btn_home_caretrip"
+            app:layout_constraintTop_toBottomOf="@+id/btn_home_destination" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_home_rental"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="22dp"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_home_rental"
+            android:text="@string/home_rental"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

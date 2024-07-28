@@ -31,7 +31,7 @@ class InfoSquareAdapter : RecyclerView.Adapter<SquareViewHolder>() {
             R.layout.item_info_square, parent, false
         )
         return SquareViewHolder(binding).apply {
-            setItemClickListener(onItemClickListener)
+            setOnItemClickListener(onItemClickListener)
             setLikeClickListener {
                 onLikeClickListener?.onLikeClick(adapterPosition)
             }
@@ -39,7 +39,7 @@ class InfoSquareAdapter : RecyclerView.Adapter<SquareViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SquareViewHolder, position: Int) {
-        holder.bind(infoList[position], isLikeVisible)
+        holder.bind(infoList[position])
     }
     override fun getItemCount() = infoList.size
 
@@ -49,11 +49,6 @@ class InfoSquareAdapter : RecyclerView.Adapter<SquareViewHolder>() {
 
     fun setOnLikeClickListener(likeClickListener: OnLikeClickListener) {
         this.onLikeClickListener = likeClickListener
-    }
-
-    private var isLikeVisible = true
-    fun setLikeVisibility(visibility: Boolean) {
-        isLikeVisible = visibility
     }
 }
 
@@ -73,7 +68,7 @@ class SquareViewHolder(
         }
     }
 
-    fun setItemClickListener(itemClickListener: OnItemClickListener?) {
+    fun setOnItemClickListener(itemClickListener: OnItemClickListener?) {
         this.itemClickListener = itemClickListener
     }
 
@@ -81,7 +76,12 @@ class SquareViewHolder(
         this.likeClickListener = likeClickListener
     }
 
-    fun bind(item: InfoSquareDto, isLikeVisible: Boolean) {
+    private var isLikeVisible = true
+    fun setLikeVisibility(visibility: Boolean) {
+        isLikeVisible = visibility
+    }
+
+    fun bind(item: InfoSquareDto) {
         binding.squareItem = item
         binding.tbSquareLike.visibility = if (isLikeVisible) View.VISIBLE else View.GONE
         binding.tvSquareAddress.text = item.addr.substring(0, 14)

@@ -1,5 +1,7 @@
 package com.triply.barrierfreetrip
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -15,6 +17,7 @@ import com.triply.barrierfreetrip.data.ConvenienceInfoDTO
 import com.triply.barrierfreetrip.databinding.FragmentStayInfoBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
+import com.triply.barrierfreetrip.util.convertHomepageToURL
 import com.triply.barrierfreetrip.util.toUIString
 
 class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment_stay_info) {
@@ -96,12 +99,33 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
             binding.clStayinfoConvInfo.visibility = if (convenienceInfos.isEmpty()) View.GONE else View.VISIBLE
             (binding.rvConvenienceInfo.adapter as ConvenienceInfoAdapter).setInfoList(convenienceInfos)
 
-            binding.btnToggleLike.setOnClickListener {
+            binding.tbToggleLike.setOnClickListener {
                 viewModel.postLikes(
                     contentType = detail.contentTypeId,
                     contentId = detail.contentId,
                     likes = detail.like xor 1
                 )
+            }
+
+            binding.btnStayinfoCall.setOnClickListener {
+                val phoneNumber = if (detail.tel.contains(',')) detail.tel.split(',').getOrElse(0) { "" } else detail.tel
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel: $phoneNumber"))
+                startActivity(intent)
+            }
+            binding.btnStayinfoMap.setOnClickListener {
+
+            }
+            binding.btnStayinfoPage.setOnClickListener {
+                try {
+                    val homepageUrl = if (detail.homepage.first() == '<') convertHomepageToURL(detail.homepage) else detail.homepage
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(homepageUrl)
+                    )
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 

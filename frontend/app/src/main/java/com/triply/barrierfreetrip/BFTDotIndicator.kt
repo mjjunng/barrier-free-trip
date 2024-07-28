@@ -31,6 +31,8 @@ class BFTDotIndicator: LinearLayoutCompat {
      * @param size 뷰페이저 아이템 개수
      */
     fun initIndicators(size: Int) {
+        if (size <= 0) return
+
         removeAllViews()
         pageSize = size
         for (i in 0 until pageSize) {

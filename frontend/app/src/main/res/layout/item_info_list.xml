@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="@color/white"
         android:padding="10dp">
 
         <androidx.appcompat.widget.AppCompatImageView

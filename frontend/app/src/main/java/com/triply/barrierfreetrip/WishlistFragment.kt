@@ -219,7 +219,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
                             // 맵 Fragment 활성화
                         }
                     })
-                    setShowMapVisible(true)
+                    setShowMapVisibility(true)
                 }
                 setOnLikeClickListener(object: OnLikeClickListener {
                     override fun onLikeClick(position: Int) {

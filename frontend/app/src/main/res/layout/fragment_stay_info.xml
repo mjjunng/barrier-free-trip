@@ -71,7 +71,7 @@
                     app:layout_constraintTop_toBottomOf="@id/vp_stayinfo">
 
                     <androidx.appcompat.widget.AppCompatToggleButton
-                        android:id="@+id/btn_toggle_like"
+                        android:id="@+id/tb_toggle_like"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center"
@@ -84,15 +84,18 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_stayinfo_place_name"
                     style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="21dp"
                     android:layout_marginTop="12dp"
                     android:textColor="@color/tv_black"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vp_stayinfo"
+                    app:layout_constraintEnd_toStartOf="@id/card_toggle_like"
+                    app:layout_constraintTop_toBottomOf="@id/vp_stayinfo"
                     tools:text="힐하우스 호텔" />
 
                 <androidx.appcompat.widget.AppCompatImageView

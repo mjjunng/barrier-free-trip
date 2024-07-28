@@ -27,12 +27,12 @@ class MainViewModel : ViewModel() {
     private val retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
     private val kakaoRetrofit = LocationInstance.getLocationApi()
 
-    private val _nearbyStayList by lazy { MutableLiveData(listOf<InfoSquareDto>()) }
-    val nearbyStayList: LiveData<List<InfoSquareDto>>
+    private val _nearbyStayList: MutableLiveData<List<InfoSquareDto>?> by lazy { MutableLiveData(null) }
+    val nearbyStayList: LiveData<List<InfoSquareDto>?>
         get() = _nearbyStayList
 
-    private val _nearbyChargerList by lazy { MutableLiveData(listOf<InfoListDto>()) }
-    val nearbyChargerList: LiveData<List<InfoListDto>>
+    private val _nearbyChargerList: MutableLiveData<List<InfoListDto>?> by lazy { MutableLiveData(null) }
+    val nearbyChargerList: LiveData<List<InfoListDto>?>
         get() = _nearbyChargerList
 
     private val _sidoCodes by lazy { MutableLiveData(listOf(Sido(code = "-1", name = "시도 선택"))) }

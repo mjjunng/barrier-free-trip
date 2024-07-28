@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.triply.barrierfreetrip.databinding.DialogLoadingProgressBinding
-import com.triply.barrierfreetrip.databinding.DialogReviewUploadBinding
 
 class BFTLoadingProgressBar(
     context: Context

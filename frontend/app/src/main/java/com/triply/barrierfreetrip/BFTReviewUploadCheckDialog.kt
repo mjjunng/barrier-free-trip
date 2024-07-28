@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.triply.barrierfreetrip.databinding.DialogReviewUploadBinding
 
-class BFTDialog(
+class BFTReviewUploadCheckDialog(
     context: Context,
     private val onDismiss: () -> Unit = {}
 ): Dialog(context) {

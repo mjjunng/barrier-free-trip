@@ -84,7 +84,7 @@ class ReviewWritingFragment : BaseFragment<FragmentReviewWritingBinding>(R.layou
 
         viewModel.isDataLoading.observe(viewLifecycleOwner) {
             if (it.getContentIfNotHandled() == true) {
-                BFTDialog(requireContext()) { backToPrevFragment() }.show()
+                BFTReviewUploadCheckDialog(requireContext()) { backToPrevFragment() }.show()
             }
         }
     }
