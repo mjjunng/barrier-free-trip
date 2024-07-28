@@ -28,7 +28,9 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        contentId = arguments?.getString(CONTENT_ID)
+        arguments?.getString(CONTENT_ID)?.let {
+            contentId = it
+        }
     }
 
     override fun initInViewCreated() {
@@ -43,20 +45,18 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
         }
 
         binding.btnStayinfoReview.setOnClickListener {
-            contentId?.let {
-                val bundle = Bundle()
-                val reviewFragment = ReviewFragment()
+            val bundle = Bundle()
+            val reviewFragment = ReviewFragment()
 
             bundle.putString(CONTENT_ID, contentId)
             bundle.putString(CONTENT_TITLE, contentTitle)
             reviewFragment.arguments = bundle
 
-                requireActivity().supportFragmentManager
-                    .beginTransaction()
-                    .add(android.R.id.content, reviewFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .add(android.R.id.content, reviewFragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         with(binding.vpStayinfo) {
@@ -71,12 +71,13 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
         }
 
         // call api
-        contentId?.let {
+        contentId.let {
             viewModel.getFcltDetail(it)
             viewModel.getReviews(it)
         }
         viewModel.fcltDetail.observe(viewLifecycleOwner) { detail ->
             if (detail.contentId.isBlank()) return@observe
+            contentTitle = detail.title
 
             (binding.vpStayinfo.adapter as ViewPagerAdapter).setDataList(detail.imgs)
             binding.indicatorVp.initIndicators(detail.imgs.size)
@@ -146,5 +147,6 @@ class StayInfoFragment : BaseFragment<FragmentStayInfoBinding>(R.layout.fragment
 
     companion object {
         private const val TAG = "StayInfoFragment"
+        const val CONTENT_TITLE = "content_title"
     }
 }
