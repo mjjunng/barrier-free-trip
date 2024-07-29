@@ -90,10 +90,8 @@ class ReviewWritingFragment : BaseFragment<FragmentReviewWritingBinding>(R.layou
     }
 
     private fun backToPrevFragment() {
-        val frgManager = parentFragmentManager
-        frgManager.beginTransaction()
-            .remove(this@ReviewWritingFragment)
-            .commit()
-        frgManager.popBackStack()
+        if (parentFragmentManager.backStackEntryCount > 0) {
+            parentFragmentManager.popBackStack()
+        }
     }
 }

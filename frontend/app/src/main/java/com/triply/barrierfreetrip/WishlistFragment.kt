@@ -13,11 +13,11 @@ import com.triply.barrierfreetrip.adapter.OnItemClickListener
 import com.triply.barrierfreetrip.adapter.OnLikeClickListener
 import com.triply.barrierfreetrip.adapter.OnShowMapClickListener
 import com.triply.barrierfreetrip.data.InfoListDto
-import com.triply.barrierfreetrip.databinding.FragmentWishlistBinding
+import com.triply.barrierfreetrip.databinding.FragmentStaylistBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
 
-class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment_wishlist) {
+class WishlistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment_staylist) {
     private val viewModel: MainViewModel by viewModels()
     private var type: String? = null
     private val infoList = arrayListOf<InfoListDto>()
@@ -69,6 +69,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
                 position: Int,
                 id: Long
             ) {
+                binding.tvRequireSelection.visibility = View.VISIBLE
                 sidoPosition = position
                 // setting sigungu data on second spinner
                 val sigunguArray = when {
@@ -178,6 +179,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(R.layout.fragment
                 position: Int,
                 id: Long
             ) {
+                binding.tvRequireSelection.visibility = View.GONE
                 sigunguPosition = position
                 getFcltListData(
                     sidoNames.getOrElse(sidoPosition) { "" },

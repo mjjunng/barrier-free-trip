@@ -84,6 +84,8 @@ class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
             binding.spnSmallArea.setSelection(0)
         }
 
+        binding.tvRequireSelection.visibility = View.VISIBLE
+
         binding.spnBigArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -96,6 +98,7 @@ class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
                     binding.spnSmallArea.isEnabled = false
                     return
                 }
+                binding.tvRequireSelection.visibility = View.VISIBLE
                 binding.spnSmallArea.isEnabled = true
                 sidoPosition = position
 
@@ -115,6 +118,7 @@ class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
                 id: Long
             ) {
                 if (position2 == 0) return
+                binding.tvRequireSelection.visibility = View.GONE
                 sigunguPosition = position2
 
                 viewModel.getTourFcltList(type ?: "", sidoCodes[sidoPosition].code, sigunguCodes[sigunguPosition].code)

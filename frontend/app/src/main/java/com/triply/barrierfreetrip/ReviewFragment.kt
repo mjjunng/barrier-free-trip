@@ -1,6 +1,8 @@
 package com.triply.barrierfreetrip
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
@@ -27,6 +29,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     }
 
     override fun initInViewCreated() {
+        viewModel.getReviews(contentId)
+
         with(binding) {
             // 제목 설정
             tvContentTitle.text = title
@@ -55,11 +59,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 parentFragmentManager
                     .beginTransaction()
                     .add(android.R.id.content, reviewWritingFragment)
+                    .addToBackStack(null)
                     .commit()
             }
         }
-
-        viewModel.getReviews(contentId)
 
         viewModel.reviews.observe(viewLifecycleOwner) {
             val totalReviewCnt = it.totalCnt

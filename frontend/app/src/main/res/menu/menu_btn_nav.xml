@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_nav_location"
         android:title="@string/btn_nav_map" />
     <item
-        android:id="@+id/wishListFragment"
+        android:id="@+id/pickFragment"
         android:icon="@drawable/ic_nav_heart"
         android:title="@string/btn_nav_wishlist" />
     <item
