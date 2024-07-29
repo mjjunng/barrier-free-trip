@@ -62,6 +62,7 @@ class WishlistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
         }
 
         initSpinner()
+
         binding.spnBigArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -179,6 +180,8 @@ class WishlistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
                 position: Int,
                 id: Long
             ) {
+                if (position == 0) return
+                
                 binding.tvRequireSelection.visibility = View.GONE
                 sigunguPosition = position
                 getFcltListData(
@@ -200,10 +203,7 @@ class WishlistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
                             val item = infoList.getOrNull(position)
                             item?.addr?.let {
                                 val bundle = Bundle()
-                                val fragment = when {
-                                    type.equals(TYPE_CARE_TOUR) || type.equals(TYPE_RENTAL) -> StayInfoFragment()
-                                    else -> WishlistMapFragment()
-                                }
+                                val fragment = WishlistMapFragment()
 
                                 bundle.putString(CONTENT_ID, it)
                                 fragment.arguments = bundle
@@ -251,6 +251,8 @@ class WishlistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
                 loadingProgressBar.dismiss()
             }
         }
+
+        binding.tvRequireSelection.visibility = View.VISIBLE
     }
 
     private fun getFcltListData(sidoNm: String?, sigunguNm: String) {
