@@ -41,7 +41,7 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
 
     override fun initInViewCreated() {
         initMap()
-        initTitle("전동휠체어 급속충전기")
+        binding.tvTitle.text = "전동휠체어 급속충전기"
 
         binding.btnBack.setOnClickListener {
             backToPrevFragment()
@@ -149,9 +149,5 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
     private fun setCameraPosition(latitude: Double, longitude: Double) {
         val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(latitude, longitude))
         kakaoMap.moveCamera(cameraUpdate)
-    }
-    
-    private fun initTitle(title: String) {
-        binding.tvTitle.text = title
     }
 }

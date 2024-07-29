@@ -145,15 +145,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
             if (itemDecorationCount < 1) addItemDecoration(HomeListItemViewHolderDecoration())
         }
-//        with(binding.rvNearHotelList) {
-//            if (itemDecorationCount < 1) {
-//                addItemDecoration(StayListItemViewHolderDecoration())
-//            }
-//            layoutManager = GridLayoutManager(requireContext(), 2)
-//        }
-//        with(binding.rvChargerList) {
-//            layoutManager = LinearLayoutManager(this.context)
-//        }
 
         // 내 주변 숙박시설 API 호출
         viewModel.getNearbyStayList(126.838044, 35.14384)
