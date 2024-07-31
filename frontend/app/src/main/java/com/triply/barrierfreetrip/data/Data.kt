@@ -153,3 +153,7 @@ data class Sigungu (
     val code: String,
     val name: String
 )
+
+enum class TripType {
+    STAY, FACILITY, RESTAURANT, CARE, CHARGER, RENTAL
+}

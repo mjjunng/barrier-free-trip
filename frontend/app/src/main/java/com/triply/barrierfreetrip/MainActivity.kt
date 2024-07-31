@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         // DataBinding Setting
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        apikeyStoreModule = BFTApplication.getInstance().getKeyStore()
+//        apikeyStoreModule = BFTApplication.getInstance().getKeyStore()
 
 
 //        // meta-data에 넣어둔 데이터 접근하는 방법

@@ -44,7 +44,6 @@
             android:padding="16dp"
             android:text="@string/kakao_login"
             android:textSize="18sp"
-            android:textColor="@color/kakao_brown"
             app:layout_constraintBottom_toTopOf="@+id/btn_login_naver"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
