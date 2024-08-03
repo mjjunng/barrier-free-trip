@@ -102,4 +102,7 @@ dependencies {
 
     // 카카오 지도
     implementation 'com.kakao.maps.open:android:2.9.5'
+
+    // GPS
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
 }

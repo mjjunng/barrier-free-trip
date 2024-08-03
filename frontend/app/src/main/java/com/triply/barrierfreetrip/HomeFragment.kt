@@ -1,16 +1,25 @@
 package com.triply.barrierfreetrip
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.adapter.HomeInfoAdapter
 import com.triply.barrierfreetrip.adapter.HomeMenuViewHolder
 import com.triply.barrierfreetrip.adapter.OnItemClickListener
 import com.triply.barrierfreetrip.adapter.decoration.HomeListItemViewHolderDecoration
-import com.triply.barrierfreetrip.data.InfoListDto
-import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.databinding.FragmentHomeBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
@@ -25,11 +34,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel: MainViewModel by viewModels()
     private val homeInfoList = arrayListOf<HomeInfoAdapter.HomeInfoDTO>(HomeInfoAdapter.HomeInfoDTO.Menu)
     private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
+    private var fusedLocationClient: FusedLocationProviderClient? = null
+    private var currentLocation: Location? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val hasPermissionForCoarseLocation = ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        val hasPermissionForFineLocation = ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+
+        if (hasPermissionForCoarseLocation && hasPermissionForFineLocation) {
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+            val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000L).build()
+            fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+
+            fusedLocationClient?.lastLocation?.addOnSuccessListener { location: Location? ->
+                if (location == null) return@addOnSuccessListener
+
+                currentLocation = location
+                // 내 주변 숙박시설 API 호출
+                viewModel.getNearbyStayList(currentLocation?.longitude ?: 126.9778222, currentLocation?.latitude ?: 37.5664056)
+            }
+        }
+    }
 
     override fun initInViewCreated() {
         val bundle = Bundle()
         val stayListFragment = StaylistFragment()
         val wishlistFragment = WishlistFragment()
+        println("$TAG + 이니시에이트")
 
         with(binding.rvHome) {
             adapter = HomeInfoAdapter().apply {
@@ -146,8 +179,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             if (itemDecorationCount < 1) addItemDecoration(HomeListItemViewHolderDecoration())
         }
 
-        // 내 주변 숙박시설 API 호출
-        viewModel.getNearbyStayList(126.838044, 35.14384)
 
         viewModel.nearbyStayList.observe(viewLifecycleOwner) {
             if (it == null) {
@@ -156,7 +187,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
 
             // 내 주변 전동휠체어 충전기 API 호출
-            viewModel.getNearbyChargerList(126.838044, 35.14384)
+            viewModel.getNearbyChargerList(currentLocation?.longitude ?: 126.9778222, currentLocation?.latitude ?: 37.5664056)
 
             homeInfoList.clear()
             homeInfoList.add(HomeInfoAdapter.HomeInfoDTO.Menu)
@@ -205,6 +236,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             } else {
                 loadingProgressBar.dismiss()
             }
+        }
+    }
+
+    private val locationCallback : LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(p0: LocationResult) {
+            super.onLocationResult(p0)
+            currentLocation = p0.lastLocation
+            fusedLocationClient?.removeLocationUpdates(this)
         }
     }
 
