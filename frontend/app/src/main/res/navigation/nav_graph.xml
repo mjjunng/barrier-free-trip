@@ -50,7 +50,20 @@
         android:id="@+id/staylistFragment"
         android:name="com.triply.barrierfreetrip.StaylistFragment"
         android:label="fragment_staylist"
-        tools:layout="@layout/fragment_staylist" />
+        tools:layout="@layout/fragment_staylist" >
+        <action
+            android:id="@+id/action_staylistFragment_to_stayInfoFragment"
+            app:destination="@id/stayInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stayInfoFragment"
+        android:name="com.triply.barrierfreetrip.StayInfoFragment"
+        android:label="fragment_stay_info"
+        tools:layout="@layout/fragment_stay_info" >
+        <action
+            android:id="@+id/action_stayInfoFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pickFragment"
         android:name="com.triply.barrierfreetrip.PickFragment"

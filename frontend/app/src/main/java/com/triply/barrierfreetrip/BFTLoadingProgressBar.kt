@@ -7,29 +7,25 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.triply.barrierfreetrip.databinding.DialogReviewUploadBinding
+import android.view.WindowManager
+import com.triply.barrierfreetrip.databinding.DialogLoadingProgressBinding
 
-class BFTDialog(
-    context: Context,
-    private val onDismiss: () -> Unit = {}
+class BFTLoadingProgressBar(
+    context: Context
 ): Dialog(context) {
 
     private val binding by lazy {
-        DialogReviewUploadBinding.inflate(LayoutInflater.from(context), null, false)
+        DialogLoadingProgressBinding.inflate(LayoutInflater.from(context), null, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setCancelable(true)
+        setCancelable(false)
         setContentView(binding.root)
 
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-    }
-
-    override fun dismiss() {
-        super.dismiss()
-        onDismiss()
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
     }
 }

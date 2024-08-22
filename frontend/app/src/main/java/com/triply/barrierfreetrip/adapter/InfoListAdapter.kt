@@ -19,9 +19,14 @@ open class InfoListAdapter : RecyclerView.Adapter<ListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemInfoListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ListViewHolder(binding).apply {
-            this.setOnButtonClickListener {
-                onItemClickListener?.onItemClick(adapterPosition)
+            setOnItemClickListener(onItemClickListener)
+            setOnLikeClickListener {
+                onLikeClickListener?.onLikeClick(adapterPosition)
             }
+            setOnShowMapClickListener {
+                onShowMapClickListener?.onShowMapClick(adapterPosition)
+            }
+            setShowMapVisibility(isShowMapVisible)
         }
         return viewHolder
     }
@@ -35,6 +40,18 @@ open class InfoListAdapter : RecyclerView.Adapter<ListViewHolder>() {
     private var onItemClickListener: OnItemClickListener? = null
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.onItemClickListener = listener
+    }
+    private var onLikeClickListener: OnLikeClickListener? = null
+    fun setOnLikeClickListener(listener: OnLikeClickListener) {
+        this.onLikeClickListener = listener
+    }
+    private var onShowMapClickListener: OnShowMapClickListener? = null
+    fun setOnShowMapClickListener(listener: OnShowMapClickListener) {
+        this.onShowMapClickListener = listener
+    }
+    private var isShowMapVisible = false
+    fun setShowMapVisibility(visibility: Boolean) {
+        isShowMapVisible = visibility
     }
 }
 
@@ -63,24 +80,61 @@ class InfoListClickAdapter(infoList: ArrayList<InfoListDto>) : InfoListAdapter()
 class ListViewHolder(
     private val binding : ItemInfoListBinding
 ) : RecyclerView.ViewHolder(binding.root) {
-    private var itemClickListener: View.OnClickListener? = null
+    private var itemClickListener: OnItemClickListener? = null
+    private var likeClickListener: View.OnClickListener? = null
+    private var showMapClickListener: View.OnClickListener? = null
+    private var isShowMapVisible = false
+    private var isLikeVisible = true
 
-    fun setOnButtonClickListener(listener: View.OnClickListener) {
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
         this.itemClickListener = listener
     }
 
-    fun bind(item : InfoListDto) {
+    fun setOnLikeClickListener(listener: View.OnClickListener?) {
+        likeClickListener = listener
+    }
+
+    fun setOnShowMapClickListener(listener: View.OnClickListener?) {
+        showMapClickListener = listener
+    }
+
+    fun setLikeVisibility(visibility: Boolean) {
+        isLikeVisible = visibility
+    }
+
+    fun setShowMapVisibility(visibility: Boolean) {
+        isShowMapVisible = visibility
+    }
+
+    fun bind(item: InfoListDto) {
         binding.listItem = item
-        //binding.tbListLike.isChecked = item.like
+        binding.tbListLike.isChecked = item.like
+        binding.btnChargerlistMap.visibility = if (isShowMapVisible) View.VISIBLE else View.GONE
+        binding.tbListLike.visibility = if (isLikeVisible) View.VISIBLE else View.GONE
+        binding.tvListLocation.text = item.addr.substring(0, 14)
     }
 
     init {
         binding.root.setOnClickListener {
-            itemClickListener?.onClick(it)
+            itemClickListener?.onItemClick(adapterPosition)
+        }
+        binding.tbListLike.setOnClickListener {
+            likeClickListener?.onClick(it)
+        }
+        binding.btnChargerlistMap.setOnClickListener {
+            showMapClickListener?.onClick(it)
         }
     }
 }
 
 interface OnItemClickListener {
     fun onItemClick(position: Int)
+}
+
+interface OnLikeClickListener {
+    fun onLikeClick(position: Int)
+}
+
+interface OnShowMapClickListener {
+    fun onShowMapClick(position: Int)
 }

@@ -82,18 +82,16 @@ class ReviewWritingFragment : BaseFragment<FragmentReviewWritingBinding>(R.layou
             root.viewTreeObserver.addOnGlobalLayoutListener(onLaunchKeyboardListener)
         }
 
-        viewModel.isUploadingReviewSucceed.observe(viewLifecycleOwner) {
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
             if (it.getContentIfNotHandled() == true) {
-                BFTDialog(requireContext()) { backToPrevFragment() }.show()
+                BFTReviewUploadCheckDialog(requireContext()) { backToPrevFragment() }.show()
             }
         }
     }
 
     private fun backToPrevFragment() {
-        val frgManager = parentFragmentManager
-        frgManager.beginTransaction()
-            .remove(this@ReviewWritingFragment)
-            .commit()
-        frgManager.popBackStack()
+        if (parentFragmentManager.backStackEntryCount > 0) {
+            parentFragmentManager.popBackStack()
+        }
     }
 }

@@ -10,9 +10,12 @@
     <color name="bright_gray">#C5CAD1</color>
     <color name="main_pink">#FFA6A6</color>
     <color name="sub_pink">#FFF5F5</color>
+    <color name="subtitle_gray">#828F9C</color>
     <color name="yellow">#FFDA2D</color>
     <color name="green">#668077</color>
     <color name="transparent">#00ffffff</color>
+    <color name="tv_black">#2A2F37</color>
+    <color name="background_back_gray">#F9F8F8</color>
 
     <color name="kakao_yellow">#FDDD35</color>
     <color name="kakao_brown">#381f1f</color>

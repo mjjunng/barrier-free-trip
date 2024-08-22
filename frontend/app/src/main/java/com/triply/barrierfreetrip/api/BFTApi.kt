@@ -1,20 +1,14 @@
 package com.triply.barrierfreetrip.api
 
-import android.content.pm.ApplicationInfo
-import com.triply.barrierfreetrip.data.CareTour
-import com.triply.barrierfreetrip.data.Charger
 import com.triply.barrierfreetrip.data.ChargerDetail
 import com.triply.barrierfreetrip.data.InfoListDto
 import com.triply.barrierfreetrip.data.InfoSquareDto
-import com.triply.barrierfreetrip.data.RentalServicePlace
-import com.triply.barrierfreetrip.data.RestPlace
 import com.triply.barrierfreetrip.data.ReviewListDTO
 import com.triply.barrierfreetrip.data.ReviewRegistrationDTO
 import com.triply.barrierfreetrip.data.SearchRsltItem
 import com.triply.barrierfreetrip.data.Sido
 import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.data.TourFacilityDetail
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -55,13 +49,13 @@ interface BFTApi {
 
     @GET("/care-services/{sido}/{sigungu}")
     suspend fun getCareTourList(
-        @Path(value = "sido") bidPlaceCode : String,
+        @Path(value = "sido") bigPlaceCode : String,
         @Path(value = "sigungu") smallPlaceCode : String
     ) : Response<List<InfoListDto>>
 
     @GET("/rentals/{sido}/{sigungu}")
     suspend fun getRentalServiceList(
-        @Path(value = "sido") bidPlaceCode : String,
+        @Path(value = "sido") bigPlaceCode : String,
         @Path(value = "sigungu") smallPlaceCode : String
     ) : Response<List<InfoListDto>>
 
@@ -75,6 +69,12 @@ interface BFTApi {
         @Path(value = "userX") userX : Double,
         @Path(value = "userY") userY : Double
     ) : Response<List<InfoSquareDto>>
+
+    @GET("/near-chargers/{userX}/{userY}")
+    suspend fun getNearbyChargerList(
+        @Path(value = "userX") userX : Double,
+        @Path(value = "userY") userY : Double
+    ) : Response<List<InfoListDto>>
 
     @GET("/sido")
     suspend fun getSidoCode(

@@ -13,9 +13,11 @@ import com.kakao.vectormap.mapwidget.component.GuiImage
 import com.kakao.vectormap.mapwidget.component.GuiLayout
 import com.kakao.vectormap.mapwidget.component.GuiText
 import com.kakao.vectormap.mapwidget.component.Orientation
+import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.databinding.FragmentWishlistMapBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
 import com.triply.barrierfreetrip.model.MainViewModel
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_CHARGER
 import com.triply.barrierfreetrip.util.convertDrawableToBitmapIcon
 import java.lang.System.currentTimeMillis
 
@@ -28,17 +30,18 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
         get() = _kakaoMap!!
     private var timeOnClickLike = currentTimeMillis()
     private val debouncingInterval = 300L
+    private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            contentId = it.getInt(WishlistFragment.CONTENT_ID).toString()
+            contentId = it.getInt(CONTENT_ID).toString()
         }
     }
 
     override fun initInViewCreated() {
         initMap()
-        initTitle("전동휠체어 급속충전기")
+        binding.tvTitle.text = "전동휠체어 급속충전기"
 
         binding.btnBack.setOnClickListener {
             backToPrevFragment()
@@ -68,10 +71,18 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
                     return@setOnLikeClick
                 }
                 timeOnClickLike = currentTimeMillis()
-                viewModel.postLikes(type = 1, contentId = contentId ?: "", likes = chargerInfo.like xor 1)
-                binding.dialogMapInfo.updateLike(
-                    like = chargerInfo.like xor 1 == 1
-                )
+                contentId?.let {
+                    viewModel.postLikes(contentType = CONTENT_TYPE_CHARGER, contentId = it, likes = chargerInfo.like xor 1)
+                    binding.dialogMapInfo.updateLike(like = chargerInfo.like xor 1 == 1)
+                }
+            }
+        }
+
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
+            if (it.getContentIfNotHandled() == true) {
+                loadingProgressBar.show()
+            } else {
+                loadingProgressBar.dismiss()
             }
         }
     }
@@ -107,7 +118,10 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
         val kakaoMapReadyCycleCallback = object: KakaoMapReadyCallback() {
             override fun onMapReady(kakaoMap: KakaoMap) {
                 _kakaoMap = kakaoMap
-                viewModel.getChargerInfo(contentId = contentId?.toLong() ?: 0)
+                contentId?.let {
+                    viewModel.getChargerInfo(contentId = it.toLong())
+                }
+
             }
         }
         binding.mapChargerInfo.start(mapLifeCycleCallback, kakaoMapReadyCycleCallback)
@@ -135,9 +149,5 @@ class WishlistMapFragment : BaseFragment<FragmentWishlistMapBinding>(R.layout.fr
     private fun setCameraPosition(latitude: Double, longitude: Double) {
         val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(latitude, longitude))
         kakaoMap.moveCamera(cameraUpdate)
-    }
-    
-    private fun initTitle(title: String) {
-        binding.tvTitle.text = title
     }
 }

@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="중랑천 만남의 광장" />
 
-        <ToggleButton
+        <androidx.appcompat.widget.AppCompatToggleButton
             android:id="@+id/tb_square_like"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -86,6 +86,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_office_hours"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -98,6 +99,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_location"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -110,6 +112,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_chargerinfo_call"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"

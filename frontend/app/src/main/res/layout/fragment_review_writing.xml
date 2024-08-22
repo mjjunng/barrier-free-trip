@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/iv_review_writing_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -30,18 +30,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:text="@string/review_writing_do"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_review_writing_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/btn_review_upload"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -53,15 +56,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_review_writing_title"
+            style="@style/TextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:textColor="@color/review_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_review_top_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_review_top_bar"
+            tools:text="힐하우스 호텔" />
 
         <com.triply.barrierfreetrip.BFTRatingStar
             android:id="@+id/rtbar_review_writing_rating"
@@ -74,17 +79,18 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_review_writing_content"
+            style="@style/EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="28dp"
-            android:padding="12dp"
             android:background="@drawable/shape_rect_round_corner12_stroke1_lightgray"
-            android:textColor="@color/review_black"
-            android:textSize="16sp"
             android:gravity="top"
             android:hint="@string/review_writing_content_hint"
+            android:padding="12dp"
+            android:textColor="@color/review_black"
             android:textColorHint="@color/bright_gray"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

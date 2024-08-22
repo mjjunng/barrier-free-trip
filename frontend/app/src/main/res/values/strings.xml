@@ -11,6 +11,7 @@
     <string name="all_more_info">더보기</string>
     <string name="all_review">리뷰</string>
     <string name="all_login">로그인</string>
+    <string name="all_require_selection">시도, 구군을 선택해주세요.</string>
 
     <string name="all_temp_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="all_temp_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
@@ -36,8 +37,8 @@
     <string name="btn_nav_mypage">마이</string>
 
     <!-- strings for stayinfo -->
-    <string name="stayinfo_enter">입실시간 | </string>
-    <string name="stayinfo_leave">퇴실시간 | </string>
+    <string name="stayinfo_enter">입실시간</string>
+    <string name="stayinfo_leave">퇴실시간</string>
     <string name="stayinfo_call">전화</string>
     <string name="stayinfo_map">지도</string>
     <string name="stayinfo_page">홈페이지</string>
@@ -81,11 +82,14 @@
     <!-- strings for search -->
     <string name="search_hint">검색어를 입력하세요</string>
 
-    <!-- <string name=""></string> -->
+    <!-- <string name="chargerlist" -->
+    <string name="chargerlist_see_map">지도보기</string>
 
     <!-- strings for review -->
     <string name="review_write">리뷰 작성하기</string>
     <string name="load_more">더보기</string>
+    <string name="review_writing_do">리뷰 작성</string>
     <string name="review_writing_upload">등록</string>
     <string name="review_writing_content_hint">방문후를 적어주세요.</string>
+    <string name="show_reviews">리뷰 %1$d개 보기</string>
 </resources>

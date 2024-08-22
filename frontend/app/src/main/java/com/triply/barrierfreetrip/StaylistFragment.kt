@@ -2,81 +2,90 @@ package com.triply.barrierfreetrip
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.liveData
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.triply.barrierfreetrip.HomeFragment.Companion.CONTENT_TYPE
+import com.triply.barrierfreetrip.MainActivity.Companion.CONTENT_ID
 import com.triply.barrierfreetrip.adapter.BFTSpinnerAdapter
 import com.triply.barrierfreetrip.adapter.InfoSquareAdapter
-import com.triply.barrierfreetrip.api.BFTApi
-import com.triply.barrierfreetrip.api.RetroInstance
+import com.triply.barrierfreetrip.adapter.OnItemClickListener
+import com.triply.barrierfreetrip.adapter.OnLikeClickListener
+import com.triply.barrierfreetrip.adapter.decoration.StayListItemViewHolderDecoration
 import com.triply.barrierfreetrip.data.InfoSquareDto
 import com.triply.barrierfreetrip.data.Sido
 import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.databinding.FragmentStaylistBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
-import retrofit2.Response
+import com.triply.barrierfreetrip.model.MainViewModel
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_STAY
+import com.triply.barrierfreetrip.util.CONTENT_TYPE_TOUR
 
 class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment_staylist) {
-    private val retrofit = RetroInstance.getInstance().create(BFTApi::class.java)
-    lateinit var infoSquareAdapter: InfoSquareAdapter
+    private val viewModel: MainViewModel by viewModels()
     private var type: String? = null
+    private val loadingProgressBar by lazy { BFTLoadingProgressBar(requireContext()) }
 
-    // init spinner data
+    // sido data
     private val sidoCodes = arrayListOf(Sido(code = "-1", name = "시도 선택"))
     private val sidoNames = arrayListOf("시도 선택")
+    private var sidoPosition = 0
 
-    // call api to get sigungu code
+    // sigungu data
     private val sigunguCodes = arrayListOf(Sigungu(code = "-1", name = "구군 선택"))
     private val sigunguNames = arrayListOf("구군 선택")
+    private var sigunguPosition = 0
+
+    // facility data
+    private val fcltList = ArrayList<InfoSquareDto>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        type = arguments?.getString("type")
-
-        // 뒤로 가기 버튼 클릭 시
-//        binding.btnBack.setOnClickListener {
-//
-//        }
+        type = arguments?.getString(CONTENT_TYPE)
 
     }
 
     override fun initInViewCreated() {
-
-
-        // 목록화면의 타이틀 변경
         initTitle()
-
         initSpinner()
 
-        val responseLiveData: LiveData<Response<List<Sido>>> = liveData {
-            val response = retrofit.getSidoCode()
-
-            emit(response)
+        binding.btnBack.setOnClickListener {
+            if (parentFragmentManager.backStackEntryCount > 0) parentFragmentManager.popBackStack()
         }
 
-        responseLiveData.observe(viewLifecycleOwner, {
-            val list = it.body()?.listIterator()
-            if (list != null) {
-                while (list.hasNext()) {
-                    val item = list.next()
-                    sidoCodes.add(item)
-                    sidoNames.add(item.name)
-                }
-            } else {
-                Log.d(TAG, "null sido code data")
+        viewModel.getSidoCode()
+        viewModel.sidoCodes.observe(viewLifecycleOwner) { sidoList ->
+            with(sidoCodes) {
+                clear()
+                add(Sido(code = "-1", "시도 선택"))
+                addAll(sidoList)
+            }
+            with(sidoNames) {
+                clear()
+                add("시도 선택")
+                addAll(sidoList.map { sido -> sido.name })
             }
             binding.spnBigArea.setSelection(0)
-        })
+        }
+        viewModel.sigunguCodes.observe(viewLifecycleOwner) { sigunguList ->
+            with(sigunguCodes) {
+                clear()
+                add(Sigungu(code = "-1", name = "구군 선택"))
+                addAll(sigunguList)
+            }
+            with(sigunguNames) {
+                clear()
+                add("구군 선택")
+                addAll(sigunguList.map { sigungu -> sigungu.name})
+            }
 
-        // click event on sido spinner
+            binding.spnSmallArea.setSelection(0)
+        }
+
+        binding.tvRequireSelection.visibility = View.VISIBLE
+
         binding.spnBigArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -89,101 +98,91 @@ class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
                     binding.spnSmallArea.isEnabled = false
                     return
                 }
+                binding.tvRequireSelection.visibility = View.VISIBLE
                 binding.spnSmallArea.isEnabled = true
+                sidoPosition = position
 
-                val responseLiveData2: LiveData<Response<List<Sigungu>>> = liveData {
-                    val response = retrofit.getSigunguCode(sidoCodes[position].code)
-                    emit(response)
-                }
+                fcltList.clear()
+                (binding.rvList.adapter as InfoSquareAdapter).setDataList(emptyList())
 
-                responseLiveData2.observe(viewLifecycleOwner, Observer {
-                    val list = it.body()?.listIterator()
-                    sigunguCodes.clear()
-                    sigunguNames.clear()
-                    sigunguCodes.add(Sigungu(code = "-1", name = "구군 선택"))
-                    sigunguNames.add("구군 선택")
-                    if (list != null) {
-                        while (list.hasNext()) {
-                            val item = list.next()
-                            sigunguCodes.add(item)
-                            sigunguNames.add(item.name)
-                        }
-                    } else {
-                        Log.d(TAG, "null sigungu code data")
-                    }
-                    binding.spnSmallArea.setSelection(0)
+                viewModel.getSigunguCode(sidoCodes[position].code)
+            }
 
-                    // click event on sigungu spinner
-                    binding.spnSmallArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>?,
-                            view: View?,
-                            position2: Int,
-                            id: Long
-                        ) {
-                            if (position2 == 0) return
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        binding.spnSmallArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position2: Int,
+                id: Long
+            ) {
+                if (position2 == 0) return
+                binding.tvRequireSelection.visibility = View.GONE
+                sigunguPosition = position2
 
-                            // get list data
-                            getListData(sidoCodes[position].code, sigunguCodes[position2].code)
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                        }
-                    }
-                })
+                viewModel.getTourFcltList(type ?: "", sidoCodes[sidoPosition].code, sigunguCodes[sigunguPosition].code)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
-    }
 
-    fun getListData(sidoCode: String, sigunguCode: String) {
-        // get list data
-        val infoSquareDtoList = ArrayList<InfoSquareDto>()
+        with(binding.rvList) {
+            adapter = InfoSquareAdapter().apply {
+                setOnItemClickListener(object : OnItemClickListener {
+                    override fun onItemClick(position: Int) {
+                        val item = fcltList[position]
+                        val bundle = Bundle()
+                        val stayInfoFragment = StayInfoFragment()
 
-        val responseLiveData3: LiveData<Response<List<InfoSquareDto>>> = liveData {
-            val response = retrofit.getTourFcltList(type.toString(), sidoCode, sigunguCode)
+                        bundle.putString(CONTENT_ID, item.contentId)
+                        bundle.putString(CONTENT_TYPE, CONTENT_TYPE_STAY)
+                        stayInfoFragment.arguments = bundle
 
-            emit(response)
+                        requireActivity().supportFragmentManager
+                            .beginTransaction()
+                            .replace(android.R.id.content, stayInfoFragment)
+                            .commit()
+                    }
+                })
+                setOnLikeClickListener(object : OnLikeClickListener {
+                    override fun onLikeClick(position: Int) {
+                        val item = fcltList.getOrNull(position) ?: return
+
+                        type?.let {
+                            viewModel.postLikes(contentType = it, contentId = item.contentId, likes = if (item.like) 0 else 1)
+                        }
+                    }
+
+                })
+            }
+            layoutManager = GridLayoutManager(context, 2)
+            if (itemDecorationCount < 1) addItemDecoration(StayListItemViewHolderDecoration())
         }
 
-        responseLiveData3.observe(viewLifecycleOwner, Observer {
-            val list = it.body()?.listIterator()
-            if (list != null) {
-                while (list.hasNext()) {
-                    val item = list.next()
-                    infoSquareDtoList.add(item)
-                }
-            } else {
+        viewModel.locationList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
                 Log.d(TAG, "null near-hotel data")
             }
-            infoSquareAdapter = InfoSquareAdapter(infoSquareDtoList)
-            binding.rvList.adapter = infoSquareAdapter
-            binding.rvList.layoutManager = GridLayoutManager(context, 2)
+            fcltList.clear()
+            fcltList.addAll(it)
+            (binding.rvList.adapter as InfoSquareAdapter).setDataList(fcltList)
+        }
 
-            infoSquareAdapter.setItemClickListener(object : InfoSquareAdapter.OnItemClickListener {
-                override fun onClick(view: View, position: Int) {
-                    val item = infoSquareDtoList[position]
-                    val bundle = Bundle()
-                    val stayInfoFragment = StayInfoFragment()
-
-                    bundle.putString("contentId", item.contentId)
-                    stayInfoFragment.arguments = bundle
-
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_nav_host_fragment, stayInfoFragment)
-                        .commit()
-                }
-            })
-        })
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
+            if (it.getContentIfNotHandled() == true) {
+                loadingProgressBar.show()
+            } else {
+                loadingProgressBar.dismiss()
+            }
+        }
     }
 
-    fun initTitle() {
+    private fun initTitle() {
         binding.tvTitle.text = when {
-            type.equals("32") -> "숙박"
-            type.equals("12") -> "관광지"
+            type.equals(CONTENT_TYPE_STAY) -> "숙박"
+            type.equals(CONTENT_TYPE_TOUR) -> "관광지"
             else -> "음식점"
         }
     }
