@@ -62,7 +62,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val bundle = Bundle()
         val stayListFragment = StaylistFragment()
         val wishlistFragment = WishlistFragment()
-        println("$TAG + 이니시에이트")
 
         with(binding.rvHome) {
             adapter = HomeInfoAdapter().apply {
