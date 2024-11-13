@@ -26,12 +26,16 @@ class MainActivity : AppCompatActivity() {
         // DataBinding Setting
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+//        apikeyStoreModule = BFTApplication.getInstance().getKeyStore()
+
+
         // FragmentContainerView를 사용하여 Nav
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
         binding.bnvMain.setupWithNavController(navHostFragment.navController)
 
         apikeyStoreModule = BFTApplication.getInstance().getKeyStore()
+
 
         if (!hasPermissionForCoarseLocation || !hasPermissionForFineLocation) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_FINE_LOCATION)

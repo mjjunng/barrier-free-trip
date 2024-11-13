@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7f1eecc-fd08-46a5-ac00-dec4cd564c67" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/barrier-free-trip.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/src/main/res/layout/fragment_staylist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/src/main/res/layout/fragment_staylist.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +35,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "develop",
-    "last_opened_file_path": "C:/Users/JUNGMINJI/StudioProjects/barrier-free-trip/frontend",
+    "last_opened_file_path": "D:/Studies/Github/barrier-free-trip/frontend",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>

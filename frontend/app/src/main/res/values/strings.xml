@@ -5,6 +5,8 @@
 
     <!-- strings for all -->
     <string name="all_stay">숙박</string>
+    <string name="all_care">돌봄</string>
+
     <string name="all_caretrip">돌봄여행</string>
     <string name="all_stay_nearby">내 주변 숙박시설</string>
     <string name="all_charge_nearby">내 주변 전동휠체어 충전기</string>

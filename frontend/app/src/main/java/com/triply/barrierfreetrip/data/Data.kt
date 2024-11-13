@@ -5,11 +5,25 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.gson.annotations.SerializedName
 
-data class LoginDto(
+sealed class RespDocument()
+data class MetaResponse<T : RespDocument>(
+    val status : String,
+    val respDocument : T,
+    val message : String?
+) {
+
+}
+
+data class LoginDto2(
     val accessToken: String,
     val email: String,
     val nickname: String,
     val refreshToken: String
+)
+
+data class LoginDto(
+    val message : String,
+    val accessToken: String
 )
 
 data class TourFacilityDetail(
@@ -36,7 +50,9 @@ data class TourFacilityDetail(
     val sigunguCode: Any = "",
     val tel: String = "",
     val title: String = "",
-)
+) : RespDocument() {
+
+}
 
 data class Charger(
     val addr: String,
@@ -44,7 +60,7 @@ data class Charger(
     val like: Int,
     val tel: String,
     val title: String
-)
+) : RespDocument()
 
 data class ChargerDetail(
     val addr: String,
@@ -59,25 +75,26 @@ data class ChargerDetail(
     val weekdayClose: String,
     val weekdayOpen: String,
     val weekendClose: String,
+
     val weekendOpen: String,
     val latitude: Double,
     val longitude: Double
-)
+) : RespDocument()
+
 
 data class CareTour(
-
     val addr: String,
     val like: Int,
     val tel: String,
     val title: String
-)
+) : RespDocument()
 
 data class RentalServicePlace(
     val addr: String,
     val like: Int,
     val tel: String,
     val title: String
-)
+) : RespDocument()
 
 data class SearchRsltItem(
     val addr: String,
@@ -88,7 +105,7 @@ data class SearchRsltItem(
     val type: Int,
     val id: Int,
     val like: Boolean
-)
+) : RespDocument()
 
 data class RestPlace(
     val addr: String,
@@ -97,7 +114,7 @@ data class RestPlace(
     val firstimg: String,
     val rating: Any,
     val title: String
-)
+) : RespDocument()
 
 data class InfoListDto(
     val id: Int,
@@ -105,7 +122,7 @@ data class InfoListDto(
     val like: Boolean,
     val tel: String,
     val title: String
-)
+) : RespDocument()
 
 data class InfoSquareDto(
     val addr: String,
@@ -116,7 +133,7 @@ data class InfoSquareDto(
     val rating: String,
     val tel: String,
     val title: String
-) {
+)  : RespDocument() {
     object SquareBind {
         @JvmStatic
         @BindingAdapter("setImage")
@@ -137,6 +154,11 @@ data class Sigungu (
     val code: String,
     val name: String
 )
+
+
+enum class TripType {
+    STAY, FACILITY, RESTAURANT, CARE, CHARGER, RENTAL
+}
 
 data class ReviewListDTO(
     val totalCnt: Int,
@@ -192,7 +214,6 @@ data class LocationCoordinateDTO(
             @SerializedName("x") val longitude: String?,
             @SerializedName("y") val latitude: String?,
         )
-
         data class RoadAddress(
             @SerializedName("address_name") val addressName: String?,
             @SerializedName("region_1depth_name") val region1DepthName: String?,
