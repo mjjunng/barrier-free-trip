@@ -55,4 +55,9 @@ public class RentalServiceImpl implements RentalService{
         }
         return null;
     }
+
+    @Override
+    public Optional<Rental> findByTitle(String keyword) {
+        return rentalRepository.findByTitle(keyword);
+    }
 }
