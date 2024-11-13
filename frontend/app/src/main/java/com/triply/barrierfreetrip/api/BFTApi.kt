@@ -1,19 +1,16 @@
 package com.triply.barrierfreetrip.api
 
-import android.content.pm.ApplicationInfo
-import com.triply.barrierfreetrip.data.CareTour
-import com.triply.barrierfreetrip.data.Charger
 import com.triply.barrierfreetrip.data.ChargerDetail
 import com.triply.barrierfreetrip.data.InfoListDto
 import com.triply.barrierfreetrip.data.InfoSquareDto
-import com.triply.barrierfreetrip.data.RentalServicePlace
-import com.triply.barrierfreetrip.data.RestPlace
+import com.triply.barrierfreetrip.data.ReviewListDTO
+import com.triply.barrierfreetrip.data.ReviewRegistrationDTO
 import com.triply.barrierfreetrip.data.SearchRsltItem
 import com.triply.barrierfreetrip.data.Sido
 import com.triply.barrierfreetrip.data.Sigungu
 import com.triply.barrierfreetrip.data.TourFacilityDetail
-import retrofit2.Call
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -47,31 +44,37 @@ interface BFTApi {
 
     @GET("/chargers/info/{contentId}")
     suspend fun getChargerDetail(
-        @Path(value = "contentId") contentId: String
+        @Path(value = "contentId") contentId: Long
     ) : Response<ChargerDetail>
 
     @GET("/care-services/{sido}/{sigungu}")
     suspend fun getCareTourList(
-        @Path(value = "sido") bidPlaceCode : String,
+        @Path(value = "sido") bigPlaceCode : String,
         @Path(value = "sigungu") smallPlaceCode : String
     ) : Response<List<InfoListDto>>
 
     @GET("/rentals/{sido}/{sigungu}")
     suspend fun getRentalServiceList(
-        @Path(value = "sido") bidPlaceCode : String,
+        @Path(value = "sido") bigPlaceCode : String,
         @Path(value = "sigungu") smallPlaceCode : String
     ) : Response<List<InfoListDto>>
 
     @GET("/search/{keyword}")
     suspend fun getSearchResult(
         @Path(value = "keyword") keyword : String
-    ) : Response<SearchRsltItem>
+    ) : Response<List<SearchRsltItem>>
 
     @GET("/near-hotels/{userX}/{userY}")
     suspend fun getStayList(
         @Path(value = "userX") userX : Double,
         @Path(value = "userY") userY : Double
     ) : Response<List<InfoSquareDto>>
+
+    @GET("/near-chargers/{userX}/{userY}")
+    suspend fun getNearbyChargerList(
+        @Path(value = "userX") userX : Double,
+        @Path(value = "userY") userY : Double
+    ) : Response<List<InfoListDto>>
 
     @GET("/sido")
     suspend fun getSidoCode(
@@ -81,4 +84,22 @@ interface BFTApi {
     suspend fun getSigunguCode(
         @Path(value = "sidoCode") sidoCode : String,
     ) : Response<List<Sigungu>>
+
+    @GET("/reviews/{contentId}")
+    suspend fun getReviews(
+        @Path(value = "contentId") contentId: String
+    ): Response<ReviewListDTO>
+
+    @POST("/reviews/{contentId}")
+    suspend fun postReview(
+        @Path(value = "contentId") contentId: String,
+        @Body body: ReviewRegistrationDTO
+    ): Response<Unit>
+
+    @GET("/heart/{type}/{contentId}/{likes}")
+    suspend fun postLikes(
+        @Path(value = "type") type: Int,
+        @Path(value = "contentId") contentId: String,
+        @Path(value = "likes") likes: Int
+    ): Response<Unit>
 }

@@ -4,6 +4,8 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'kotlin-kapt'
 }
+def properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     namespace 'com.triply.barrierfreetrip'
@@ -17,6 +19,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "KAKAO_MAP_KEY", properties.getProperty("kakaomap_key"))
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     buildTypes {
@@ -95,4 +102,10 @@ dependencies {
 
     // Kakao Login
     implementation 'com.kakao.sdk:v2-user:2.10.0'
+    
+    // 카카오 지도
+    implementation 'com.kakao.maps.open:android:2.9.5'
+
+    // GPS
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
 }

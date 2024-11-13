@@ -19,27 +19,27 @@
     </style>
 
     <style name="TextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView">
-        <item name="android:fontFamily">@font/notosans_fontfamily</item>
+<!--        <item name="android:fontFamily">@font/notosanskr_regular</item>-->
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="ButtonStyle" parent="@android:style/Widget.DeviceDefault.Button.Borderless">
-        <item name="android:fontFamily">@font/notosans_fontfamily</item>
+<!--        <item name="android:fontFamily">@font/notosanskr_regular</item>-->
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="EditTextStyle" parent="@android:style/Widget.DeviceDefault.EditText">
-        <item name="android:fontFamily">@font/notosans_fontfamily</item>
+<!--        <item name="android:fontFamily">@font/notosanskr_regular</item>-->
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="RadioButtonStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton">
-        <item name="android:fontFamily">@font/notosans_fontfamily</item>
+<!--        <item name="android:fontFamily">@font/notosanskr_regular</item>-->
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="CheckboxStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
-        <item name="android:fontFamily">@font/notosans_fontfamily</item>
+<!--        <item name="android:fontFamily">@font/notosanskr_regular</item>-->
         <item name="android:includeFontPadding">false</item>
     </style>
 
@@ -51,7 +51,9 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
-    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">20sp</item>
+    <style name="BFTSpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:overlapAnchor">false</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:spinnerMode">dropdown</item>
     </style>
 </resources>

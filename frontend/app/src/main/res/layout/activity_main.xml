@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity" >
+        tools:context=".MainActivity">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/main_nav_host_fragment"
@@ -23,15 +24,15 @@
             android:id="@+id/bnv_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/menu_btn_nav"
-            app:labelVisibilityMode="labeled"
             android:background="@color/white"
+            android:textSize="16sp"
             app:itemIconTint="@drawable/selector_nav"
             app:itemTextColor="@drawable/selector_nav"
-            android:textSize="16sp"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_btn_nav" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

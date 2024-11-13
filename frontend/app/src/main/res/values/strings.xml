@@ -13,6 +13,7 @@
     <string name="all_more_info">더보기</string>
     <string name="all_review">리뷰</string>
     <string name="all_login">로그인</string>
+    <string name="all_require_selection">시도, 구군을 선택해주세요.</string>
 
     <string name="all_temp_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="all_temp_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
@@ -38,23 +39,59 @@
     <string name="btn_nav_mypage">마이</string>
 
     <!-- strings for stayinfo -->
-    <string name="stayinfo_enter">입실시간 | </string>
-    <string name="stayinfo_leave">퇴실시간 | </string>
+    <string name="stayinfo_enter">입실시간</string>
+    <string name="stayinfo_leave">퇴실시간</string>
     <string name="stayinfo_call">전화</string>
     <string name="stayinfo_map">지도</string>
     <string name="stayinfo_page">홈페이지</string>
     <string name="stayinfo_intro">소개</string>
     <string name="stayinfo_convinfo_title">무장애 편의정보</string>
-    <string name="stayinfo_parking">주차시설</string>
+    <string name="stayinfo_wheelchair">휠체어</string>
+    <string name="stayinfo_exit">출입통로</string>
+    <string name="stayinfo_elevator">엘리베이터</string>
+    <string name="stayinfo_restroom">화장실</string>
+    <string name="stayinfo_guidesystem">유도안내설비</string>
+    <string name="stayinfo_blindhandicapetc">시각장애 기타 상세</string>
+    <string name="stayinfo_signguide">수화 안내</string>
+    <string name="stayinfo_videoguide">자막 비디오가이드 및 영상자막 안내</string>
+    <string name="stayinfo_hearingroom">객실</string>
+    <string name="stayinfo_hearinghandicapetc">청각장애 기타 상세</string>
+    <string name="stayinfo_stroller">유모차</string>
+    <string name="stayinfo_lactationroom">수유실</string>
+    <string name="stayinfo_babysparechair">유아용 보조의자</string>
+    <string name="stayinfo_infantsfamilyetc">영유아가족 기타 상세</string>
+    <string name="stayinfo_auditorium">관람석</string>
+    <string name="stayinfo_room">객실</string>
+    <string name="stayinfo_handicapetc">지체장애 기타 상세</string>
+    <string name="stayinfo_braileblock">점자블록</string>
+    <string name="stayinfo_helpdog">보조견 동반</string>
+    <string name="stayinfo_guidehuman">안내요원</string>
+    <string name="stayinfo_audioguide">오디오가이드</string>
+    <string name="stayinfo_bigprint">큰활자 홍보물</string>
+    <string name="stayinfo_brailepromotion">점자홍보물 및 표지판</string>
+    <string name="stayinfo_freeParking">주차시설</string>
     <string name="stayinfo_route">핵심동선</string>
+    <string name="stayinfo_publictransport">대중교통</string>
+    <string name="stayinfo_ticketoffice">매표소</string>
+    <string name="stayinfo_promotion">홍보물</string>
     <string name="stayinfo_toilet">화장실</string>
+    <string name="stayinfo_parking">주차시설</string>
     <string name="stayinfo_dog">보조견</string>
 
     <string name="kakao_login">카카오톡으로 로그인</string>
     <string name="naver_login">네이버로 로그인</string>
 
     <!-- strings for search -->
-    <string name="serch_hint">검색어를 입력하세요</string>
+    <string name="search_hint">검색어를 입력하세요</string>
 
-    <!-- <string name=""></string> -->
+    <!-- <string name="chargerlist" -->
+    <string name="chargerlist_see_map">지도보기</string>
+
+    <!-- strings for review -->
+    <string name="review_write">리뷰 작성하기</string>
+    <string name="load_more">더보기</string>
+    <string name="review_writing_do">리뷰 작성</string>
+    <string name="review_writing_upload">등록</string>
+    <string name="review_writing_content_hint">방문후를 적어주세요.</string>
+    <string name="show_reviews">리뷰 %1$d개 보기</string>
 </resources>
