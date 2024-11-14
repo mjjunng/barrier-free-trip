@@ -1,9 +1,7 @@
 package com.triply.barrierfreetrip.search.service;
 
-import com.triply.barrierfreetrip.search.dto.SearchDto;
-
-import java.util.List;
+import com.triply.barrierfreetrip.search.SearchDto;
 
 public interface SearchService {
-    public List<SearchDto> search(String keyword);
+    public SearchDto search(String keyword);
 }

@@ -9,13 +9,10 @@
         android:id="@+id/homeFragment"
         android:name="com.triply.barrierfreetrip.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_staylistFragment"
             app:destination="@id/staylistFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_wishListFragment"
-            app:destination="@id/wishListFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -31,16 +28,7 @@
         android:id="@+id/wishListFragment"
         android:name="com.triply.barrierfreetrip.WishlistFragment"
         android:label="fragment_wish_list"
-        tools:layout="@layout/fragment_wishlist">
-        <action
-            android:id="@+id/action_wishListFragment_to_wisiListMapFragment"
-            app:destination="@id/wishListMapFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/wishListMapFragment"
-        android:name="com.triply.barrierfreetrip.WishlistMapFragment"
-        android:label="fragment_wish_list_map"
-        tools:layout="@layout/fragment_wishlist_map" />
+        tools:layout="@layout/fragment_wishlist" />
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.triply.barrierfreetrip.MyPageFragment"
@@ -50,38 +38,7 @@
         android:id="@+id/staylistFragment"
         android:name="com.triply.barrierfreetrip.StaylistFragment"
         android:label="fragment_staylist"
-        tools:layout="@layout/fragment_staylist" >
-        <action
-            android:id="@+id/action_staylistFragment_to_stayInfoFragment"
-            app:destination="@id/stayInfoFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/stayInfoFragment"
-        android:name="com.triply.barrierfreetrip.StayInfoFragment"
-        android:label="fragment_stay_info"
-        tools:layout="@layout/fragment_stay_info" >
-        <action
-            android:id="@+id/action_stayInfoFragment_to_reviewFragment"
-            app:destination="@id/reviewFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/pickFragment"
-        android:name="com.triply.barrierfreetrip.PickFragment"
-        android:label="fragment_pick"
-        tools:layout="@layout/fragment_pick" />
-    <fragment
-        android:id="@+id/reviewFragment"
-        android:name="com.triply.barrierfreetrip.ReviewFragment"
-        android:label="fragment_review"
-        tools:layout="@layout/fragment_review">
-        <action
-            android:id="@+id/action_reviewFragment_to_reviewWrtingFragment"
-            app:destination="@id/reviewWritingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/reviewWritingFragment"
-        android:name="com.triply.barrierfreetrip.ReviewWritingFragment"
-        android:label="fragment_review_writing"
-        tools:layout="@layout/fragment_review_writing" />
+        tools:layout="@layout/fragment_staylist" />
+
 
 </navigation>

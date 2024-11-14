@@ -24,8 +24,8 @@ public class ChargerServiceImpl implements ChargerService{
     private final ChargerHeartRepository chargerHeartRepository;
 
 
-    public List<ChargerListDto> returnListDto(Member member, String sido, String sigungu) {
-        List<Charger> chargers = chargerRepository.findByAreaCode(sido, sigungu);
+    public List<ChargerListDto> returnListDto(Member member, String areaCode) {
+        List<Charger> chargers = chargerRepository.findByAreaCode(areaCode);
         List<ChargerListDto> result = new ArrayList<>();
 
         for (Charger c: chargers) {
@@ -88,11 +88,6 @@ public class ChargerServiceImpl implements ChargerService{
         return nearChargers.stream()
                 .map(c -> new ChargerListDto(c.getId(), c.getTitle(), c.getAddr(), c.getTel()))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Optional<Charger> findByTitle(String keyword) {
-        return chargerRepository.findByTitle(keyword);
     }
 
 }
