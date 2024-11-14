@@ -84,7 +84,7 @@ class SquareViewHolder(
     fun bind(item: InfoSquareDto) {
         binding.squareItem = item
         binding.tbSquareLike.visibility = if (isLikeVisible) View.VISIBLE else View.GONE
-        binding.tvSquareAddress.text = item.addr.substring(0, 14)
+        binding.tvSquareAddress.text = item.addr.take(14)
         Glide.with(binding.root.context)
             .load(item.firstimg)
             .centerCrop()

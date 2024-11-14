@@ -143,6 +143,7 @@ class StaylistFragment : BaseFragment<FragmentStaylistBinding>(R.layout.fragment
                         requireActivity().supportFragmentManager
                             .beginTransaction()
                             .replace(android.R.id.content, stayInfoFragment)
+                            .addToBackStack(null)
                             .commit()
                     }
                 })
