@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .antMatchers("/oauth/**", "/refresh", "/near-hotels/**", "/**");
+                .antMatchers("/oauth/**", "/refresh");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/oauth/**", "/refresh", "/near-hotels/**", "/**").permitAll()
+                .antMatchers("/oauth/**", "/refresh").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthFilter(tokenService), UsernamePasswordAuthenticationFilter.class)
