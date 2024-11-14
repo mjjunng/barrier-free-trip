@@ -120,9 +120,4 @@ public class TouristFacilityServiceImpl implements TouristFacilityService {
         touristFacilityRepository.save(touristFacility);
     }
 
-    @Override
-    public Optional<TouristFacility> findByTitle(String keyword) {
-        return touristFacilityRepository.findByTitle(keyword);
-    }
-
 }

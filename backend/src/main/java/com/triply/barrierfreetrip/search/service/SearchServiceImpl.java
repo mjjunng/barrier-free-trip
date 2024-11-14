@@ -1,75 +1,62 @@
 package com.triply.barrierfreetrip.search.service;
 
 import com.triply.barrierfreetrip.caretrip.domain.CareTrip;
-import com.triply.barrierfreetrip.caretrip.service.CareTripService;
+import com.triply.barrierfreetrip.caretrip.repository.CareTripRepository;
 import com.triply.barrierfreetrip.charger.domain.Charger;
-import com.triply.barrierfreetrip.charger.service.ChargerService;
+import com.triply.barrierfreetrip.charger.repository.ChargerRepository;
 import com.triply.barrierfreetrip.rental.domain.Rental;
-import com.triply.barrierfreetrip.rental.service.RentalService;
-import com.triply.barrierfreetrip.search.dto.SearchDto;
+import com.triply.barrierfreetrip.rental.repository.RentalRepository;
+import com.triply.barrierfreetrip.search.SearchDto;
 import com.triply.barrierfreetrip.touristfacility.domain.TouristFacility;
-import com.triply.barrierfreetrip.touristfacility.service.TouristFacilityService;
+import com.triply.barrierfreetrip.touristfacility.repository.TouristFacilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService{
-    private final TouristFacilityService touristFacilityService;
-    private final CareTripService careTripService;
-    private final ChargerService chargerService;
-    private final RentalService rentalService;
+    private final TouristFacilityRepository touristFacilityRepository;
+    private final CareTripRepository careTripRepository;
+    private final ChargerRepository chargerRepository;
+    private final RentalRepository rentalRepository;
 
-    public List<SearchDto> search(String keyword) {
+    public SearchDto search(String keyword) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        List<SearchDto> results = new ArrayList<>();
+        SearchDto searchDto = new SearchDto();
 
-        Optional<TouristFacility> tourist = touristFacilityService.findByTitle(keyword);
-        Optional<CareTrip> careTripe = careTripService.findByTitle(keyword);
-        Optional<Charger> charger = chargerService.findByTitle(keyword);
-        Optional<Rental> rental = rentalService.findByTitle(keyword);
-
-        if (tourist.isPresent()) {
-            SearchDto searchDto = new SearchDto();
-            searchDto.setTitle(tourist.get().getTitle());
-            searchDto.setRating(tourist.get().getRating());
-            searchDto.setTel(tourist.get().getTel());
-            searchDto.setAddr(tourist.get().getAddr1());
-            searchDto.setFirstImage(tourist.get().getFirstimage());
-            searchDto.setType(1);
-
-            results.add(searchDto);
-        }
-
-        if (careTripe.isPresent()) {
-            SearchDto searchDto = modelMapper.map(careTripe.get(), SearchDto.class);
-            searchDto.setType(2);
-
-            results.add(searchDto);
-        }
-
-        if (charger.isPresent()) {
-            SearchDto searchDto = modelMapper.map(charger.get(), SearchDto.class);
-            searchDto.setType(3);
-
-            results.add(searchDto);
-        }
-
+        Optional<Rental> rental = rentalRepository.findByTitle(keyword);
         if (rental.isPresent()) {
-            SearchDto searchDto = modelMapper.map(rental.get(), SearchDto.class);
-            searchDto.setType(4);
+            searchDto = modelMapper.map(rental.get(), SearchDto.class);
+        } else {
+            Optional<CareTrip> careTripe = careTripRepository.findByTitle(keyword);
+            if (careTripe.isPresent()) {
+                searchDto = modelMapper.map(careTripe.get(), SearchDto.class);
+            } else {
+                Optional<TouristFacility> tourist = touristFacilityRepository.findByTitle(keyword);
+                if (tourist.isPresent()) {
+                    searchDto = modelMapper.map(tourist.get(), SearchDto.class);
+                    searchDto.setTitle(tourist.get().getTitle());
+                    searchDto.setRating(tourist.get().getRating());
+                    searchDto.setTel(tourist.get().getTel());
+                    searchDto.setAddr(tourist.get().getAddr1());
+                    searchDto.setFirstImage(tourist.get().getFirstimage());
 
-            results.add(searchDto);
+                } else {
+                    Optional<Charger> charger = chargerRepository.findByTitle(keyword);
+                    if (charger.isPresent()) {
+                        searchDto = modelMapper.map(charger.get(), SearchDto.class);
+                    }
+                }
+            }
         }
 
-        return results;
+
+        return searchDto;
     }
 
 }
