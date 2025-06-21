@@ -3,6 +3,7 @@ package com.triply.barrierfreetrip.caretrip.controller;
 import com.triply.barrierfreetrip.caretrip.dto.CareTripListResponseDto;
 import com.triply.barrierfreetrip.caretrip.service.CareTripService;
 import com.triply.barrierfreetrip.member.domain.Member;
+import com.triply.barrierfreetrip.member.repository.MemberRepository;
 import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.List;
 public class CareTripController {
     private final CareTripService careTripService;
     private final OauthMemberService memberService;
+    private final MemberRepository memberRepository;
 
     /**
      * 돌봄 시설 리스트 리턴하는 함수
@@ -27,6 +29,7 @@ public class CareTripController {
     @GetMapping("/care-services/{sido}/{sigungu}")
     public ResponseEntity returnCareServiceList(@PathVariable("sido") String sido,
                                                 @PathVariable("sigungu") String sigungu){
+        //Member member = memberRepository.findById(Long.valueOf(41)).get();
         Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<CareTripListResponseDto> result = careTripService.returnListDto(member, sido, sigungu);
 

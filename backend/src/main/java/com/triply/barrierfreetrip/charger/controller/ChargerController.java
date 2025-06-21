@@ -25,8 +25,8 @@ public class ChargerController {
     @GetMapping("/chargers/{sido}/{sigungu}")
     public ResponseEntity returnChargerList(@PathVariable("sido") String sido,
                                             @PathVariable("sigungu") String sigungu) {
-        Member member = memberRepository.findById(Long.valueOf(41)).get();
-        //Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Member member = memberRepository.findById(Long.valueOf(41)).get();
+        Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<ChargerListDto> result = chargerService.returnListDto(member, sido, sigungu);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -35,6 +35,7 @@ public class ChargerController {
 
     @GetMapping("/chargers/info/{contentId}")
     public ResponseEntity returnChargerInfo(@PathVariable("contentId") Long contentId) {
+        //Member member = memberRepository.findById(Long.valueOf(41)).get();
         Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ChargerInfoDto result = chargerService.returnChargerInfo(member, contentId);
 

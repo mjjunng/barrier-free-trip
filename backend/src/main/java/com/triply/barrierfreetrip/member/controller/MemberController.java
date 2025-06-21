@@ -3,6 +3,7 @@ package com.triply.barrierfreetrip.member.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.triply.barrierfreetrip.member.domain.Member;
 import com.triply.barrierfreetrip.member.domain.Token;
+import com.triply.barrierfreetrip.member.dto.MemberRequestDto;
 import com.triply.barrierfreetrip.member.dto.MemberResponseDto;
 import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import com.triply.barrierfreetrip.member.service.RefreshTokenService;
@@ -39,9 +40,9 @@ public class MemberController {
 
         // save refresh token
         refreshTokenService.saveRefreshToken(token);
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname(),
-                                                                    token.getAccessToken(), token.getRefreshToken());
-        return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
+//        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname(),
+//                                                                    token.getAccessToken(), token.getRefreshToken());
+        return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 
     @GetMapping("/oauth/naver")
@@ -53,8 +54,22 @@ public class MemberController {
 
         // save refresh token
         refreshTokenService.saveRefreshToken(token);
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname(),
-                                                                    token.getAccessToken(), token.getRefreshToken());
+//        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getEmail(), member.getNickname(),
+//                                                                    token.getAccessToken(), token.getRefreshToken());
+        return ResponseEntity.status(HttpStatus.OK).body(token);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody MemberRequestDto memberRequestDto) {
+        Member member = oauthMemberService.login(memberRequestDto);
+
+        // generate jwt
+        Token token = tokenService.generateToken(member.getEmail(), member.getRoles());
+
+        // save refresh token
+        refreshTokenService.saveRefreshToken(token);
+        MemberResponseDto memberResponseDto = new MemberResponseDto(token.getAccessToken());
+
         return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }
 

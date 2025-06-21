@@ -24,8 +24,7 @@ import java.util.stream.Collectors;
 @Table(name = "member")
 public class Member implements UserDetails {
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
     private String nickname;
     private String email;
 
@@ -45,7 +44,8 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member")
     private List<RentalHeart> rentalHearts = new ArrayList<>();
 
-    public Member(String email, String nickname, List<String> roles) {
+    public Member(String id, String email, String nickname, List<String> roles) {
+        this.id = id;
         this.email = email;
         this.nickname = nickname;
         this.roles = roles;

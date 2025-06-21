@@ -30,8 +30,8 @@ public class ReviewController {
     @PostMapping("/reviews/{contentId}")
     public ResponseEntity saveReview(@PathVariable("contentId") String contentId,
                                       @RequestBody ReviewRequestDto requestData) {
-        //Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Member member = memberRepository.findById(Long.valueOf(41)).get();
+        Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Member member = memberRepository.findById(Long.valueOf(41)).get();
         TouristFacility touristFacility = touristFacilityService.findByContentId(contentId);
         Review review = reviewService.createReview(member, touristFacility,
                                                     requestData.getRating(), requestData.getContent());

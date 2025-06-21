@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.triply.barrierfreetrip.member.domain.Member;
+import com.triply.barrierfreetrip.member.dto.MemberRequestDto;
 import com.triply.barrierfreetrip.member.dto.SocialMemberDto;
 import com.triply.barrierfreetrip.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -182,7 +183,7 @@ public class OauthMemberServiceImpl implements OauthMemberService, UserDetailsSe
 
         if (member.isEmpty()) {
             // register
-            Member newMember = new Member(email, nickname, Collections.singletonList("ROLE_USER"));
+            Member newMember = new Member("tmp", email, nickname, Collections.singletonList("ROLE_USER"));
             memberRepository.save(newMember);
             return newMember;
 
@@ -192,8 +193,26 @@ public class OauthMemberServiceImpl implements OauthMemberService, UserDetailsSe
     }
 
     @Override
-    public Optional<Member> findById(Long memberId) {
-        return memberRepository.findById(memberId);
+    public Member registerMemberIfNeed(MemberRequestDto memberRequestDto) {
+        String id = memberRequestDto.getServiceUserId();
+        String email = memberRequestDto.getEmail();
+        String nickname = memberRequestDto.getNickname();
+
+        Optional<Member> member = memberRepository.findById(id);
+
+        if (member.isEmpty()) {
+            // register
+            Member newMember = new Member(id, email, nickname, Collections.singletonList("ROLE_USER"));
+            memberRepository.save(newMember);
+            return newMember;
+        }
+
+        return member.get();
+    }
+
+    @Override
+    public Optional<Member> findById(String id) {
+        return memberRepository.findById(id);
     }
 
     @Override
@@ -206,5 +225,10 @@ public class OauthMemberServiceImpl implements OauthMemberService, UserDetailsSe
     @Override
     public Optional<Member> findByEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    @Override
+    public Member login(MemberRequestDto memberRequestDto) {
+        return registerMemberIfNeed(memberRequestDto);
     }
 }

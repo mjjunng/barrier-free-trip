@@ -30,10 +30,10 @@ public class MemberRepositoryImpl implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> findById(Long memberId) {
+    public Optional<Member> findById(String id) {
         List<Member> members = em.createQuery("select m from Member m " +
                         "where m.id=:ids")
-                .setParameter("ids", memberId)
+                .setParameter("ids", id)
                 .getResultList();
         return members.stream().findAny();
     }

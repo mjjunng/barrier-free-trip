@@ -1,6 +1,7 @@
 package com.triply.barrierfreetrip.rental.controller;
 
 import com.triply.barrierfreetrip.member.domain.Member;
+import com.triply.barrierfreetrip.member.repository.MemberRepository;
 import com.triply.barrierfreetrip.member.service.OauthMemberService;
 import com.triply.barrierfreetrip.rental.dto.RentalListDto;
 import com.triply.barrierfreetrip.rental.service.RentalService;
@@ -19,10 +20,12 @@ import java.util.List;
 public class RentalController {
     private final RentalService rentalService;
     private final OauthMemberService memberService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/rentals/{sido}/{sigungu}")
     public ResponseEntity returnRentalServiceList(@PathVariable("sido") String sido,
                                                   @PathVariable("sigungu") String sigungu) {
+        //Member member = memberRepository.findById(Long.valueOf(41)).get();
         Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<RentalListDto> result = rentalService.returnRentalServiceList(member, sido, sigungu);
 

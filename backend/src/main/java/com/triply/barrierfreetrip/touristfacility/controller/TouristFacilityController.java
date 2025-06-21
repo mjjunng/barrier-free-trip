@@ -42,6 +42,7 @@ public class TouristFacilityController {
                                             @PathVariable("sigunguCode") String sigunguCode
                                             ) {
         Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Member member = memberRepository.findById(Long.valueOf(41)).get();
         List<TouristFacilityListResponseDto> result =
                 touristFacilityService.returnListDto(member, contentTypeId, areaCode, sigunguCode);
 
@@ -51,8 +52,8 @@ public class TouristFacilityController {
 
     @GetMapping("/tourist-facilities/{contentId}")
     public ResponseEntity returnTouristInfo(@PathVariable("contentId") String contentId) {
-        //Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Member member = memberRepository.findById(Long.valueOf(41)).get();
+        Member member = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Member member = memberRepository.findById(Long.valueOf(41)).get();
         TouristFacilityInfoResponseDto result = touristFacilityService.returnInfoDto(member, contentId);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);

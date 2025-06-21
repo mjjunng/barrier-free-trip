@@ -44,6 +44,8 @@ public class SearchServiceImpl implements SearchService{
             searchDto.setAddr(tourist.get().getAddr1());
             searchDto.setFirstImage(tourist.get().getFirstimage());
             searchDto.setType(1);
+//            searchDto.setId(Long.parseLong(tourist.get().getContentId()));
+//            searchDto.setLike(tourist.get().getL);
 
             results.add(searchDto);
         }

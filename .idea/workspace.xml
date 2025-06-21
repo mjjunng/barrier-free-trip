@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a7f1eecc-fd08-46a5-ac00-dec4cd564c67" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/dto/TouristFacilityListResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/dto/TouristFacilityListResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/service/TouristFacilityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/barrierfreetrip/touristfacility/service/TouristFacilityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/caretrip/controller/CareTripController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/caretrip/controller/CareTripController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/rental/controller/RentalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/rental/controller/RentalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/search/dto/SearchDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/search/dto/SearchDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/search/service/SearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/search/service/SearchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/touristfacility/controller/TouristFacilityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/triply/barrierfreetrip/touristfacility/controller/TouristFacilityController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,32 +53,46 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editing.templates",
     "spring.configuration.checksum": "4416daeb0ccd7b976926ea7b0fa1bb59",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="barrier-free-trip" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="barrier-free-trip" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Spring Boot.BarrierFreeTripApplication">
+    <configuration name="C:/work/spring/barrier-free-trip/backend/build.gradle" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend/build.gradle" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="BarrierFreeTripApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="barrier-free-trip.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.barrierfreetrip.BarrierFreeTripApplication" />
+      <module name="barrier-free-trip" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.triply.barrierfreetrip.BarrierFreeTripApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.C:/work/spring/barrier-free-trip/backend/build.gradle" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -93,10 +110,17 @@
       <workItem from="1691412237467" duration="790000" />
       <workItem from="1698556199731" duration="787000" />
       <workItem from="1699794076750" duration="755000" />
+      <workItem from="1717661435835" duration="64000" />
+      <workItem from="1718883541889" duration="1040000" />
+      <workItem from="1718884606672" duration="216000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

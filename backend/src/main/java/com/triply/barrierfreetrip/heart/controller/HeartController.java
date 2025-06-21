@@ -113,7 +113,7 @@ public class HeartController {
                     if (tf.getContentTypeId().equals(Integer.toString(type))) {
                         TouristFacilityListResponseDto touristFacilityListResponseDto =
                                 new TouristFacilityListResponseDto(tf.getContentId(), tf.getContentTypeId(),
-                                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage(), tf.getTitle(), true);
+                                        tf.getTitle(), tf.getAddr1(), tf.getRating(), tf.getFirstimage(), tf.getTel(), true);
                         result.add(touristFacilityListResponseDto);
                     }
                 }
