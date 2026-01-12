@@ -1,11 +1,13 @@
 package com.triply.barrierfreetrip
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.triply.barrierfreetrip.adapter.PickPageAdapter
 import com.triply.barrierfreetrip.databinding.FragmentPickBinding
 import com.triply.barrierfreetrip.feature.BaseFragment
+import com.triply.barrierfreetrip.model.MainViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -13,22 +15,20 @@ import com.triply.barrierfreetrip.feature.BaseFragment
  * create an instance of this fragment.
  */
 class PickFragment: BaseFragment<FragmentPickBinding>(R.layout.fragment_pick) {
+    private val viewModel: MainViewModel by activityViewModels()
+
     private lateinit var pagerAdapter: PickPageAdapter
-    private val MAX_TAB = 6
 
     override fun initInViewCreated() {
         pagerAdapter = PickPageAdapter(requireParentFragment())
-        for (i in 0 until MAX_TAB) {
-            pagerAdapter.addFragment(PickListFragment())
-        }
-
         binding.vpPickScreenArea.adapter = pagerAdapter
+
         binding.vpPickScreenArea.registerOnPageChangeCallback(object  : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
             }
         })
-        val listTabName = arrayListOf<String>(
+        val listTabName = arrayListOf(
             getString(R.string.all_stay),
             getString(R.string.home_tour),
             getString(R.string.home_restaurant),

@@ -47,7 +47,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         with(binding) {
             rvSearchList.adapter = InfoSquareAdapter()
             rvSearchList.layoutManager = GridLayoutManager(context, 2)
-            if (rvSearchList.itemDecorationCount < 1) rvSearchList.addItemDecoration(StayListItemViewHolderDecoration())
+            if (rvSearchList.itemDecorationCount < 1)
+                rvSearchList.addItemDecoration(StayListItemViewHolderDecoration())
         }
 
         // 검색키워드 리사이클러뷰 세팅

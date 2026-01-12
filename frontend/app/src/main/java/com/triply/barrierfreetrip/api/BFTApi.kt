@@ -1,5 +1,6 @@
 package com.triply.barrierfreetrip.api
 
+import com.triply.barrierfreetrip.data.InfoSquareListDto
 import com.triply.barrierfreetrip.data.LogoutDto
 import com.triply.barrierfreetrip.data.MetaResponse
 import com.triply.barrierfreetrip.data.RespDocument
@@ -97,6 +98,11 @@ interface BFTApi {
         @Path(value = "contentId") contentId: String,
         @Path(value = "likes") likes: Int
     ): Response<Unit>
+
+    @GET("/heart/{type}")
+    suspend fun getLikes(
+        @Path(value = "type") type: Int
+    ): Response<MetaResponse<RespDocument?>>
 
     @POST("/mylogout")
     suspend fun logout(@Body refreshToken: LogoutDto): Response<MetaResponse<RespDocument>>

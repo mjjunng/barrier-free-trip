@@ -8,7 +8,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetroInstance {
-    val BASE_URL = "http://(AWS IP or PC IP):8080"
+//    val BASE_URL = "http://(AWS IP or PC IP):8080"
+    val BASE_URL = "http://192.168.0.41:8080"
+//    val BASE_URL = "http://175.213.36.21:8080"
+
     var bftAPI: BFTApi = Retrofit.Builder().baseUrl(BASE_URL).build().create(BFTApi::class.java)
         private set
 

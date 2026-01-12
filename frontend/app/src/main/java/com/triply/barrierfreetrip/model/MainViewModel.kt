@@ -1,5 +1,6 @@
 package com.triply.barrierfreetrip.model
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +21,11 @@ import com.triply.barrierfreetrip.util.CONTENT_TYPE_CHARGER
 import com.triply.barrierfreetrip.util.CONTENT_TYPE_RENTAL
 import com.triply.barrierfreetrip.util.Event
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -30,6 +36,12 @@ class MainViewModel() : ViewModel() {
     private val _nearbyStayList: MutableLiveData<List<InfoSquareListDto.InfoSquareItemDto>?> by lazy { MutableLiveData(emptyList()) }
     private val _nearbyChargerList: MutableLiveData<List<InfoListDto.InfoListItemDto>?> by lazy { MutableLiveData(emptyList()) }
     val nearbyFcltList: MediatorLiveData<List<Any>> = MediatorLiveData()
+
+    private val _likesUiState = MutableStateFlow<List<InfoSquareListDto.InfoSquareItemDto>>(emptyList())
+    val likesUiState = _likesUiState.asStateFlow()
+
+    private val _toastMessages = MutableSharedFlow<String>(replay = 0)
+    val toastMessage = _toastMessages.asSharedFlow()
 
     init {
         nearbyFcltList.addSource(_nearbyStayList) {
@@ -496,4 +508,22 @@ class MainViewModel() : ViewModel() {
     fun clearSearchResult() {
         _searchResult.value = null
     }
+
+
+//    fun getLikes(type: Int) {
+//        viewModelScope.launch {
+//            try {
+//                val response = bftRetrofit.getLikes(type)
+//
+//                if (response.isSuccessful) {
+//                    val responseDocument = response.body()?.respDocument?.items ?: emptyList()
+//                    if (responseDocument.isNotEmpty()) {
+//                        _likesUiState.update { responseDocument }
+//                    } else {
+//
+//                    }
+//                }
+//            } catch ()
+//        }
+//    }
 }
